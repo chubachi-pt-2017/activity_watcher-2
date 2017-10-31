@@ -1,4 +1,4 @@
-class MembersController < ApplicationController
+class ActivityWatcher::MembersController < ActivityWatcher::Base
   before_action :set_member, only: [:show, :edit, :update, :destroy]
 
   # GET /members

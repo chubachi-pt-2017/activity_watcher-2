@@ -1,16 +1,2 @@
-%ul
-  - @results.each do |team|
-    %h2= team[:name]
-    %h3 Profile
-    %dl
-      %dt Souce
-      %dd= link_to team[:source], team[:source]
-      %dt Service
-      %dd= link_to team[:service], team[:service]
-    %h3 GitHub Information
-    %h4 Contributors
-    %ul
-      - team[:github][:contributors].each do |contributor|
-        %li
-          = link_to contributor[:login] + '(' + contributor[:name] + ')', contributor[:url]
-          = ', ' + contributor[:contributions].to_s + ' contributions'
+= link_to '/auth/github' do
+  %button.btn.btn-primary{:type => "button"} Sign in on GitHub

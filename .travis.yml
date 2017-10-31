@@ -15,3 +15,6 @@ deploy:
   app: github-activity-watcher
   on:
     repo: chubachi-pt-2017/activity_watcher-2
+  run:
+    - 'rake db:migrate'
+    - 'rake db:seed'

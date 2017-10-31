@@ -1,6 +1,6 @@
 require 'octokit'
 
-class TeamsController < ApplicationController
+class ActivityWatcher::TeamsController < ActivityWatcher::Base
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   # GET /teams

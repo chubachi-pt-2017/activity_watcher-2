@@ -173,3 +173,5 @@ end
 
 gem 'bh', '~> 1.3'
 gem 'octokit'
+gem 'omniauth'
+gem 'omniauth-github'

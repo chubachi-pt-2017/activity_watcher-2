@@ -7,13 +7,20 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body.container
-    %hader
+    %header
       = link_to 'GitHub', 'https://github.com/chubachi-pt-2017/activity_watcher-2'
       |
       = link_to 'Travis CI', 'https://travis-ci.org/chubachi-pt-2017/activity_watcher-2'
       |
       = link_to 'Heroku', 'https://github-activity-watcher.herokuapp.com/'
+      |
+      = link_to 'Sign out', users_logout_path
       %h1 Team Activity Watcher
+      %navi
+        = nav do
+          = link_to 'Home', activity_watcher_path
+          = link_to 'Teams', activity_watcher_teams_path
+          = link_to 'Members', activity_watcher_members_path
     %article
       = yield
     %footer
