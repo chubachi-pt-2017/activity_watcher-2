@@ -1,0 +1,2 @@
+class Couse < ApplicationRecord
+end
