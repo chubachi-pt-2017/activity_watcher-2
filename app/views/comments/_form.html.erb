@@ -1,0 +1,19 @@
+<h3>コメント追加：</h3>
+<% if @comment.errors.any? %>
+  <div id="error_explanation">
+    <p>
+      <h2>コメントの入力に<%= @comment.errors.count %>件の誤りがあります。
+      </h2>
+    </p>
+    <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_for [@task, @comment] do |f| %>
+  <p>from:</p><p><%= f.text_field :from %></p>
+  <p>comment:</p><p><%= f.text_area :body, :rows => 5 %></p>
+  <%= f.submit 'コメントを投稿する' %>
+<% end %>

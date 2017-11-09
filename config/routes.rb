@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   
+ 
+  resources :tasks do
+            resources :comments, :only => [:create, :destroy]
+  end
+  get "home/index"
+  get "page/:id" => 'home#page', :as => 'page'
+  
   resources :courses
   get 'auth/:provider/callback', to: 'sessions#callback'
   get 'users/logout', to: 'sessions#destroy'
@@ -14,5 +21,9 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'home#index'
-end
+ #get "home#index"
+
+
+
+    
+ end

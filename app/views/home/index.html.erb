@@ -1,0 +1,11 @@
+<% @tasks.each do |task| %>
+   <div style="width:500px;border:1px solid #ccc;margin:5px">
+     <div style="float:left">
+     <h2 ><%= link_to task.title, page_path(task) %></h2>
+     </div>
+     <div style="clear:both">
+       <pre><%= task.content %></pre>
+       comments（<%= task.comments.count %>）
+     </div>
+   </div>
+ <% end %>

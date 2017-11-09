@@ -1,0 +1,7 @@
+<h3>コメント：</h3>
+<% @task.comments.each do |comment| %>
+  <h4><%= comment.from %> さん</h4>
+  <pre><%= comment.body %></pre>
+  <p>[<%= link_to 'コメントを削除する',  [@task, comment], 
+                confirm: 'Are you sure?', method: :delete %>]</p>
+<% end %>
