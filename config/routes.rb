@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get '/', to: 'homes#index', as: 'activity_watcher'
     resources :members
     resources :teams
+    resources :courses
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
