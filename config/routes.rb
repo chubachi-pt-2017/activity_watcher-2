@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
   
  
-  resources :tasks do
-            resources :comments, :only => [:create, :destroy]
+  resources :tasks 
   end
   get "home/index"
-  get "page/:id" => 'home#page', :as => 'page'
-  
+ 
   resources :courses
   get 'auth/:provider/callback', to: 'sessions#callback'
   get 'users/logout', to: 'sessions#destroy'
