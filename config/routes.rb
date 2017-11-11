@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :tasks 
   
   get "home/index"
- 
+  root :to => 'home#index'
   resources :courses
   get 'auth/:provider/callback', to: 'sessions#callback'
   get 'users/logout', to: 'sessions#destroy'
