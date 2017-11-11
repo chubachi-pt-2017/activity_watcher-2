@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  resources :courses
   get 'auth/:provider/callback', to: 'sessions#callback'
   get 'users/logout', to: 'sessions#destroy'
   get 'users/registration', to: 'sessions#registration', as: 'user_registration'
