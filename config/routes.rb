@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
  
   resources :tasks 
-  end
+  
   get "home/index"
  
   resources :courses
