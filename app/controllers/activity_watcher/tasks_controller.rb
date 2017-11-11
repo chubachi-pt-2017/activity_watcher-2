@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class ActivityWatcher::TasksController < ActivityWatcher::Base
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
