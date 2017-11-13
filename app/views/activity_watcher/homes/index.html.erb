@@ -10,28 +10,45 @@
     
   </head>
   
-     
+  <body>
 
-      
+      <header>
+      <div id="header" class="container" style="background:#fafafa;">
+       <ul class="breadcrumb">
+        <li><a href="">GitHub</a></li>
+        <li><a href="">Travis CI</a></li>
+        <li><a href="">Heroku</a></li>
+        <li><a href="">Sign out</a></li>
+       </ul>
+      </div>  
+      </header>
+      <h1>Activity Watcher</h1>
+
+      <div id="header" class="container" style="background:#fafafa;">
+       <ul class="breadcrumb">
+        <li class="active">Home</li>
+        <li><a href="">Teams</a></li>
+        <li><a href="">Member</a></li>
+       </ul>
+      </div>
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-4" style="background:#e9e9e9;">
+        <div class="col-sm-3" style="background:#e9e9e9;">
 
-          <div class="btn-group">
+          
             <button class="btn btn-primary">Course作成</button>
             <button class="btn btn-primary">課題作成</button>
             <button class="btn btn-primary">出欠確認</button>
-          </div>
           
-          <div class="btn-group">
+          <hr>
+          
             <button class="btn btn-info">Team作成</button>
             <button class="btn btn-info">出席登録</button>
             <button class="btn btn-info">User情報変更</button>
-          </div>
-
+          
         </div>
-        <div class="col-sm-8" style="background:#c0c0c0;">
+        <div class="col-sm-9" style="background:#c0c0c0;">
           <table class="table table-striped table-bordered table-hover table-condensed">
             <thead>
               <tr><th>Courses</th><th>Teams</th><th>Members</th></tr>
@@ -42,10 +59,25 @@
               <tr><td>GitHub演習</td><td>10</td><td>40</td></tr>
             </tbody>
           </table>
+
         </div>
+
+        <form class="form-inline" style="margin-bottom:15px;">
+          <div class="form-group">
+            <label class="sr-only control-label" for="Course">Course</label>
+            <input type="text" id="Course" class="form-control" placeholder="Course">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="submit" class="btn btn-primary">
+          </div>
+        </form>
+
+        
+      
       </div>
     </div>
     
+    <div id="footer" class="container" style="background:#8c8c8c;">Copyright(C) Y.chubachi_PBL2017</div>
     
 
     
