@@ -1,0 +1,5 @@
+<p><%= @user.user_full_name %>様</p>
+
+<p>以下のリンクをクリックして、アカウントを有効にしてください。</p>
+
+<p><%= link_to 'アカウントを有効にする', users_email_confirmation_url(oauth_token: @user.oauth_token) %></p>
