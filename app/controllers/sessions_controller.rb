@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def callback
     auth = request.env['omniauth.auth']
 
-    user = User.find_by(provider: auth['provider'], uid: auth['uid']) || User.create_with_omniauth(auth)
+    user = User.find_by(login_provider: auth['provider'], uid: auth['uid']) || User.create_with_omniauth(auth)
     session[:user_id] = user.id
     
     if user.registration_confirmed_flg == false
@@ -71,11 +71,8 @@ class SessionsController < ApplicationController
   
   def confirmation_params
     params.require(:user).permit(
-      :email,
       :user_full_name,
-      :university_id,
       :slack_user,
-      :student_no,
       :authority,
       :teachers_password,
       :confirmed

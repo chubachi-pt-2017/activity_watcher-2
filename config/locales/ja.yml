@@ -9,16 +9,37 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
     models:
       user: 利用者情報
+      course: コース情報
+      task: 課題情報
+      team: チーム情報
     attributes:
       user:
-        user_name: GitHubユーザ名
-        email: メールアドレス
+        login_name: ログインユーザ名
         user_full_name: 姓名
-        university_id: 所属大学
         slack_user: slackユーザ名
-        student_no: 学生番号 (受講生のみ)
         authority: 利用者権限
         teachers_password: パスワード (教職員のみ)
+      user_university:
+        email: メールアドレス
+        student_no: 学生番号 (受講生のみ)
+        university_id: 所属大学
+      course:
+        title: タイトル
+        student_entry_start: エントリー受付開始日
+        student_entry_end: エントリー受付終了日
+        description: コース詳細
+      task:
+        title: タイトル
+        start_date: 開始日
+        end_date: 終了日
+        description: 課題詳細
+        slack_domain: Slackドメイン名
+      team:
+        name: チーム名
+        description: チーム詳細
+        repository_name: Githubリポジトリ名
+        service_url: サービスURL
+        ci_url: CI URL
   date:
     abbr_day_names:
     - 日

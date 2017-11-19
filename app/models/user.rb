@@ -7,15 +7,6 @@ class User < ApplicationRecord
   attr_accessor :teachers_password   #教職員用の認証パスワード(テーブルには存在しない)
   
   with_options if: :user_registration_context do
-    VALID_EMAIL_DEFAULT = /\A\S+@\S+\.\S+\z/
-    validates :email,
-      presence: true,
-      uniqueness: true,
-      length: { maximum: 128 },
-      format: { with: VALID_EMAIL_DEFAULT, message: "は正しいアドレスではありません", allow_blank: true }
-    
-    validate :email_domain_valid
-
     validates :user_full_name,
       presence: true,
       length: { maximum: 64 }
@@ -26,10 +17,6 @@ class User < ApplicationRecord
   end
   
   with_options if: :user_registration_context_is_student do
-    validates :student_no,
-      presence: true,
-      uniqueness: { scope: [:university_id] },
-      length: { maximum: 64 }
   end
   
   with_options if: :user_registration_context_is_not_student do
@@ -38,10 +25,9 @@ class User < ApplicationRecord
 
   def self.create_with_omniauth(auth)
     create! do |user|
-      user.provider = auth['provider']
+      user.login_provider = auth['provider']
       user.uid = auth['uid']
-      user.user_name = auth['info']['nickname']
-      user.email = auth['info']['email']
+      user.login_name = auth['info']['nickname']
       user.oauth_token = auth['credentials']['token']
     end
   end

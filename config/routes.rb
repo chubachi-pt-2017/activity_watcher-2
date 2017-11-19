@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  resources :courses
   get 'auth/:provider/callback', to: 'sessions#callback'
   get 'users/logout', to: 'sessions#destroy'
   get 'users/registration', to: 'sessions#registration', as: 'user_registration'
@@ -11,8 +10,6 @@ Rails.application.routes.draw do
   
   namespace :activity_watcher, path: 'activity-watcher', as: "" do
     get '/', to: 'homes#index', as: 'activity_watcher'
-    resources :members
-    resources :teams
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
