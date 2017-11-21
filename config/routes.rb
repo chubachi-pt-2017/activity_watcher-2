@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'users/confirmation', to: 'sessions#email_confirmation', as: 'users_email_confirmation'
   get 'users/registration/thanks', to: 'sessions#thanks', as: 'users_thanks'
   get 'users/email_unconfirmed', to: 'sessions#email_unconfirmed', as: 'users_email_unconfirmed'
+  get 'users/email_retransmission', to: 'sessions#retransmission', as: 'users_retransmission'
   
   namespace :activity_watcher, path: 'activity-watcher', as: "" do
     get '/', to: 'homes#index', as: 'activity_watcher'

@@ -1,11 +1,11 @@
 class NotificationMailer < ApplicationMailer
-  default from: 'noreply@activity-watcher.com'
+  default from: '"ActivityWatcher" <noreply@activity-watcher.com>'
 
-  def send_confirm_to_user(user)
-    @user = user
+  def send_confirm_to_user(user_university)
+    @user_university = user_university
     mail(
       subject: "利用者登録が完了しました。",
-      to: @user.email
+      to: @user_university.email
     ) do |format|
       format.html
     end

@@ -1,1 +1,16 @@
-<h4><p>アカウントが有効になっていません。利用者登録時に受信したメールのリンクをクリックして有効にしてください</p></h4>
+<h4><p>以下のメールアドレスの受信確認が出来ていないためログインできません。</p></h4>
+
+<ul>
+  <% @user_universities.each do |u| %>
+    <li><%= u.email %></li>
+  <% end %>
+</ul>
+
+<div class="retransmission_button_area" style="margin-top: 20px;">
+  <%= link_to user_registration_url do %>
+    <button type="button" class="btn btn-primary">情報を変更する</button>
+  <% end %>
+  <%= link_to users_retransmission_url do %>
+    <button type="button" class="btn btn-default" style="margin-left: 30px;">再送信</button>
+  <% end %>
+</div>
