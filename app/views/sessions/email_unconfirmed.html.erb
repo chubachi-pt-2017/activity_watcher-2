@@ -7,7 +7,7 @@
 </ul>
 
 <div class="retransmission_button_area" style="margin-top: 20px;">
-  <%= link_to user_registration_url do %>
+  <%= link_to user_registration_url, data: {"turbolinks": false} do %>
     <button type="button" class="btn btn-primary">情報を変更する</button>
   <% end %>
   <%= link_to users_retransmission_url do %>

@@ -38,6 +38,12 @@ class SessionsController < ApplicationController
       
       @user_universities = @user.user_universities.email_unconfirmed
       
+      if @user_universities.blank?
+        session[:user_id] = @user.id
+        redirect_to activity_watcher_url
+        return
+      end
+      
       @user_universities.each do |user_university|
         NotificationMailer.send_confirm_to_user(user_university).deliver
       end
