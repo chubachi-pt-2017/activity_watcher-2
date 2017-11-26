@@ -2,7 +2,7 @@ class User < ApplicationRecord
   
   include ActiveRecord::Confirmable
   
-  enum authority: { Student: 1, Teacher: 2, Reviewer: 3 }
+  enum authority: { Student: 1, Teacher: 2 }
   
   attr_accessor :teachers_password   #教職員用の認証パスワード(テーブルには存在しない)
   
@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
   
   def user_registration_context_is_not_student
-    user_registration_context && (is_teacher? || is_reviewer?)
+    user_registration_context && is_teacher?
   end
   
   def is_student?
@@ -51,11 +51,7 @@ class User < ApplicationRecord
   def is_teacher?
     authority == "Teacher"
   end
-  
-  def is_reviewer?
-    authority == "Reviewer"
-  end
-  
+
   def teachers_password_valid
     if teachers_password.blank?
       errors.add(:teachers_password, "を入力してください")

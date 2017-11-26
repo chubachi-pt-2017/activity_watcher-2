@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<% time_medium = t("time.formats.medium") %>
+<table class="table table-bordered">
+  <tr>
+    <th class="success">タイトル</th>
+    <td><%= @course.title %></td>
+  </tr>
+  <tr>
+    <th class="success">エントリー受付開始日</th>
+    <td><%= @course.student_entry_start.strftime(time_medium) %></td>
+  </tr>
+  <tr>
+    <th class="success">エントリー受付終了日</th>
+    <td><%= @course.student_entry_end.strftime(time_medium) %></td>
+  </tr>
+  <tr>
+    <th class="success">コース詳細</th>
+    <td><%= @course.description %></td>
+  </tr>
+</table>
+<%= link_to '戻る', courses_path, class: "btn btn-default" %>

@@ -1,0 +1,19 @@
+<%= simple_form_for course, wrapper: "horizontal_form", html: {class: "form-horizontal"} do |f| %>
+  <div class="form-inputs">
+    <%= f.input :title, input_wrapper_html: { class: "col-md-6" } %>
+    <div class="col-md-6">
+      <%= f.input :student_entry_start %>
+      <%= f.input :student_entry_end %>
+    </div>
+    <%= f.input :description, input_wrapper_html: {class: "col-xs-11"} %>
+    <div class="col-xs-3">
+      <%= f.input :university_id do %>
+        <%= f.select :university_id, University.all.map { |u| [u.name, u.id] }, {}, class: "form-control" %>
+      <% end %>
+    </div>
+  </cdiv>
+  
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primay' %>
+  </div>
+<% end %>

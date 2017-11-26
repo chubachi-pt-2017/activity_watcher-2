@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   
   namespace :activity_watcher, path: 'activity-watcher', as: "" do
     get '/', to: 'homes#index', as: 'activity_watcher'
+    resources :courses do
+      resources :tasks
+    end
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

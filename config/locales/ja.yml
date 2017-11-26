@@ -28,6 +28,7 @@ ja:
         student_entry_start: エントリー受付開始日
         student_entry_end: エントリー受付終了日
         description: コース詳細
+        university_id: 所属大学
       task:
         title: タイトル
         start_date: 開始日
@@ -231,11 +232,14 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      medium: "%Y年%m月%d日 %H:%M"
       short: "%y/%m/%d %H:%M"
     pm: 午後
+  simple_form:
+    required: 
+      html: '<abbr title="required"><span style="color: red;">[必須]</span></abbr>'
   enums:
     user:
       authority:
         Student: 受講生
-        Teacher: 教員
-        Reviewer: レビューア
+        Teacher: 講師
