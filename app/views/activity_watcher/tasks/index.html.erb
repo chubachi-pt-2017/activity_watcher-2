@@ -2,7 +2,7 @@
 
 <h4><%= @course.title %>の課題一覧</h4>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-word-break">
   <thead>
     <tr class="success">
       <th>タイトル</th>
@@ -24,13 +24,11 @@
         <td><%= task.description %></td>
         <td><%= task.slack_domain %></td>
         <td>
-          <% if task.start_date > Time.current %>
-            <%= link_to edit__course_task_path(task.course_id, task.id) do %>
-              <button type="button" class="btn btn-default">編集する</button>
-            <% end %>
-            <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
-              <button type="button" class="btn btn-danger">削除する</button>
-            <% end %>
+          <%= link_to edit__course_task_path(task.course_id, task.id) do %>
+            <button type="button" class="btn btn-default">編集する</button>
+          <% end %>
+          <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+            <button type="button" class="btn btn-danger">削除する</button>
           <% end %>
         </td>
       </tr>

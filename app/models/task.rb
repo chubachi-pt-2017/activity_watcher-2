@@ -1,10 +1,10 @@
 class Task < ApplicationRecord
-  belongs_to :course
+  belongs_to :course, inverse_of: :tasks
   
   validates :title,
     presence: true,
     uniqueness: {allow_blank: true},
-    length: {maximum: 128, allow_blank: true}
+    length: {maximum: 50, allow_blank: true}
     
   validates :start_date,
     presence: true

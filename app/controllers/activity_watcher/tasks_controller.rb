@@ -53,9 +53,9 @@ class ActivityWatcher::TasksController < ActivityWatcher::Base
 
   # DELETE /tasks/1
   def destroy
-    @task.destroy
+    @task.destroy!
     respond_to do |format|
-      format.html { redirect_to _course_tasks_url, notice: '課題の削除が完了しました' }
+        format.html { redirect_to _course_tasks_url, notice: '課題の削除が完了しました' }
     end
   end
 

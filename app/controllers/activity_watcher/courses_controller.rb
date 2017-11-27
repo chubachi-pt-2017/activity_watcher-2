@@ -8,6 +8,12 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
 
   # GET /courses/1
   def show
+    if @course.blank?
+      respond_to do |format|
+        format.html {render text: "リクエストされたURLは存在しません", layout: "activity_watcher/base", status: "404"}
+      end
+    end
+    return
   end
 
   # GET /courses/new
@@ -48,7 +54,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
   def destroy
     @course.destroy
     respond_to do |format|
-        format.html { redirect_to courses_url, notice: 'コースの削除が完了しました' }
+      format.html { redirect_to courses_url, notice: 'コースの削除が完了しました' }
     end
   end
 

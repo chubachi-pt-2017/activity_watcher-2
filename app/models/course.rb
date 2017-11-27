@@ -1,10 +1,10 @@
 class Course < ApplicationRecord
-  has_many :tasks, dependent: :destroy
-
+  has_many :tasks, dependent: :destroy, inverse_of: :course
+  
   validates :title,
     presence: true,
     uniqueness: {allow_blank: true},
-    length: {maximum: 128, allow_blank: true}
+    length: {maximum: 50, allow_blank: true}
   
   validates :student_entry_start,
     presence: true

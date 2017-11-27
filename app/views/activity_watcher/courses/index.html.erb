@@ -2,7 +2,7 @@
 
 <h4><%= current_user.user_full_name %>さんのコース一覧</h4>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-word-break">
   <thead>
     <tr class="success">
       <th>タイトル</th>
@@ -23,13 +23,11 @@
         <td><%= course.student_entry_end.strftime(time_medium) %></td>
         <td><%= course.description %></td>
         <td>
-          <% if course.student_entry_end > Time.current %>
-            <%= link_to edit_course_path(course) do %>
-              <button type="button" class="btn btn-default">編集</button>
-            <% end %>
-            <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
-              <button type="button" class="btn btn-danger">削除</button>
-            <% end %>
+          <%= link_to edit_course_path(course) do %>
+            <button type="button" class="btn btn-default">編集</button>
+          <% end %>
+          <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
+            <button type="button" class="btn btn-danger">削除</button>
           <% end %>
         </td>
         <td>

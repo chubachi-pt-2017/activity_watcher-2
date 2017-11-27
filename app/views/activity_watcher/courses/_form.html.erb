@@ -1,12 +1,12 @@
 <%= simple_form_for course, wrapper: "horizontal_form", html: {class: "form-horizontal"} do |f| %>
   <div class="form-inputs">
-    <%= f.input :title, input_wrapper_html: { class: "col-md-6" } %>
+    <%= f.input :title, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
     <div class="col-md-6">
       <%= f.input :student_entry_start %>
       <%= f.input :student_entry_end %>
     </div>
     <%= f.input :description, input_wrapper_html: {class: "col-md-6"} do %>
-      <%= f.text_area :description, rows: '5', class: "form-control" %>
+      <%= f.text_area :description, rows: '5', maxlength: 256, class: "form-control" %>
     <% end %>
     <div class="col-xs-3">
       <%= f.input :university_id do %>
