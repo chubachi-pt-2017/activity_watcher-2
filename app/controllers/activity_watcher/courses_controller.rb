@@ -1,5 +1,4 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::Base
-  before_action :chk_has_tasks, only: [:destroy]
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
@@ -27,7 +26,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
 
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: 'コースの登録が完了しました' }
+        format.html { redirect_to courses_url, notice: 'コースの登録が完了しました' }
       else
         format.html { render :new }
       end
@@ -47,14 +46,9 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
 
   # DELETE /courses/1
   def destroy
-    if @tasks.any?
-      redirect_to courses_url, notice: 'コースに紐付く課題が登録されているため削除できません'
-      return
-    end
-    
     @course.destroy
     respond_to do |format|
-      format.html { redirect_to courses_url, notice: 'コースの削除が完了しました' }
+        format.html { redirect_to courses_url, notice: 'コースの削除が完了しました' }
     end
   end
 
@@ -64,10 +58,6 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
       @course = Course.find_by(id: params[:id])
     end
     
-    def chk_has_tasks
-      @tasks = Task.where(course_id: params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).permit(:title, :student_entry_start, :student_entry_end, :description, :university_id)

@@ -22,15 +22,15 @@ class Task < ApplicationRecord
     
   validate :validate_start_end_date
   
-  validate :validate_start_date_before_now
+  validate :validate_start_date_before_today
     
   private
   
   def validate_start_end_date
-    errors.add(:end_date, "は開始日より前には設定できません") if start_date > end_date
+    errors.add(:end_date, "は開始日より前にはできません") if start_date > end_date
   end
   
-  def validate_start_date_before_now
-    errors.add(:start_date, "は現在日時より以前には設定できません") if Time.zone.now > start_date
+  def validate_start_date_before_today
+    errors.add(:start_date, "は今日以降の日時を指定してください") if Time.current.beginning_of_day > start_date
   end
 end

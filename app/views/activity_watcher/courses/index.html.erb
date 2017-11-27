@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h3><%= current_user.user_full_name %>さんのコース一覧</h3>
+<h4><%= current_user.user_full_name %>さんのコース一覧</h4>
 
 <table class="table table-bordered">
   <thead>
     <tr class="success">
       <th>タイトル</th>
-      <th>エントリー受付開始日</th>
-      <th>エントリー受付終了日</th>
+      <th>履修受付開始日</th>
+      <th>履修受付終了日</th>
       <th>コース詳細</th>
       <th>編集／削除</th>
       <th>課題</th>
@@ -23,11 +23,13 @@
         <td><%= course.student_entry_end.strftime(time_medium) %></td>
         <td><%= course.description %></td>
         <td>
-          <%= link_to edit_course_path(course) do %>
-            <button type="button" class="btn btn-default">編集</button>
-          <% end %>
-          <%= link_to course, method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
-            <button type="button" class="btn btn-danger">削除</button>
+          <% if course.student_entry_end > Time.current %>
+            <%= link_to edit_course_path(course) do %>
+              <button type="button" class="btn btn-default">編集</button>
+            <% end %>
+            <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
+              <button type="button" class="btn btn-danger">削除</button>
+            <% end %>
           <% end %>
         </td>
         <td>
@@ -35,7 +37,7 @@
             <button type="button" class="btn btn-default">一覧</button>
           <% end %>
           <%= link_to new__course_task_path(course) do %>
-            <button type="button" class="btn btn-primay">追加</button>
+            <button type="button" class="btn btn-primary">追加</button>
           <% end %>
         </td>
       </tr>

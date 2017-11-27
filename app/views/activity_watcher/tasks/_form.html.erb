@@ -4,10 +4,12 @@
     <%= f.input :start_date %>
     <%= f.input :end_date %>
   </div>
-  <%= f.input :description, input_wrapper_html: {class: "col-xs-11"} %>
+  <%= f.input :description, input_wrapper_html: {class: "col-md-6"} do %>
+    <%= f.text_area :description, rows: '5', class: "form-control" %>
+  <% end %>
   <%= f.input :slack_domain, input_wrapper_html: { class: "col-md-6" } %>
 </cdiv>
 
 <div class="form-actions">
-  <%= f.button :submit, class: 'btn btn-primay' %>
+  <%= f.button :submit, class: 'btn btn-primary' %>
 </div>

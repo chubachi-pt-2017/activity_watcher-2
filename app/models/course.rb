@@ -1,5 +1,5 @@
 class Course < ApplicationRecord
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   validates :title,
     presence: true,
@@ -17,15 +17,15 @@ class Course < ApplicationRecord
   
   validate :validate_start_end_date
   
-  validate :validate_start_date_before_now
+  validate :validate_start_date_before_today
   
   private
   
   def validate_start_end_date
-    errors.add(:student_entry_end, "は開始日より前には設定できません") if student_entry_start > student_entry_end
+    errors.add(:student_entry_end, "は開始日より前にはできません") if student_entry_start > student_entry_end
   end
   
-  def validate_start_date_before_now
-    errors.add(:student_entry_start, "は現在日時より以前には設定できません") if Time.zone.now > student_entry_start
+  def validate_start_date_before_today
+    errors.add(:student_entry_start, "は今日以降の日時を指定してください") if Time.current.beginning_of_day > student_entry_start
   end
 end
