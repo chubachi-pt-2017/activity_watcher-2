@@ -1,4 +1,4 @@
-<%= form_for @user, url: { action: 'confirmation' }, html: { class: 'form-horizontal' } do |f| %>
+<%= form_for @user, url: { action: 'confirm' }, html: { class: 'form-horizontal' } do |f| %>
   <h4><p>利用者情報を登録してください</p></h4><br/ >
   <div class="form-group">
     <%= f.label :login_name, class: "col-sm-2 control-label" %>
@@ -62,7 +62,7 @@
       <%= f.fields_for :user_universities do |u| %>
         <%= render 'user_university_fields', f: u %>
       <% end %>
-      <div class="links">
+      <div class="links" style="margin-left: 100px; padding-top: 30px;">
         <%= link_to_add_association "大学を追加", f, :user_universities, class: "btn btn-primary" %>
       </div>
     </div>
@@ -134,37 +134,4 @@
   <%= f.submit f.object.confirmation? ? "登録する" : "確認する", class: "btn btn-primary", style: "margin-left: 100px;" %>
   <%= f.submit '戻る', class: "btn btn-default", style: "margin-left: 100px;" if f.object.confirmation? %>
   <%= f.hidden_field :confirmed %>
-<% end %>
-
-<% content_for :javascript do %>
-  <script>
-    
-    $(function() {
-      check_content();
-      
-      $('#user_universities').on('cocoon:after-insert', function() {
-        check_content();
-      });
-      
-      $('#user_universities').on('cocoon:after-remove', function() {
-        check_content();
-      });
-      
-      function check_content() {
-        var elements_display = $('#user_universities .nested-fields:has(:visible)');
-        
-        if(elements_display.length >= 5) {
-          $('#user_universities a.add_fields').hide();
-          $('#user_universities a.remove_fields').show();
-        } else if(elements_display.length <= 1) {
-          $('#user_universities a.add_fields').show();
-          $('#user_universities a.remove_fields').hide();
-        } else {
-          $('#user_universities a.add_fields').show();
-          $('#user_universities a.remove_fields').show();
-        }
-      }
-    });
-
-  </script>
 <% end %>

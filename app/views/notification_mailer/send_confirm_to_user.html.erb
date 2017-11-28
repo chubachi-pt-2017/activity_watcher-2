@@ -1,3 +1,5 @@
-<p>以下のリンクをクリックして、アカウントを有効にしてください。</p>
+<p>以下のリンクをクリックして、メールの受信確認を行ってください。</p>
 
-<p><%= link_to 'アカウントを有効にする', users_email_confirmation_url(confirmation_token: @user_university.confirmation_token) %></p>
+<p>リンクは<%= @user_university.email_confirmation_due_date.strftime("%Y年%m月%d日 %H:%M") %>まで有効です。</p>
+
+<p><%= link_to 'メールの受信を確認', users_confirm_email_url(confirmation_token: @user_university.confirmation_token) %></p>

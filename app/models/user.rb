@@ -6,7 +6,7 @@ class User < ApplicationRecord
   
   include ActiveRecord::Confirmable
   
-  enum authority: { Student: 1, Teacher: 2, Reviewer: 3 }
+  enum authority: { Student: 1, Teacher: 2 }
   
   attr_accessor :teachers_password   #教職員用の認証パスワード(テーブルには存在しない)
   
@@ -37,6 +37,11 @@ class User < ApplicationRecord
     end
   end
   
+  def update_oauth_token(auth)
+    self.oauth_token = auth['credentials']['token']
+    self.save
+  end
+  
   def user_registration_context
     validation_context == :user_registration
   end
@@ -46,7 +51,7 @@ class User < ApplicationRecord
   end
   
   def user_registration_context_is_not_student
-    user_registration_context && (is_teacher? || is_reviewer?)
+    user_registration_context && is_teacher?
   end
   
   def is_student?
@@ -56,11 +61,7 @@ class User < ApplicationRecord
   def is_teacher?
     authority == "Teacher"
   end
-  
-  def is_reviewer?
-    authority == "Reviewer"
-  end
-  
+
   def teachers_password_valid
     if teachers_password.blank?
       errors.add(:teachers_password, "を入力してください")
@@ -73,13 +74,11 @@ class User < ApplicationRecord
   
   # 子モデルのバリデーションメソッド(配列の要素ごとにエラーメッセージを表示するため、親モデルで定義)
   def validate_user_universities
-    count = 0
-    user_universities.each do |user_university|
-      count += 1
+    user_universities.each_with_index do |user_university, i|
       next if user_university.valid?
       
       user_university.errors.full_messages.each do |full_message|
-        errors.add(:user_universities, "#{count.to_s}件目の#{full_message}")
+        errors.add(:user_universities, "#{(i + 1).to_s}件目の#{full_message}")
       end
       
       user_university.errors.clear

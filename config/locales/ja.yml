@@ -238,5 +238,4 @@ ja:
     user:
       authority:
         Student: 受講生
-        Teacher: 教員
-        Reviewer: レビューア
+        Teacher: 講師

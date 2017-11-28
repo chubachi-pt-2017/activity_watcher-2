@@ -2,7 +2,14 @@ class UserUniversity < ApplicationRecord
   belongs_to :user, inverse_of: :user_universities
   belongs_to :university
   
-  before_validation :create_confirmation_token
+  before_save do
+    # emailが変更されていたら
+    if email_changed?
+      self.confirmation_token = Digest::SHA1.hexdigest(email)
+      self.email_confirmed_flg = false
+      self.email_confirmation_due_date = Time.current + 24.hour
+    end
+  end
   
   validates :university_id,
     uniqueness: { scope: [:user_id] }
@@ -30,12 +37,12 @@ class UserUniversity < ApplicationRecord
     end
   end
   
-  private
-  
-  def create_confirmation_token
-    return if email.blank?
-    self.confirmation_token = Digest::SHA1.hexdigest(email)
+  def update_email_confirmation_due_date
+    self.email_confirmation_due_date = Time.current + 24.hour
+    self.save!
   end
+  
+  private
   
   def is_student?
     user.authority == "Student"
