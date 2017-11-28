@@ -17,9 +17,13 @@ class Course < ApplicationRecord
   
   validate :validate_start_end_date
   
-  validate :validate_start_date_before_today
+  validate :validate_start_date_before_today, if: :check_entry_date_changed?
   
   private
+  
+  def check_entry_date_changed?
+    student_entry_start_changed? || student_entry_end_changed?
+  end
   
   def validate_start_end_date
     errors.add(:student_entry_end, "は開始日より前にはできません") if student_entry_start > student_entry_end

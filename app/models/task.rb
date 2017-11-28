@@ -22,9 +22,13 @@ class Task < ApplicationRecord
     
   validate :validate_start_end_date
   
-  validate :validate_start_date_before_today
+  validate :validate_start_date_before_today, if: :check_date_changed?
     
   private
+  
+  def check_date_changed?
+    start_date_changed? || end_date_changed?
+  end
   
   def validate_start_end_date
     errors.add(:end_date, "は開始日より前にはできません") if start_date > end_date

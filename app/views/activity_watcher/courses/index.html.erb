@@ -5,12 +5,12 @@
 <table class="table table-bordered table-word-break">
   <thead>
     <tr class="success">
-      <th>タイトル</th>
-      <th>履修受付開始日</th>
-      <th>履修受付終了日</th>
+      <th class="col-md-3">タイトル</th>
+      <th style="width: 114px;">履修受付開始日</th>
+      <th style="width: 114px;">履修受付終了日</th>
       <th>コース詳細</th>
-      <th>編集／削除</th>
-      <th>課題</th>
+      <th class="col-md-1">編集／削除</th>
+      <th class="col-md-1">課題</th>
     </tr>
   </thead>
 
@@ -21,7 +21,7 @@
         <td><%= link_to course.title, course_path(course) %></td>
         <td><%= course.student_entry_start.strftime(time_medium) %></td>
         <td><%= course.student_entry_end.strftime(time_medium) %></td>
-        <td><%= course.description %></td>
+        <td><%= course.description.truncate(80) %></td>
         <td>
           <%= link_to edit_course_path(course) do %>
             <button type="button" class="btn btn-default">編集</button>
