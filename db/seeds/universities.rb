@@ -1,7 +1,7 @@
-names = ['産業技術大学院大学']
-name_ens = ['AIIT']
+names = ['産業技術大学院大学', 'グーグル']
+name_ens = ['AIIT', 'Google']
 descriptions = []
-email_domains = ['aiit.ac.jp']
+email_domains = ['aiit.ac.jp', 'gmail.com']
 
 1.upto(names.length) do |n|
   University.create!(
