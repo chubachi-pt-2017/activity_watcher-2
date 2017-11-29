@@ -1,0 +1,16 @@
+.contents {
+  font-size: 13px;
+  overflow: hidden;
+  
+  &__header {
+    position: relative;
+    width: 1000px;
+    height: 50px;
+  }
+
+  &__wrap {
+    position: relative;
+    width: 1000px;
+    margin-left: 20px;
+  }
+}

@@ -9,29 +9,16 @@
               <div class="sidebar__item"><i class="fa fa-home" aria-hidden="true"></i><span class="sidebar__action">ホーム</span></div>
             <% end %>
           </li>
+          <% if current_user.Teacher? %>
+            <li class="sidebar__items">
+              <%= link_to courses_path do %>
+                <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コース登録</span></div>
+              <% end %>
+            </li>
+          <% end %>
           <li class="sidebar__items">
             <%= link_to "/" do %>
-              <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コース登録</span></div>
-            <% end %>
-          </li>
-          <li class="sidebar__items">
-            <%= link_to "/" do %>
-              <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コース登録</span></div>
-            <% end %>
-          </li>
-          <li class="sidebar__items">
-            <%= link_to "/" do %>
-              <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コース登録</span></div>
-            <% end %>
-          </li>
-          <li class="sidebar__items">
-            <%= link_to "/" do %>
-              <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コース登録</span></div>
-            <% end %>
-          </li>
-          <li class="sidebar__items">
-            <%= link_to "/" do %>
-              <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コース登録</span></div>
+              <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コースを見る</span></div>
             <% end %>
           </li>
           <li class="sidebar__items">
