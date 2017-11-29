@@ -10,4 +10,5 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-Rails.application.config.assets.precompile += %w( activity_watcher/application_activity_watcher.css activity_watcher/*.js )
+Rails.application.config.assets.precompile += %w( activity_watcher/application_activity_watcher.css )
+Rails.application.config.assets.precompile += %w( application.js sessions.js activity_watcher/*.js )

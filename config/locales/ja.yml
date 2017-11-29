@@ -19,6 +19,7 @@ ja:
         slack_user: slackユーザ名
         authority: 利用者権限
         teachers_password: パスワード (教職員のみ)
+        user_universities: 大学情報
       user_university:
         email: メールアドレス
         student_no: 学生番号 (受講生のみ)
@@ -237,5 +238,4 @@ ja:
     user:
       authority:
         Student: 受講生
-        Teacher: 教員
-        Reviewer: レビューア
+        Teacher: 講師

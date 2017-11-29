@@ -85,6 +85,7 @@ GEM
       haml (~> 4.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
+    cocoon (1.2.11)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -446,6 +447,7 @@ DEPENDENCIES
   byebug
   cells
   cells-haml
+  cocoon
   coffee-rails (~> 4.2)
   coffeelint
   database_rewinder
