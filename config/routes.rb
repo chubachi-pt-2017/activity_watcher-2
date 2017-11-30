@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  #resources :teams
+  resources :teams
  
   
   get 'auth/:provider/callback', to: 'sessions#callback'
