@@ -376,6 +376,9 @@ GEM
     sawyer (0.7.0)
       addressable (>= 2.3.5, < 2.5)
       faraday (~> 0.8, < 0.10)
+    seed-fu (2.3.7)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
     sexp_processor (4.7.0)
     shellany (0.0.1)
     simple_form (3.3.1)
@@ -492,6 +495,7 @@ DEPENDENCIES
   rubocop
   ruby_css_lint
   sass-rails (~> 5.0)
+  seed-fu
   simple_form
   simplecov
   spring
