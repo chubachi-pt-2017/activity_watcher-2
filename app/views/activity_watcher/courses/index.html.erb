@@ -21,7 +21,7 @@
         <td><%= link_to course.title, course_path(course) %></td>
         <td><%= course.student_entry_start.strftime(time_medium) %></td>
         <td><%= course.student_entry_end.strftime(time_medium) %></td>
-        <td><%= course.description.truncate(80) %></td>
+        <td><%= markdown(course.description.truncate(80)) %></td>
         <td>
           <%= link_to edit_course_path(course) do %>
             <button type="button" class="btn btn-default">編集</button>

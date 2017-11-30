@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <th class="success">コース詳細</th>
-    <td><%= @course.description %></td>
+    <td><%= markdown(@course.description) %></td>
   </tr>
 </table>
 <%= link_to '戻る', courses_path, class: "btn btn-default" %>
