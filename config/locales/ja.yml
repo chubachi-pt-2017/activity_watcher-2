@@ -19,15 +19,17 @@ ja:
         slack_user: slackユーザ名
         authority: 利用者権限
         teachers_password: パスワード (教職員のみ)
+        user_universities: 大学情報
       user_university:
         email: メールアドレス
         student_no: 学生番号 (受講生のみ)
         university_id: 所属大学
       course:
         title: タイトル
-        student_entry_start: エントリー受付開始日
-        student_entry_end: エントリー受付終了日
+        student_entry_start: 履修受付開始日
+        student_entry_end: 履修受付終了日
         description: コース詳細
+        university_id: 所属大学
       task:
         title: タイトル
         start_date: 開始日
@@ -231,11 +233,14 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      medium: "%Y年%m月%d日 %H:%M"
       short: "%y/%m/%d %H:%M"
     pm: 午後
+  simple_form:
+    required: 
+      html: '<abbr title="required"><span style="color: red;">[必須]</span></abbr>'
   enums:
     user:
       authority:
         Student: 受講生
-        Teacher: 教員
-        Reviewer: レビューア
+        Teacher: 講師

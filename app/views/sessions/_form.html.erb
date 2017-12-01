@@ -1,4 +1,4 @@
-<%= form_for @user, url: { action: 'confirmation' }, html: { class: 'form-horizontal' } do |f| %>
+<%= form_for @user, url: { action: 'confirm' }, html: { class: 'form-horizontal' } do |f| %>
   <h4><p>利用者情報を登録してください</p></h4><br/ >
   <div class="form-group">
     <%= f.label :login_name, class: "col-sm-2 control-label" %>
@@ -58,6 +58,26 @@
         <% end %>
       </div>
     </div>
+    <div id="user_universities">
+      <%= f.fields_for :user_universities do |u| %>
+        <%= render 'user_university_fields', f: u %>
+      <% end %>
+      <div class="links" style="margin-left: 100px; padding-top: 30px;">
+        <%= link_to_add_association "大学を追加", f, :user_universities, class: "btn btn-primary" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-7">
+        <% if @user.errors.full_messages_for(:user_universities).any? %>
+          <ul>
+            <% @user.errors.full_messages_for(:user_universities).each do |msg| %>
+                <li><span style="color: red;"><%= msg %></span></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
   <% else %>
     <div class="form-group">
       <%= f.label :user_full_name, class: "col-sm-2 control-label" %>
@@ -80,6 +100,34 @@
       </div>
       <%= f.hidden_field :authority %>
       <%= f.hidden_field :teachers_password %>
+    </div>
+    <div class="form-group">
+      <%= f.fields_for :user_universities do |u| %>
+        <% if u.object._destroy == false %>
+          <div class="form-group">
+            <%= u.label :university_id, class: "col-sm-2 control-label" %>
+            <div class="col-sm-5">
+              <%= University.find_by(id: u.object.university_id).name %>
+            </div>
+            <%= u.hidden_field :university_id %>
+          </div>
+          <div class="form-group">
+            <%= u.label :email, class: "col-sm-2 control-label" %>
+            <div class="col-sm-5">
+              <%= u.object.email %>
+            </div>
+            <%= u.hidden_field :email %>
+          </div>
+          <div class="form-group">
+            <%= u.label :student_no, class: "col-sm-2 control-label" %>
+            <div class="col-sm-5">
+              <%= u.object.student_no %>
+            </div>
+            <%= u.hidden_field :student_no %>
+          </div>
+        <% end %>
+        <%= u.hidden_field :_destroy %>
+      <% end %>
     </div>
   <% end %>
   <br/ >
