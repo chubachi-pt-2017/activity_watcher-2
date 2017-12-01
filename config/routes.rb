@@ -11,8 +11,7 @@ Rails.application.routes.draw do
   
   namespace :activity_watcher, path: 'activity-watcher', as: "" do
     get '/', to: 'homes#index', as: 'activity_watcher'
-    
-    resources :teams 
+    resources :teams
     resources :courses do
       resources :tasks
     end
