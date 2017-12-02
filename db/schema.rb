@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128111718) do
+ActiveRecord::Schema.define(version: 20171202150500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,11 @@ ActiveRecord::Schema.define(version: 20171128111718) do
   create_table "task_teams", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "repository_name", limit: 128, default: "", null: false
+    t.string   "service_url",     limit: 256
+    t.string   "ci_url",          limit: 256
     t.index ["task_id", "team_id"], name: "index_task_teams_on_task_id_and_team_id", unique: true, using: :btree
     t.index ["task_id"], name: "index_task_teams_on_task_id", using: :btree
     t.index ["team_id"], name: "index_task_teams_on_team_id", using: :btree
@@ -74,15 +77,11 @@ ActiveRecord::Schema.define(version: 20171128111718) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",            limit: 64,  default: "", null: false
-    t.string   "description",     limit: 256
-    t.string   "repository_name", limit: 128, default: "", null: false
-    t.string   "service_url",     limit: 256
-    t.string   "ci_url",          limit: 256
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.string   "name",        limit: 64,  default: "", null: false
+    t.string   "description", limit: 256
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.index ["name"], name: "index_teams_on_name", unique: true, using: :btree
-    t.index ["repository_name"], name: "index_teams_on_repository_name", unique: true, using: :btree
   end
 
   create_table "universities", force: :cascade do |t|
