@@ -1,6 +1,7 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::Base
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_universities, only: [:new, :edit]
+  
   # GET /courses
   def index
     @courses = Course.where(owner_id: current_user.id).order(id: :asc)
@@ -62,6 +63,9 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find_by(id: params[:id])
+    end
+    
+    def set_universities
       @universities = University.all
     end
     
