@@ -1,9 +1,9 @@
-class ActivityWatcher::CoursesController < ActivityWatcher::Base
+class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
   def index
-    @courses = Course.where(owner_id: current_user.id).order(id: :asc)
+    @courses = Course.where(owner_id: current_user.id, university_id: session[:university_id]).order(id: :asc)
   end
 
   # GET /courses/1
@@ -29,6 +29,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
   def create
     @course = Course.new(course_params)
     @course.owner_id = current_user.id
+    @course.university_id = session[:university_id]
 
     respond_to do |format|
       if @course.save
@@ -66,6 +67,6 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:title, :student_entry_start, :student_entry_end, :description, :university_id)
+      params.require(:course).permit(:title, :student_entry_start, :student_entry_end, :description)
     end
 end

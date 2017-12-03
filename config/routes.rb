@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'users/email_resend', to: 'sessions#resend', as: 'users_email_resend'
   
   namespace :activity_watcher, path: 'activity-watcher', as: "" do
+    post '/change-university', to: 'base#change_university'
     get '/', to: 'homes#index', as: 'activity_watcher'
 
     resources :courses do

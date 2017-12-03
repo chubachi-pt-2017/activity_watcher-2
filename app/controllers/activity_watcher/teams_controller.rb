@@ -1,4 +1,4 @@
-class ActivityWatcher::TeamsController < ActivityWatcher::Base
+class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   def index
