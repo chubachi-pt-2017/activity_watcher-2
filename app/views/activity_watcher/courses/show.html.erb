@@ -23,7 +23,27 @@
         <th class="col-md-2">コース詳細</th>
         <td><%= @course.description %></td>
       </tr>
+      <tr class="table-row">
+        <th class="col-md-2 table-title">アクション</th>
+        <td>
+          <%= link_to edit_course_path(@course) do %>
+            <button type="button" class="btn btn-success">コースを編集する</button>
+          <% end %>
+  
+          <%= link_to _course_tasks_path(@course) do %>
+            <button type="button" class="btn btn-warning">課題一覧をみる</button>
+          <% end %>
+  
+          <%= link_to new__course_task_path(@course) do %>
+            <button type="button" class="btn btn-primary">課題を追加する</button>
+          <% end %>
+  
+          <%= link_to @course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
+            <button type="button" class="btn btn-danger">コースを削除する</button>
+          <% end %>
+        </td>
+      </tr>
     </table>
-    <%= link_to '戻る', courses_path, class: "btn btn-default" %>
+    <%= link_to 'コース一覧に戻る', courses_path, class: "btn btn-default" %>
   </div>
 </div>
