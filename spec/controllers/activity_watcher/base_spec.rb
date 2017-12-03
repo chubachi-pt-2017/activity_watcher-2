@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe ActivityWatcher::Base, type: :controller do
+RSpec.describe ActivityWatcher::BaseController, type: :controller do
 
 end
