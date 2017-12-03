@@ -4,6 +4,13 @@
 
 <div class="contents__main">
   <div class="contents__wrap">
+
+    <% if @course.title.present? %>
+      <h1>「<%= @course.title %>」コースの編集ページ</h1>
+    <% else %>
+      <h1>コースの新規編集ページ</h1>
+    <% end %>
+
     <%= simple_form_for course, wrapper: "horizontal_form", html: {class: "form-horizontal"} do |f| %>
       <div class="form-inputs">
         <%= f.input :title, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
