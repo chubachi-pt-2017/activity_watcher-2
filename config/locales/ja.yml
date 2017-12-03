@@ -36,12 +36,13 @@ ja:
         end_date: 終了日
         description: 課題詳細
         slack_domain: Slackドメイン名
-      team:
-        name: チーム名
-        description: チーム詳細
+      task_team:
         repository_name: Githubリポジトリ名
         service_url: サービスURL
         ci_url: CI URL
+      team:
+        name: チーム名
+        description: チーム詳細
   date:
     abbr_day_names:
     - 日

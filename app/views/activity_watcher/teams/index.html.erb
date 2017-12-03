@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h4>チーム一覧</h4>
+
+<table class="table table-bordered table-word-break">
+  <thead>
+    <tr class="success">
+      <th>チーム名</th>
+      <th>チーム詳細</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.name %></td>
+        <td><%= team.description %></td>
+        <td><%= link_to 'チーム詳細を見る', team, class: "btn btn-primary" %></td>
+        <td><%= link_to 'チームを編集する', edit_team_path(team), class: "btn btn-primary" %></td>
+        <td>
+          <%= link_to team, method: :delete, data: { confirm: '元に戻せませんがよろしいですか？' } do %>
+            <button type="button" class="btn btn-danger">チームを削除する</button>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Team', new_team_path %>
