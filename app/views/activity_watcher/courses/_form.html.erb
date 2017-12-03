@@ -16,7 +16,7 @@
         <% end %>
         <div class="col-xs-3">
           <%= f.input :university_id do %>
-            <%= f.select :university_id, University.all.map { |u| [u.name, u.id] }, {}, class: "form-control" %>
+            <%= f.select :university_id, @universities.map { |u| [u.name, u.id] }, {}, class: "form-control" %>
           <% end %>
 
           <div class="form-actions">

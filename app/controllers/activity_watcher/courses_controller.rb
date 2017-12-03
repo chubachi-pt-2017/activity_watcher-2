@@ -62,6 +62,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find_by(id: params[:id])
+      @universities = University.all
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.
