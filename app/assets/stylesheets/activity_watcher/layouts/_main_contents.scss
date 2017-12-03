@@ -1,16 +1,22 @@
 .contents {
   font-size: 13px;
-  overflow: hidden;
-  
+  float: right;
+  width: 1150px;
+  margin-top: 70px;
+
   &__header {
     position: relative;
-    width: 1000px;
+    width: 1150px;
     height: 50px;
+    background-color: #2B2E33;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 1;    
   }
 
   &__wrap {
     position: relative;
-    width: 1000px;
-    margin-left: 20px;
+    padding: 0 75px 0 75px;
   }
 }

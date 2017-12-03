@@ -1,48 +1,44 @@
 <p id="notice"><%= notice %></p>
-
 <h4><%= current_user.user_full_name %>さんのコース一覧</h4>
 
-<table class="table table-bordered table-word-break">
-  <thead>
-    <tr class="success">
-      <th class="col-md-3">タイトル</th>
-      <th style="width: 114px;">履修受付開始日</th>
-      <th style="width: 114px;">履修受付終了日</th>
-      <th>コース詳細</th>
-      <th class="col-md-1">編集／削除</th>
-      <th class="col-md-1">課題</th>
+<% time_medium = t('time.formats.medium') %>
+<% @courses.each do |course| %>
+  <table class="table table-bordered table-word-break table-striped">
+    <tr class="table-row">
+      <th class="col-md-2 table-title">タイトル</th>
+      <td><%= link_to course.title.truncate(50), course_path(course) %></td>
     </tr>
-  </thead>
+    <tr class="table-row">
+      <th class="col-md-2 table-title">履修受付開始日</th>
+      <td><%= course.student_entry_start.strftime(time_medium) %></td>
+    </tr>
+    <tr class="table-row">
+      <th class="col-md-2 table-title">履修受付終了日</th>
+      <td><%= course.student_entry_end.strftime(time_medium) %></td>
+    </tr>
+    <tr class="table-row">
+      <th class="col-md-2 table-title">コース詳細</th>
+      <td><%= course.description.truncate(50) %></td>
+    </tr>
+    <tr class="table-row">
+      <th class="col-md-2 table-title">アクション</th>
+      <td>
+        <%= link_to edit_course_path(course) do %>
+          <button type="button" class="btn btn-success">コースを編集する</button>
+        <% end %>
 
-  <tbody>
-    <% time_medium = t('time.formats.medium') %>
-    <% @courses.each do |course| %>
-      <tr>
-        <td><%= link_to course.title, course_path(course) %></td>
-        <td><%= course.student_entry_start.strftime(time_medium) %></td>
-        <td><%= course.student_entry_end.strftime(time_medium) %></td>
-        <td><%= course.description.truncate(80) %></td>
-        <td>
-          <%= link_to edit_course_path(course) do %>
-            <button type="button" class="btn btn-default">編集</button>
-          <% end %>
-          <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
-            <button type="button" class="btn btn-danger">削除</button>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to _course_tasks_path(course) do %>
-            <button type="button" class="btn btn-default">一覧</button>
-          <% end %>
-          <%= link_to new__course_task_path(course) do %>
-            <button type="button" class="btn btn-primary">追加</button>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <%= link_to _course_tasks_path(course) do %>
+          <button type="button" class="btn btn-warning">課題一覧をみる</button>
+        <% end %>
 
-<br>
+        <%= link_to new__course_task_path(course) do %>
+          <button type="button" class="btn btn-primary">課題を追加する</button>
+        <% end %>
 
-<%= link_to 'コースを作成する', new_course_path, class: "btn btn-primary" %>
+        <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
+          <button type="button" class="btn btn-danger">コースを削除する</button>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+<% end %>
