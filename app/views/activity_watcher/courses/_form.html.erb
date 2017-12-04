@@ -11,27 +11,54 @@
       <h1>コースの新規編集ページ</h1>
     <% end %>
 
-    <%= simple_form_for course, wrapper: "horizontal_form", html: {class: "form-horizontal"} do |f| %>
-      <div class="form-inputs">
-        <%= f.input :title, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
-        <div class="col-md-6">
-          <%= f.input :student_entry_start %>
-          <%= f.input :student_entry_end %>
-        </div>
-        <%= f.input :description, input_wrapper_html: {class: "col-md-6"} do %>
-          <%= f.text_area :description, rows: '10', maxlength: 256, class: "form-control" %>
-        <% end %>
-        <div class="col-xs-3">
-          <%= f.input :university_id do %>
-            <%= f.select :university_id, @universities.map { |u| [u.name, u.id] }, {}, class: "form-control" %>
-          <% end %>
+    <div class="course-contetns">
+      <%= simple_form_for course, wrapper: "horizontal_form" do |f| %>
+        <div class="course-edit-left-area">
+
+          <div class="form-group">
+            <div>
+              <div class="course-edit-left-area__title">コース名</div>
+              <div class="course-edit-left-area__title-count"><span>コース名の文字数:</span><span id="js-course-title-count">0</span></div>
+            </div>
+            <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'course-edit-left-area__text-box' } %>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <div class="course-edit-left-area__course-detail">コース詳細</div>
+              <div class="course-edit-left-area__course-detail-count"><span>コース詳細の文字数:</span><span id="js-course-body-count">0</span></div>
+            </div>
+            <%= f.input :description, label: false do %>
+              <%= f.text_area :description, rows: '20', class: "form-control" %>
+            <% end %>
+          </div>
+
+        </div><!-- end of course-edit-left-area -->
+  
+        <div class="course-edit-right-area">
+          <div class="form-group">
+            <div>履修受付開始日</div>
+            <%= f.input :student_entry_start, label: false, :input_html => { class: 'course-edit-right-area__entry-start-area' } %>
+            <div>履修受付終了日</div>
+            <%= f.input :student_entry_end, label: false, :input_html => { class: 'course-edit-right-area__entry-end-area' } %>
+          </div>
+
+          <div class="form-group">
+            <div>所属大学</div>
+            <%= f.input :university_id, label: false do %>
+              <%= f.select :university_id, @universities.map { |u| [u.name, u.id] }, {}, class: "form-control course-edit-right-area__university" %>
+            <% end %>
+          </div>
 
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary' %>
             <%= link_to '戻る', courses_path, class: "btn btn-default" %>
           </div>
-        </div>
-      </div>
-    <% end %>
+        </div><!-- end of course-edit-right-area -->
+      <% end %>
+    </div><!-- end of x_content -->
+
+
+
   </div>
 </div>

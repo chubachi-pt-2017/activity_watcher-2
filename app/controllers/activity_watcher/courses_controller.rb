@@ -46,6 +46,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'コースの更新が完了しました' }
       else
+        set_universities
         format.html { render :edit }
       end
     end
