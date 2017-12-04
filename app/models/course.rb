@@ -29,10 +29,12 @@ class Course < ApplicationRecord
     end
   
     def create_participant(course_id, user_id)
-      cp = CourseParticipant.new(course_id: course_id, user_id: user_id)
-      return false if cp.invalid?
-      
-      cp.save
+      cp = CourseParticipant.find_or_initialize_by(course_id: course_id, user_id: user_id)
+      if cp.new_record?
+        return false if cp.invalid?
+        cp.save
+      end
+      true
     end
 
   end

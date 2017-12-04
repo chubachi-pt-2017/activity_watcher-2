@@ -19,4 +19,15 @@
     <td><%= @course.description %></td>
   </tr>
 </table>
-<%= link_to '戻る', courses_path, class: "btn btn-default" %>
+<% if current_user.Student? %>
+  <% time_current = Time.current %>
+  <% if @user.present? %>
+    <%= link_to '課題を見る', _course_tasks_url(@course.id), class: 'btn btn-default' %>
+  <% elsif @course.student_entry_start > time_current || @course.student_entry_end < time_current %>
+  <% else %>
+    <%= link_to '参加する', entry_course_url(@course.id), class: 'btn btn-primary' %>
+  <% end %>
+  <%= link_to '一覧に戻る', list_courses_url, class: "btn btn-default" %>
+<% else %>
+  <%= link_to '戻る', courses_url, class: "btn btn-default" %>
+<% end %>

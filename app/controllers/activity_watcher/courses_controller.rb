@@ -6,7 +6,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
   
   def list
-    @courses = Course.get_list(session[:user_id], session[:university_id])
+    @courses = Course.get_list(current_user.id, session[:university_id])
   end
 
   def show
@@ -14,8 +14,9 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       respond_to do |format|
         format.html {render text: "リクエストされたURLは存在しません", layout: "activity_watcher/base", status: "404"}
       end
+      return
     end
-    return
+    @user = @course.users.find_by(id: current_user.id) if current_user.Student?
   end
 
   def new
@@ -58,7 +59,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   
   def entry
     respond_to do |format|
-      if Course.create_participant(params[:id], session[:user_id])
+      if Course.create_participant(params[:id], current_user.id)
         format.html { redirect_to list_courses_url, notice: 'コースへの参加登録が完了しました' }
       else
         format.html { render action: 'list' }

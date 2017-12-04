@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post '/change-university', to: 'base#change_university'
     get '/', to: 'homes#index', as: 'activity_watcher'
 
-    resources :courses do
+    resources :courses, shallow: true do
       collection do
         get '/list', to: 'courses#list'
       end
@@ -21,10 +21,14 @@ Rails.application.routes.draw do
       member do
         get '/entry', to: 'courses#entry'
       end
-      resources :tasks
+      resources :tasks, shallow: true do
+        collection do
+          get '/list', to: 'tasks#list'
+        end
+        resources :teams, except: [:index]
+      end
     end
 
-    resources :teams
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
