@@ -1,6 +1,8 @@
 class Course < ApplicationRecord
   has_many :tasks, dependent: :destroy, inverse_of: :course
-  
+  has_many :users, through: :course_participants
+  has_many :course_participants, dependent: :destroy, inverse_of: :course
+
   validates :title,
     presence: true,
     uniqueness: {allow_blank: true},
@@ -18,6 +20,22 @@ class Course < ApplicationRecord
   validate :validate_start_end_date
   
   validate :validate_start_date_before_today, if: :check_entry_date_changed?
+  
+  class << self
+    def get_list(user_id, university_id)
+      course_participants = CourseParticipant.where(user_id: user_id)
+      Course.joins("LEFT JOIN (#{course_participants.to_sql}) cp ON courses.id = cp.course_id").select("courses.*, cp.user_id").where(
+        university_id: university_id).order(:id)
+    end
+  
+    def create_participant(course_id, user_id)
+      cp = CourseParticipant.new(course_id: course_id, user_id: user_id)
+      return false if cp.invalid?
+      
+      cp.save
+    end
+
+  end
   
   private
   

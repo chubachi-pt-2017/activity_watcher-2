@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       collection do
         get '/list', to: 'courses#list'
       end
+      
+      member do
+        get '/entry', to: 'courses#entry'
+      end
       resources :tasks
     end
 
