@@ -18,6 +18,10 @@ $(function(){
       detailTextCount.text(detailText.val().replace(/[\n\s　]/g, "").length);
       set_alert_before_transition();
     });
+    
+    $("#js-submit-button").on("click", function(){
+      $(window).off('beforeunload');
+    });
 })
 
 function set_alert_before_transition() {
