@@ -6,6 +6,7 @@ $(function(){
   
     courseTitle.on("keyup", function() {
       titleCount.text(courseTitle.val().length);
+      set_alert_before_transition();
     });
   
     // コース詳細のテキストカウンター
@@ -15,5 +16,13 @@ $(function(){
   
     detailText.on("keyup", function() {
       detailTextCount.text(detailText.val().replace(/[\n\s　]/g, "").length);
+      set_alert_before_transition();
     });
 })
+
+function set_alert_before_transition() {
+  $(window).off('beforeunload');
+  $(window).on('beforeunload', function(e) {
+    return "";
+  });
+}

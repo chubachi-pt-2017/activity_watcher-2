@@ -25,7 +25,7 @@ ja:
         student_no: 学生番号 (受講生のみ)
         university_id: 所属大学
       course:
-        title: タイトル
+        title: コース名
         student_entry_start: 履修受付開始日
         student_entry_end: 履修受付終了日
         description: コース詳細
