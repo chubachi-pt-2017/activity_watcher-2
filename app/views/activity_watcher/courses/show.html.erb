@@ -22,7 +22,7 @@
 <% if current_user.Student? %>
   <% time_current = Time.current %>
   <% if @user.present? %>
-    <%= link_to '課題を見る', _course_tasks_url(@course.id), class: 'btn btn-default' %>
+    <%= link_to '課題を見る', list__course_tasks_url(@course.id), class: 'btn btn-default' %>
   <% elsif @course.student_entry_start > time_current || @course.student_entry_end < time_current %>
   <% else %>
     <%= link_to '参加する', entry_course_url(@course.id), class: 'btn btn-primary' %>

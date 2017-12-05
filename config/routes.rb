@@ -17,7 +17,6 @@ Rails.application.routes.draw do
       collection do
         get '/list', to: 'courses#list'
       end
-      
       member do
         get '/entry', to: 'courses#entry'
       end
@@ -25,7 +24,9 @@ Rails.application.routes.draw do
         collection do
           get '/list', to: 'tasks#list'
         end
-        resources :teams, except: [:index]
+        resources :teams, except: [:index], shallow: true do
+          resources :task_teams, only: [:index, :show, :edit, :update]
+        end
       end
     end
 

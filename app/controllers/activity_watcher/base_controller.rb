@@ -1,7 +1,7 @@
 class ActivityWatcher::BaseController < ApplicationController
   before_action :authenticate
   
-  helper_method :current_user, :logged_in?, :current_universities
+  helper_method :current_user, :logged_in?, :current_universities, :get_source_path
   
   def change_university
     session[:university_id] = params[:university_id]
@@ -28,5 +28,10 @@ class ActivityWatcher::BaseController < ApplicationController
   def authenticate
     return if logged_in?
     redirect_to root_path, alert: 'ログインしてください'
+  end
+  
+  # 遷移元path取得用メソッド
+  def get_source_path
+    @path = Rails.application.routes.recognize_path(request.referrer)
   end
 end

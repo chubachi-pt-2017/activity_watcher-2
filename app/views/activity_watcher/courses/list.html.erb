@@ -24,7 +24,7 @@
         <td>
           <% time_current = Time.current %>
           <% if course.user_id.present? %>
-            <%= link_to _course_tasks_url(course.id) do %>
+            <%= link_to list__course_tasks_url(course.id) do %>
               <button type="button" class="btn btn-sm">課題を見る</button>
             <% end %>
           <% elsif course.student_entry_start > time_current || course.student_entry_end < time_current %>

@@ -1,14 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @team.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @team.description %>
-</p>
-
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
+<table class="table table-bordered table-word-break">
+  <tr>
+    <th class="success col-md-2">チーム名</th>
+    <td><%= @team.name %></td>
+  </tr>
+  <tr>
+    <th class="success">チーム詳細</th>
+    <td><%= @team.description %></td>
+  </tr>
+  <tr>
+    <th class="success">メンバー</th>
+    <td><%= @team.users.pluck(:user_full_name).join(",") %></td>
+  </tr>
+  <tr>
+    <th class="success">人数</th>
+    <td><%= @team.users.pluck(:id).length.to_s %>人</td>
+  </tr>
+</table>

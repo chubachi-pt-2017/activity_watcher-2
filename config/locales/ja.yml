@@ -43,6 +43,8 @@ ja:
       team:
         name: チーム名
         description: チーム詳細
+      team_participant:
+        user_id: メンバー
   date:
     abbr_day_names:
     - 日
