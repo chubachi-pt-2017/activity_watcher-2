@@ -17,19 +17,19 @@
 
           <div class="form-group">
             <div>
-              <div class="course-edit-left-area__title">コース名</div>
-              <div class="course-edit-left-area__title-count"><span>コース名の文字数:</span><span id="js-course-title-count">0</span></div>
+              <div class="course-edit-left-area__title">コース名(最大50文字)</div>
+              <div class="course-edit-left-area__title-count"><span>コース名の文字数：</span><span id="js-course-title-count">0</span></div>
             </div>
-            <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'course-edit-left-area__text-box' } %>
+            <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'course-edit-left-area__text-box', id: "js-course-title" } %>
           </div>
 
           <div class="form-group">
             <div>
-              <div class="course-edit-left-area__course-detail">コース詳細</div>
-              <div class="course-edit-left-area__course-detail-count"><span>コース詳細の文字数:</span><span id="js-course-body-count">0</span></div>
+              <div class="course-edit-left-area__course-detail">コース詳細(最大256文字)</div>
+              <div class="course-edit-left-area__course-detail-count"><span>コース詳細の文字数：</span><span id="js-course-detail-count">0</span></div>
             </div>
             <%= f.input :description, label: false do %>
-              <%= f.text_area :description, rows: '20', class: "form-control" %>
+              <%= f.text_area :description, rows: '20', class: "form-control", id: "js-course-detail" %>
             <% end %>
           </div>
 
