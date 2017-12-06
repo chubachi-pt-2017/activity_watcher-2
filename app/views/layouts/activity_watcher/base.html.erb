@@ -19,15 +19,11 @@
   <body>
     <!-- all wrap -->
     <div class="all-wrap">
-      <%= render partial: 'layouts/common/sidebar'  %>
+      <%= render partial: 'layouts/common/sidebar' %>
 
-      <div class="header"></div>
       <!-- main-contents -->
       <div class="contents">
-        <div class="contents__header"></div>
-        <div class="contents__wrap">
-          <%= yield %>
-        </div>
+        <%= yield %>
       </div>
       <!-- /main-contents -->
     </div>

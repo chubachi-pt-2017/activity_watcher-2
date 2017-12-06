@@ -1,8 +1,7 @@
 @import "../commons/resets";
-@import "commons/base";
-@import "layouts/sidebar";
-@import "layouts/main_contents";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "commons/base";
+@import "layouts/sidebar";
 @import "courses/courses";
 @import "tasks/tasks";

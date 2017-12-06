@@ -36,6 +36,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       if @course.save
         format.html { redirect_to courses_url, notice: 'コースの登録が完了しました' }
       else
+        set_universities
         format.html { render :new }
       end
     end
@@ -46,6 +47,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'コースの更新が完了しました' }
       else
+        set_universities
         format.html { render :edit }
       end
     end
