@@ -1,50 +1,11 @@
-.course-contetns {
-  margin-top: 30px;
+.edit-contents {
+  @include edit-contents;
 }
 
-.course-edit-left-area {
-  margin-left: 37px;
-  width: 58%;
-  display: inline-block;
-
-  &__title {
-    display: inline-block;  
-  }
-
-  &__title-count {
-    display: inline-block;
-    float: right;
-  }
-
-  &__course-detail {
-    display: inline-block;
-  }
-
-  &__course-detail-count {
-    display: inline-block;
-    float: right;
-  }
-  
-  &__item {
-    margin-bottom: 30px;
-  }
-
+.edit-left-area {
+  @include edit-left-area;
 }
 
-.course-edit-right-area {
-  float: right;
-  width: 30%;
-  margin-right: 20px;
-  
-  &__entry-start-area {
-    margin-bottom: 20px;
-  }
-
-  &__entry-end-area {
-    margin-bottom: 20px;
-  }
-  
-  &__university {
-    margin-bottom: 20px;
-  }
+.edit-right-area {
+  @include edit-right-area;
 }

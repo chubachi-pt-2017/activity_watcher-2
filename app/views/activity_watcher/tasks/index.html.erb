@@ -10,15 +10,15 @@
     <% @tasks.each do |task| %>
       <table class="table table-bordered table-word-break table-striped">
         <tr class="table-row">
-          <th class="col-md-2 table-title">タイトル</th>
+          <th class="col-md-2 table-title">課題名</th>
           <td><%= link_to task.title, _course_task_url(task.course_id, task.id) %></td>
         </tr>
         <tr class="table-row">
-          <th class="col-md-2 table-title">開始日</th>
+          <th class="col-md-2 table-title">課題開始日</th>
           <td><%= l task.start_date, format: :medium %></td>
         </tr>
         <tr class="table-row">
-          <th class="col-md-2 table-title">終了日</th>
+          <th class="col-md-2 table-title">課題終了日</th>
           <td><%= l task.end_date, format: :medium %></td>
         </tr>
         <tr class="table-row">

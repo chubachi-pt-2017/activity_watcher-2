@@ -1,3 +1,15 @@
 .back-to-course-button {
     margin-left: 10px
 }
+
+.edit-contents {
+  @include edit-contents;
+}
+
+.edit-left-area {
+  @include edit-left-area;
+}
+
+.edit-right-area {
+  @include edit-right-area;
+}
