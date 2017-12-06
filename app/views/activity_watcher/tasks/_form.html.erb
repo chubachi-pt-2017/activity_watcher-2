@@ -1,15 +1,53 @@
-<div class="form-inputs">
-  <%= f.input :title, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
-  <div class="col-md-6">
-    <%= f.input :start_date %>
-    <%= f.input :end_date %>
-  </div>
-  <%= f.input :description, input_wrapper_html: {class: "col-md-6"} do %>
-    <%= f.text_area :description, maxlength: 256, rows: '5', class: "form-control" %>
-  <% end %>
-  <%= f.input :slack_domain, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
-</cdiv>
+<div class="contents__main">
+  <div class="contents__wrap">
 
-<div class="form-actions">
-  <%= f.button :submit, class: 'btn btn-primary' %>
+    <% if @task.title.present? %>
+      <h1>課題「<%= @task.title %>」の編集ページ</h1>
+    <% else %>
+      <h1>課題の新規編集ページ</h1>
+    <% end %>
+
+    <div class="course-contetns">
+        <div class="course-edit-left-area">
+
+          <div class="form-group">
+            <div>
+              <div class="course-edit-left-area__title">課題名(最大50文字)</div>
+              <div class="course-edit-left-area__title-count"><span>課題名の文字数：</span><span id="js-course-title-count">0</span></div>
+            </div>
+            <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'course-edit-left-area__text-box', id: "js-course-title" } %>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <div class="course-edit-left-area__course-detail">課題詳細(最大256文字)</div>
+              <div class="course-edit-left-area__course-detail-count"><span>課題詳細の文字数：</span><span id="js-course-detail-count">0</span></div>
+            </div>
+            <%= f.input :description, label: false do %>
+              <%= f.text_area :description, rows: '15', class: "form-control", id: "js-course-detail" %>
+            <% end %>
+          </div>
+
+        </div><!-- end of course-edit-left-area -->
+  
+        <div class="course-edit-right-area">
+          <div class="form-group">
+            <div>課題開始日</div>
+            <%= f.input :start_date, label: false, :input_html => { class: 'course-edit-right-area__entry-start-area' } %>
+            <div>課題終了日</div>
+            <%= f.input :end_date, label: false, :input_html => { class: 'course-edit-right-area__entry-end-area' } %>
+          </div>
+
+          <div class="form-group">
+            <div>slackドメイン</div>
+            <%= f.input :slack_domain, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
+            <%= link_to '戻る', courses_path, class: "btn btn-default" %>
+          </div>
+        </div><!-- end of course-edit-right-area -->
+    </div><!-- end of x_content -->
+  </div>
 </div>
