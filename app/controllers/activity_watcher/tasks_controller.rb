@@ -3,11 +3,11 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
 
   def index
     @course = Course.find_by(id: params[:course_id])
-    @tasks = @course.tasks.order(id: :asc)
+    @tasks = @course.tasks.order(id: :desc).page(params[:page])
   end
   
   def list
-    @tasks = Task.get_list(params[:course_id])
+    @tasks = Task.get_list(params[:course_id]).page(params[:page])
   end
 
   def show
@@ -33,7 +33,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to task_path(@task.id), notice: '課題の作成が完了しました' }
+        format.html { redirect_to _course_tasks_url(@task.course_id), notice: '課題の作成が完了しました' }
       else
         format.html { render :new }
       end
@@ -43,7 +43,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to task_path(@task.id), notice: '課題の修正が完了しました' }
+        format.html { redirect_to _course_tasks_url(@task.course_id), notice: '課題の修正が完了しました' }
       else
         format.html { render :edit }
       end

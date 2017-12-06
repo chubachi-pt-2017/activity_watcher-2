@@ -26,13 +26,13 @@ class Task < ApplicationRecord
   
   validate :validate_start_date_before_today, if: :check_date_changed?
   
-  scope :get_list, ->(course_id) { where("course_id = ? and start_date < ?", course_id, Time.current).order(:id) }
+  scope :get_list, ->(course_id) { where("course_id = ? and start_date < ?", course_id, Time.current).order(id: :desc) }
   
   class << self
     def get_teams_list(user_id, task_id)
       team_participants = TeamParticipant.where(user_id: user_id)
       Team.joins("LEFT JOIN (#{team_participants.to_sql}) tp ON teams.id = tp.team_id LEFT JOIN task_teams tt ON tp.team_id = tt.team_id LEFT JOIN tasks ON tt.task_id = tasks.id")
-        .select("teams.*, tp.user_id").where("tasks.id = ?", task_id).order(:id)
+        .select("teams.*, tp.user_id").where("tasks.id = ?", task_id).order(id: :desc)
     end
   end
   

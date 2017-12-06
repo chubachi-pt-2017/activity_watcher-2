@@ -2,6 +2,7 @@
 
 <h4>課題を見る</h4>
 
+<%= paginate @tasks %>
 <table class="table table-bordered table-word-break">
   <thead>
     <tr class="success">
@@ -28,3 +29,7 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @tasks %>
+<br />
+
+<%= link_to 'コース一覧に戻る', list_courses_path, class: "btn btn-default" %>

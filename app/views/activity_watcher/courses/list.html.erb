@@ -2,6 +2,7 @@
 
 <h4>コースを見る</h4>
 
+<%= paginate @courses %>
 <table class="table table-bordered table-word-break">
   <thead>
     <tr class="success">
@@ -38,3 +39,4 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @courses %>

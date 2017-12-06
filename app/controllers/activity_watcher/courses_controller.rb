@@ -2,11 +2,12 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   def index
-    @courses = Course.where(owner_id: current_user.id, university_id: session[:university_id]).order(id: :asc)
+    @courses = Course.where(owner_id: current_user.id, university_id: session[:university_id])
+                      .order(id: :desc).page(params[:page])
   end
   
   def list
-    @courses = Course.get_list(current_user.id, session[:university_id])
+    @courses = Course.get_list(current_user.id, session[:university_id]).page(params[:page])
   end
 
   def show

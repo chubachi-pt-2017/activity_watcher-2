@@ -32,6 +32,7 @@
   <% if @teams.any? %>
     <br /><br />
     <h5>この課題のチーム</h5>
+    <%= paginates @teams %>
     <table class="table table-bordered">
       <thead>
         <tr class="success">
@@ -51,6 +52,7 @@
       </tbody>
       <% end %>
     </table>
+    <%= paginates @teams %>
   <% end %>
 <% else %>
 <% end %>

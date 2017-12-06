@@ -2,6 +2,7 @@
 
 <h4><%= current_user.user_full_name %>さんのコース一覧</h4>
 
+<%= paginate @courses %>
 <table class="table table-bordered table-word-break">
   <thead>
     <tr class="success">
@@ -42,6 +43,7 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @courses %>
 
 <br>
 

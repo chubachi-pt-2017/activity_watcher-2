@@ -6,6 +6,8 @@ class Team < ApplicationRecord
   accepts_nested_attributes_for :task_teams, allow_destroy: true
   accepts_nested_attributes_for :team_participants, allow_destroy: true
   
+  paginates_per 5
+  
   validates :name,
     presence: true,
     uniqueness: { allow_blank: true },

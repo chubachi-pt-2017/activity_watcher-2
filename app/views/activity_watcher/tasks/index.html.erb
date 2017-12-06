@@ -2,6 +2,7 @@
 
 <h4><%= @course.title %>の課題一覧</h4>
 
+<%= paginate @tasks %>
 <table class="table table-bordered table-word-break">
   <thead>
     <tr class="success">
@@ -35,6 +36,7 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @tasks %>
 
 <br>
 

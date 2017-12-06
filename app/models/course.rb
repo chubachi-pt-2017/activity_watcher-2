@@ -25,7 +25,7 @@ class Course < ApplicationRecord
     def get_list(user_id, university_id)
       course_participants = CourseParticipant.where(user_id: user_id)
       Course.joins("LEFT JOIN (#{course_participants.to_sql}) cp ON courses.id = cp.course_id").select("courses.*, cp.user_id").where(
-        university_id: university_id).order(:id)
+        university_id: university_id).order(id: :desc)
     end
   
     def create_participant(course_id, user_id)
