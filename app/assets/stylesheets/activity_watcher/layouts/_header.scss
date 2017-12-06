@@ -1,0 +1,19 @@
+.contents {
+  &__header {
+    background-color: #2A3F54;
+    width: 100%;
+    height: 50px;
+    float: right;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 1;
+  }
+}
+
+.header-button {
+  height: 50px;
+  position: fixed;
+  top: 8px;
+  right: 8px;
+}
