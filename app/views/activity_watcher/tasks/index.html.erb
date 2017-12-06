@@ -1,5 +1,5 @@
 <div class="contents__header">
-  <%= render partial: 'layouts/common/course' %>
+  <%= render partial: 'layouts/activity_watcher/tasks/header' %>
 </div>
 
 <div class="contents__main">
@@ -26,6 +26,10 @@
           <td><%=  task.description.truncate(50) %></td>
         </tr>
         <tr class="table-row">
+          <th class="col-md-2 table-title">slackドメイン</th>
+          <td><%= task.slack_domain %></td>
+        </tr>        
+        <tr class="table-row">
           <th class="col-md-2 table-title">アクション</th>
           <td>
             <%= link_to edit__course_task_path(task.course_id, task.id) do %>
@@ -40,6 +44,3 @@
     <% end %>
   </div>
 </div>
-
-<%= link_to '課題を追加', new__course_task_path, class: "btn btn-primary" %>
-<%= link_to 'コース一覧に戻る', courses_path, class: "btn btn-default", style: "margin-left: 30px;" %>
