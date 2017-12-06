@@ -1,6 +1,7 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::Base
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_universities, only: [:new, :edit]
+  
   # GET /courses
   def index
     @courses = Course.where(owner_id: current_user.id).order(id: :asc)
@@ -34,6 +35,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
       if @course.save
         format.html { redirect_to courses_url, notice: 'コースの登録が完了しました' }
       else
+        set_universities
         format.html { render :new }
       end
     end
@@ -45,6 +47,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'コースの更新が完了しました' }
       else
+        set_universities
         format.html { render :edit }
       end
     end
@@ -62,6 +65,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::Base
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find_by(id: params[:id])
+    end
+    
+    def set_universities
+      @universities = University.all
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.

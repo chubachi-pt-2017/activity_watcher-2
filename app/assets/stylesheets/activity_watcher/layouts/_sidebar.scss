@@ -1,15 +1,20 @@
 .sidebar {
-  float: left;
+  position: fixed;
   font-size: 14px;
+  top: 0px;
+  left: 0px;
+  width: 15%;
+  z-index: 2;
+  height: 100%;
 
   &__wrap {
     width: 200px;
-    background: #2c9a7a;
-    height: 1000px;
+    background: #363f44;
+    height: 100%;
   }
 
   &__menu-wrap {
-    padding: 15px;
+    padding: 50px 15px 15px 15px;
   }
 
   &__items {
