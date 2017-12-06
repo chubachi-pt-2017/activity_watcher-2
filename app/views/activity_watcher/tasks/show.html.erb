@@ -26,13 +26,13 @@
 
 <% if get_source_path[:action] == 'index' %>
   <%= link_to '戻る', _course_tasks_path(@task.course_id), class: "btn btn-default" %>
-<% elsif get_source_path[:action] == 'list' %>
+<% else %>
   <%= link_to '戻る', list__course_tasks_path(@task.course_id), class: "btn btn-default" %>
   <%= link_to 'チームを作成する', new__task_team_path(@task.id), class: "btn btn-primary" if @teams.pluck(:user_id).blank? %>
   <% if @teams.any? %>
     <br /><br />
     <h5>この課題のチーム</h5>
-    <%= paginates @teams %>
+    <%= paginate @teams %>
     <table class="table table-bordered">
       <thead>
         <tr class="success">
@@ -52,7 +52,6 @@
       </tbody>
       <% end %>
     </table>
-    <%= paginates @teams %>
+    <%= paginate @teams %>
   <% end %>
-<% else %>
 <% end %>

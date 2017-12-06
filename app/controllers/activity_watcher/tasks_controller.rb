@@ -17,7 +17,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
       end
     return
     end
-    @teams = Task.get_teams_list(current_user.id, params[:id])
+    @teams = Task.get_teams_list(current_user.id, params[:id]).page(params[:page])
   end
 
   def new

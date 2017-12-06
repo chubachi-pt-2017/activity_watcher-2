@@ -3,6 +3,8 @@ class ActivityWatcher::BaseController < ApplicationController
   
   helper_method :current_user, :logged_in?, :current_universities, :get_source_path
   
+  LIST_PAGINATE_TEAM_TASKS = 5
+  
   def change_university
     session[:university_id] = params[:university_id]
     
