@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <th class="success">課題詳細</th>
-    <td><%= @task.description %></td>
+    <td><%= markdown(@task.description) %></td>
   </tr>
   <tr>
     <th class="success">slackドメイン</th>
