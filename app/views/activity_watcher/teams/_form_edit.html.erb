@@ -1,0 +1,38 @@
+<%= form_for @team, url: team_path(@team) do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@team.errors.count, "件") %> のエラーがありました:</h2>
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <h5>チーム情報</h5>
+  <table class="table table-bordered">
+    <tr>
+      <td class="col-md-2"><%= f.label :name %></td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :description %></td>
+      <td><%= f.text_area :description, rows: '5' %></td>
+    </tr>
+  </table>
+  <h6>メンバー</h6>
+  <table class="table table-bordered">
+    <tbody id="team_participants">
+      <%= f.fields_for :team_participants do |tp| %>
+        <%= render 'team_participant_fields', f: tp %>
+      <% end %>
+    </tbody>
+  </table>
+  <div id="links">
+    <%= link_to_add_association "メンバーを追加", f, :team_participants, 
+      data: {"association-insertion-node" => "tbody#team_participants", "association-insertion-method" => "append"}, 
+      class: "btn btn-success" %>
+  </div>
+  <%= f.submit '更新する', class: "btn btn-primary" %>
+<% end %>

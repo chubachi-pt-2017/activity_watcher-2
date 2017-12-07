@@ -1,6 +1,9 @@
-<h1>Editing Team</h1>
-
-<%= render 'form', team: @team %>
-
-<%= link_to 'Show', @team %> |
-<%= link_to 'Back', teams_path %>
+<div class="contents__main">
+  <div class="contents__wrap">
+    <h5>チームを編集する</h5>
+    
+    <%= render 'form_edit', team: @team %>
+    
+    <%= link_to '戻る', team_path(@team) %>
+  </div>
+</div>

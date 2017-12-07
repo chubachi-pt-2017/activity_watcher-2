@@ -1,15 +1,19 @@
-<div class="form-inputs">
-  <%= f.input :title, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
-  <div class="col-md-6">
-    <%= f.input :start_date %>
-    <%= f.input :end_date %>
+<div class="contents__main">
+  <div class="contents__wrap">
+    <div class="form-inputs">
+      <%= f.input :title, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
+      <div class="col-md-6">
+        <%= f.input :start_date %>
+        <%= f.input :end_date %>
+      </div>
+      <%= f.input :description, input_wrapper_html: {class: "col-md-6"} do %>
+        <%= f.text_area :description, maxlength: 256, rows: '5', class: "form-control" %>
+      <% end %>
+      <%= f.input :slack_domain, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
+    </cdiv>
+    
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn btn-primary' %>
+    </div>
   </div>
-  <%= f.input :description, input_wrapper_html: {class: "col-md-6"} do %>
-    <%= f.text_area :description, maxlength: 256, rows: '5', class: "form-control" %>
-  <% end %>
-  <%= f.input :slack_domain, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
-</cdiv>
-
-<div class="form-actions">
-  <%= f.button :submit, class: 'btn btn-primary' %>
 </div>

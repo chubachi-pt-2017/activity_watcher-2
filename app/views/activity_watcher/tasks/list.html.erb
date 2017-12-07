@@ -1,35 +1,39 @@
-<p><%= notice %></p>
-
-<h4>課題を見る</h4>
-
-<%= paginate @tasks %>
-<table class="table table-bordered table-word-break">
-  <thead>
-    <tr class="success">
-      <th class="col-md-3">タイトル</th>
-      <th class="col-md-2">開始日</th>
-      <th class="col-md-2">終了日</th>
-      <th>課題詳細</th>
-      <th class="col-md-1"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% time_medium = t('time.formats.medium') %>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.start_date.strftime(time_medium) %></td>
-        <td><%= task.end_date.strftime(time_medium) %></td>
-        <td><%= task.description.truncate(50) %></td>
-        <td>
-          <%= link_to '詳細を見る', task_url(task), class: "btn btn-default" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @tasks %>
-<br />
-
-<%= link_to 'コース一覧に戻る', list_courses_path, class: "btn btn-default" %>
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p><%= notice %></p>
+    
+    <h4>課題を見る</h4>
+    
+    <%= paginate @tasks %>
+    <table class="table table-bordered table-word-break">
+      <thead>
+        <tr class="success">
+          <th class="col-md-3">タイトル</th>
+          <th class="col-md-2">開始日</th>
+          <th class="col-md-2">終了日</th>
+          <th>課題詳細</th>
+          <th class="col-md-1"></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <% time_medium = t('time.formats.medium') %>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= task.title %></td>
+            <td><%= task.start_date.strftime(time_medium) %></td>
+            <td><%= task.end_date.strftime(time_medium) %></td>
+            <td><%= task.description.truncate(50) %></td>
+            <td>
+              <%= link_to '詳細を見る', task_url(task), class: "btn btn-default" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @tasks %>
+    <br />
+    
+    <%= link_to 'コース一覧に戻る', list_courses_path, class: "btn btn-default" %>
+  </div>
+</div>

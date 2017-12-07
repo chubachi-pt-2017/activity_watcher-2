@@ -1,44 +1,48 @@
-<p id="notice"><%= notice %></p>
-
-<h4><%= @course.title %>の課題一覧</h4>
-
-<%= paginate @tasks %>
-<table class="table table-bordered table-word-break">
-  <thead>
-    <tr class="success">
-      <th class="col-md-3">タイトル</th>
-      <th style="width: 114px;">開始日</th>
-      <th style="width: 114px;">終了日</th>
-      <th>課題詳細</th>
-      <th class="col-md-3">slackドメイン</th>
-      <th class="col-md-1">編集／削除</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% time_medium = t("time.formats.medium") %>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= link_to task.title, task_url(task.id) %></td>
-        <td><%= task.start_date.strftime(time_medium) %></td>
-        <td><%= task.end_date.strftime(time_medium) %></td>
-        <td><%= task.description.truncate(80) %></td>
-        <td><%= task.slack_domain %></td>
-        <td>
-          <%= link_to edit_task_url(task.id) do %>
-            <button type="button" class="btn btn-default">編集</button>
-          <% end %>
-          <%= link_to task_path(task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
-            <button type="button" class="btn btn-danger">削除</button>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @tasks %>
-
-<br>
-
-<%= link_to '課題を追加', new__course_task_path, class: "btn btn-primary" %>
-<%= link_to 'コース一覧に戻る', courses_path, class: "btn btn-default", style: "margin-left: 30px;" %>
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    
+    <h4><%= @course.title %>の課題一覧</h4>
+    
+    <%= paginate @tasks %>
+    <table class="table table-bordered table-word-break">
+      <thead>
+        <tr class="success">
+          <th class="col-md-3">タイトル</th>
+          <th style="width: 114px;">開始日</th>
+          <th style="width: 114px;">終了日</th>
+          <th>課題詳細</th>
+          <th class="col-md-3">slackドメイン</th>
+          <th class="col-md-1">編集／削除</th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <% time_medium = t("time.formats.medium") %>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= link_to task.title, task_url(task.id) %></td>
+            <td><%= task.start_date.strftime(time_medium) %></td>
+            <td><%= task.end_date.strftime(time_medium) %></td>
+            <td><%= task.description.truncate(80) %></td>
+            <td><%= task.slack_domain %></td>
+            <td>
+              <%= link_to edit_task_url(task.id) do %>
+                <button type="button" class="btn btn-default">編集</button>
+              <% end %>
+              <%= link_to task_path(task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+                <button type="button" class="btn btn-danger">削除</button>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @tasks %>
+    
+    <br>
+    
+    <%= link_to '課題を追加', new__course_task_path, class: "btn btn-primary" %>
+    <%= link_to 'コース一覧に戻る', courses_path, class: "btn btn-default", style: "margin-left: 30px;" %>
+  </div>
+</div>

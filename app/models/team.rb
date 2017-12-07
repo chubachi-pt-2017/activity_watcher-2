@@ -16,8 +16,14 @@ class Team < ApplicationRecord
   validates :description,
     length: { maximum: 256, allow_blank: true }
   
-  class << self
-    def get_participants(task_id)
-    end
+  validate :validate_participants_uniquness, on: :update
+  
+  private
+  
+  def validate_participants_uniquness
+    array_tp = team_participants.pluck(:user_id)
+    result_tp = array_tp.group_by{ |arr| arr }.reject{ |k, v| v.one? }.keys
+    errors.add(:team_participants, "が重複しています") if result_tp.length > 0
   end
+  
 end

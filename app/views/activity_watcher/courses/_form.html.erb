@@ -43,13 +43,6 @@
             <%= f.input :student_entry_end, label: false, :input_html => { class: 'course-edit-right-area__entry-end-area' } %>
           </div>
 
-          <div class="form-group">
-            <div>所属大学</div>
-            <%= f.input :university_id, label: false do %>
-              <%= f.select :university_id, @universities.map { |u| [u.name, u.id] }, {}, class: "form-control course-edit-right-area__university" %>
-            <% end %>
-          </div>
-
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
             <%= link_to '戻る', courses_path, class: "btn btn-default" %>

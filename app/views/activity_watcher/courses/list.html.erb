@@ -1,42 +1,46 @@
-<p id="notice"><%= notice %></p>
-
-<h4>コースを見る</h4>
-
-<%= paginate @courses %>
-<table class="table table-bordered table-word-break">
-  <thead>
-    <tr class="success">
-      <th class="col-md-3">タイトル</th>
-      <th class="col-md-2">履修受付開始日</th>
-      <th class="col-md-2">履修受付終了日</th>
-      <th>コース詳細</th>
-      <th class="col-md-1"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% time_medium = t('time.formats.medium') %>
-    <% @courses.each do |course| %>
-      <tr>
-        <td><%= course.title %></td>
-        <td><%= course.student_entry_start.strftime(time_medium) %></td>
-        <td><%= course.student_entry_end.strftime(time_medium) %></td>
-        <td><%= course.description.truncate(50) %><br><%= link_to '詳細を見る', course_path(course) %></td>
-        <td>
-          <% time_current = Time.current %>
-          <% if course.user_id.present? %>
-            <%= link_to list__course_tasks_url(course.id) do %>
-              <button type="button" class="btn btn-sm">課題を見る</button>
-            <% end %>
-          <% elsif course.student_entry_start > time_current || course.student_entry_end < time_current %>
-          <% else %>
-            <%= link_to entry_course_path(course.id) do %>
-              <button type="button" class="btn btn-sm btn-info">参加する</button>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @courses %>
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    
+    <h4>コースを見る</h4>
+    
+    <%= paginate @courses %>
+    <table class="table table-bordered table-word-break">
+      <thead>
+        <tr class="success">
+          <th class="col-md-3">タイトル</th>
+          <th class="col-md-2">履修受付開始日</th>
+          <th class="col-md-2">履修受付終了日</th>
+          <th>コース詳細</th>
+          <th class="col-md-1"></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <% time_medium = t('time.formats.medium') %>
+        <% @courses.each do |course| %>
+          <tr>
+            <td><%= course.title %></td>
+            <td><%= course.student_entry_start.strftime(time_medium) %></td>
+            <td><%= course.student_entry_end.strftime(time_medium) %></td>
+            <td><%= course.description.truncate(50) %><br><%= link_to '詳細を見る', course_path(course) %></td>
+            <td>
+              <% time_current = Time.current %>
+              <% if course.user_id.present? %>
+                <%= link_to list__course_tasks_url(course.id) do %>
+                  <button type="button" class="btn btn-sm">課題を見る</button>
+                <% end %>
+              <% elsif course.student_entry_start > time_current || course.student_entry_end < time_current %>
+              <% else %>
+                <%= link_to entry_course_path(course.id) do %>
+                  <button type="button" class="btn btn-sm btn-info">参加する</button>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @courses %>
+  </div>
+</div>

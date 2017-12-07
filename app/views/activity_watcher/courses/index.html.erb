@@ -6,7 +6,7 @@
   <div class="contents__wrap">
     <p id="notice"><%= notice %></p>
     <h4><%= current_user.user_full_name %>さんのコース一覧</h4>
-
+    <%= paginate @courses %>
 
     <% @courses.each do |course| %>
       <table class="table table-bordered table-word-break table-striped">
@@ -48,5 +48,6 @@
         </tr>
       </table>
     <% end %>
+    <%= paginate @courses %>
   </div>
 </div>

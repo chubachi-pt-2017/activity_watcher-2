@@ -1,3 +1,7 @@
-<%= render 'form', team: @team %>
-
-<%= link_to 'Back', task_path(params[:task_id]) %>
+<div class="contents__main">
+  <div class="contents__wrap">
+    <%= render 'form_new', team: @team %>
+    
+    <%= link_to '戻る', task_path(params[:task_id]), class: "btn btn-default" %>
+  </div>
+</div>
