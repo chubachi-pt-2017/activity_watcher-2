@@ -31,7 +31,7 @@ ja:
         description: コース詳細
         university_id: 所属大学
       task:
-        title: タイトル
+        title: 課題名
         start_date: 開始日
         end_date: 終了日
         description: 課題詳細

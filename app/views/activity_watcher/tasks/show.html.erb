@@ -1,26 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="contents__header">
+  <%= render partial: 'layouts/activity_watcher/tasks/header' %>
+</div>
 
-<% time_medium = t("time.formats.medium") %>
-<table class="table table-bordered table-word-break">
-  <tr>
-    <th class="success col-md-2">タイトル</th>
-    <td><%= @task.title %></td>
-  </tr>
-  <tr>
-    <th class="success">開始日</th>
-    <td><%= @task.start_date.strftime(time_medium) %></td>
-  </tr>
-  <tr>
-    <th class="success">終了日</th>
-    <td><%= @task.end_date.strftime(time_medium) %></td>
-  </tr>
-  <tr>
-    <th class="success">課題詳細</th>
-    <td><%= @task.description %></td>
-  </tr>
-  <tr>
-    <th class="success">slackドメイン</th>
-    <td><%= @task.slack_domain %></td>
-  </tr>
-</table>
-<%= link_to '戻る', _course_tasks_path, class: "btn btn-default" %>
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    
+    <table class="table table-bordered table-word-break table-striped">
+      <tr>
+        <th class="col-md-2">課題名</th>
+        <td><%= @task.title %></td>
+      </tr>
+      <tr>
+        <th class="col-md-2">課題開始日</th>
+        <td><%= l @task.start_date, format: :medium %></td>
+      </tr>
+      <tr>
+        <th class="col-md-2">課題受付終了日</th>
+        <td><%= l @task.end_date, format: :medium %></td>
+      </tr>
+      <tr>
+        <th class="col-md-2">slackドメイン</th>
+        <td><%= @task.slack_domain %></td>
+      </tr>      
+      <tr>
+        <th class="col-md-2">課題詳細</th>
+        <td><%= @task.description %></td>
+      </tr>
+      <tr class="table-row">
+        <th class="col-md-2 table-title">アクション</th>
+        <td>
+          <%= link_to edit__course_task_path(@task) do %>
+            <button type="button" class="btn btn-success">コースを編集する</button>
+          <% end %>
+  
+          <%= link_to _course_task_path(@task.course_id, @task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+            <button type="button" class="btn btn-danger">削除</button>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+    <%= link_to '課題一覧に戻る', _course_tasks_path, class: "btn btn-default" %>
+  </div>
+</div>
