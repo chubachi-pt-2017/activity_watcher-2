@@ -1,0 +1,30 @@
+<%= form_for(task_team) do |f| %>
+  <% if task_team.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h3><%= pluralize(task_team.errors.count, "件") %> のエラーがあります</h3>
+
+      <ul>
+      <% task_team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <table class="table table-bordered table-striped" style="width: 750px;">
+    <tr>
+      <th class="col-md-3">Githubリポジトリ名</th>
+      <td><%= f.text_field :repository_name, maxlength: 128, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>サービスURL</th>
+      <td><%= f.text_field :service_url, maxlength: 256, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>CI URL</th>
+      <td><%= f.text_field :ci_url, maxlength: 256, class: "form-control" %></td>
+    </tr>
+  </table>
+  <%= f.submit '更新する', class: "btn btn-success" %>
+<% end %>
+<br />

@@ -1,4 +1,5 @@
 $(function(){
+  if($("#js-course-title-count").length) {
     // コース名のテキストカウンター
     var titleCount = $("#js-course-title-count");
     var courseTitle = $("#js-course-title");
@@ -22,6 +23,7 @@ $(function(){
     $("#js-submit-button").on("click", function(){
       $(window).off('beforeunload');
     });
+  }
 })
 
 function set_alert_before_transition() {

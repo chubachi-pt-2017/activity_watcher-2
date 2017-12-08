@@ -2,24 +2,67 @@
   <div class="contents__wrap">
     <p id="notice"><%= notice %></p>
     
-    <table class="table table-bordered table-word-break">
+    <h4>チーム情報</h4>
+    <table class="table table-bordered table-striped">
       <tr>
-        <th class="success col-md-2">チーム名</th>
+        <th class="col-md-2">チーム名</th>
         <td><%= @team.name %></td>
       </tr>
       <tr>
-        <th class="success">チーム詳細</th>
+        <th>チーム詳細</th>
         <td><%= @team.description %></td>
       </tr>
       <tr>
-        <th class="success">メンバー</th>
-        <td><%= @team.users.pluck(:user_full_name).join(",") %></td>
+        <th>メンバー</th>
+        <td><%= @team.users.pluck(:user_full_name).join("、") %></td>
       </tr>
       <tr>
-        <th class="success">人数</th>
+        <th>人数</th>
         <td><%= @team.users.pluck(:id).length.to_s %>人</td>
+      </tr>
+      <tr>
+        <th>アクション</th>
+        <td>
+          <%= link_to 'チーム情報を編集する', edit_team_url(@team), class: 'btn btn-success' %>
+          <%= link_to team_url(@team), method: :delete, 
+            data: { confirm: "所属メンバーや提出物に関する情報も削除されますが、本当に実行しますか？"} do %>
+            <button type="button" class="btn btn-danger">チーム情報を削除する</button>
+          <% end %>
+        </td>
       </tr>
     </table>
     <br />
+    <% if @task_teams.any? %>
+    <h4>チームで作成した課題</h4>
+    <%= paginate @task_teams %>
+    <% @task_teams.each_with_index do |tt| %>
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th class="col-md-2">課題タイトル</th>
+          <td><%= tt.task.title %></td>
+        </tr>
+        <tr>
+          <th>Githubリポジトリ名</th>
+          <td><%= tt.repository_name %></td>
+        </tr>
+        <tr>
+          <th>サービスURL</th>
+          <td><%= link_to tt.service_url, tt.service_url.to_s %></td>
+        </tr>
+        <tr>
+          <th>CI URL</th>
+          <td><%= link_to tt.ci_url, tt.ci_url.to_s %></td>
+        </tr>
+        <tr>
+          <th>アクション</th>
+          <td>
+            <%= link_to '情報を編集する', edit_task_team_url(tt.id), class: "btn btn-success" %>
+            <%= link_to '課題の詳細を見る', task_url(tt.task_id), class: "btn btn-info" %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+    <%= paginate @task_teams %>
+    <% end %>
   </div>
 </div>

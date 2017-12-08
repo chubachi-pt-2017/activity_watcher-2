@@ -25,7 +25,7 @@ Rails.application.routes.draw do
           get '/list', to: 'tasks#list'
         end
         resources :teams, except: [:index], shallow: true do
-          resources :task_teams, only: [:index, :show, :edit, :update]
+          resources :task_teams, only: [:edit, :update]
         end
       end
     end

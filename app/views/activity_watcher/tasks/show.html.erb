@@ -26,7 +26,7 @@
       </tr>
     </table>
     
-    <% if get_source_path[:action] == 'index' %>
+    <% if current_user.Teacher? %>
       <%= link_to '戻る', _course_tasks_path(@task.course_id), class: "btn btn-default" %>
     <% else %>
       <%= link_to '戻る', list__course_tasks_path(@task.course_id), class: "btn btn-default" %>

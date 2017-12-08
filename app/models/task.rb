@@ -2,6 +2,10 @@ class Task < ApplicationRecord
   belongs_to :course, inverse_of: :tasks
   has_many :teams, through: :task_teams
   has_many :task_teams, dependent: :destroy, inverse_of: :task
+  accepts_nested_attributes_for :task_teams
+  
+  attr_accessor :check_take_over, # チームを引き継ぐか否かのチェックボックス値
+                :before_task_id   # 引継ぎ元の課題ID
   
   validates :title,
     presence: true,

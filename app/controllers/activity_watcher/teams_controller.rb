@@ -1,10 +1,12 @@
 class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :set_team, only: [:show, :destroy]
-  before_action :set_team_with_participants, only: [:edit, :update]
+  before_action :get_course_from_team_for_destroy, only: [:destroy]
+  before_action :get_team_with_participants, only: [:edit, :update]
   before_action :get_new_member_list, only: [:new, :create]
   before_action :get_edit_member_list, only: [:edit, :update]
 
   def show
+    @task_teams = TaskTeam.includes(:task).where(team_id: params[:id]).order(id: :desc).page(params[:page])
   end
 
   def new
@@ -19,13 +21,20 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
     @team = Team.new(team_create_params)
     
     # current_userのidを参加者に追加
-    if params[:team][:user_ids]
-      @team.user_ids.push(current_user.id)
-    else
+    if !params[:team][:user_ids]
+      # メンバー未選択だったら
       @team.user_ids = [current_user.id]
+    elsif params[:team][:user_ids].select{|n| n == current_user.id}.length == 0
+      # current_userが含まれてなかったら
+      @team.user_ids.push(current_user.id)
     end
+
     @team.task_teams.first.task_id = params[:task_id]
     
+    if @team.invalid?(:new_team)
+      render :new
+      return
+    end
 
     respond_to do |format|
       if @team.save
@@ -49,7 +58,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   def destroy
     @team.destroy
     respond_to do |format|
-      format.html { redirect_to _task_teams_url(params[:task_id]), notice: 'チームを削除しました' }
+      format.html { redirect_to list__course_tasks_url(@course_id), notice: 'チームを削除しました' }
     end
   end
 
@@ -66,12 +75,16 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
     @participants = User.Student.where(id: user_ids).order(:login_name).pluck(:login_name, :id)
   end
   
-  def set_team
-    @team = Team.find_by(id: params[:id])
+  def get_team_with_participants
+    @team = Team.includes(:team_participants).find_by(id: params[:id])
   end
   
-  def set_team_with_participants
-    @team = Team.includes(:team_participants).find_by(id: params[:id])
+  def get_course_from_team_for_destroy
+    @course_id = @team.tasks.pluck(:course_id)[0]
+  end
+  
+  def set_team
+    @team = Team.find_by(id: params[:id])
   end
   
   def team_create_params

@@ -10,6 +10,15 @@
         <%= f.text_area :description, maxlength: 256, rows: '5', class: "form-control" %>
       <% end %>
       <%= f.input :slack_domain, maxlength: true, input_wrapper_html: { class: "col-md-6" } %>
+      <% if task.id.blank? %>
+        <label class="checkbox-inline">
+          <%= f.check_box :check_take_over, {}, true %>
+          チームを引き継ぐ
+        </label>
+        <%= f.input :before_task_id, input_wrapper_html: { class: "col-md-6" } do %>
+          <%= f.select :before_task_id, @task_select, {}, class: "form-control" %>
+        <% end %>
+      <% end %>
     </cdiv>
     
     <div class="form-actions">
