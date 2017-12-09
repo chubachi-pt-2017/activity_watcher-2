@@ -39,12 +39,12 @@
             <div>課題開始日</div>
             <%= f.input :start_date, label: false, :input_html => { class: 'edit-right-area__entry-start-area' } %>
             <div>課題終了日</div>
-            <%= f.input :end_date, label: false, :input_html => { class: 'edit-right-area__entry-end-area' } %>
+            <%= f.input :end_date, label: false, class: 'edit-right-area__entry-end-area' %>
           </div>
 
           <div class="form-group">
             <div>slackドメイン</div>
-            <%= f.input :slack_domain, label: false %>
+            <%= f.input :slack_domain, label: false, :input_html => { class: 'edit-right-area__slack-area' } %>
           </div>
 
           <% if task.id.blank? %>
