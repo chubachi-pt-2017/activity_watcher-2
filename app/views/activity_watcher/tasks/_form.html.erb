@@ -23,6 +23,12 @@
           </div>
 
           <div class="form-group">
+            <div>slackドメイン</div>
+            <%= f.input :slack_domain, label: false, :input_html => { class: 'edit-left-area__slack-area' } %>
+          </div>
+
+
+          <div class="form-group">
             <div>
               <div class="edit-left-area__course-detail">課題詳細(最大256文字)</div>
               <div class="edit-left-area__course-detail-count"><span>課題詳細の文字数：</span><span id="js-task-detail-count">0</span></div>
@@ -40,11 +46,6 @@
             <%= f.input :start_date, label: false, :input_html => { class: 'edit-right-area__entry-start-area' } %>
             <div>課題終了日</div>
             <%= f.input :end_date, label: false, class: 'edit-right-area__entry-end-area' %>
-          </div>
-
-          <div class="form-group">
-            <div>slackドメイン</div>
-            <%= f.input :slack_domain, label: false, :input_html => { class: 'edit-right-area__slack-area' } %>
           </div>
 
           <% if task.id.blank? %>
