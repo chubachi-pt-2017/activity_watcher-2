@@ -18,11 +18,15 @@ Rails.application.routes.draw do
         get '/list', to: 'courses#list'
       end
       member do
+        get '/detail', to: 'courses#detail'
         get '/entry', to: 'courses#entry'
       end
       resources :tasks, shallow: true do
         collection do
           get '/list', to: 'tasks#list'
+        end
+        member do
+          get '/detail', to: 'tasks#detail'
         end
         resources :teams, except: [:index], shallow: true do
           resources :task_teams, only: [:edit, :update]

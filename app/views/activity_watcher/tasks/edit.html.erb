@@ -1,11 +1,5 @@
-<div class="contents__main">
-  <div class="contents__wrap">
-    <h4><p>課題の編集</p></h4>
-    
-    <%= simple_form_for @task, url: task_path, wrapper: "horizontal_form", html: { class: "form-horizontal" } do |f| %>
-      <%= render 'form', f: f, task: @task %>
-    <% end %>
-    
-    <%= link_to '戻る', _course_tasks_path(@task.course_id), class: "btn btn-default btn-back" %>
-  </div>
-</div>
+<%= simple_form_for @task, url: task_path, wrapper: "horizontal_form", html: { class: "form-horizontal" } do |f| %>
+  <%= render 'form', f: f, task: @task %>
+<% end %>
+
+<%= link_to '戻る', _course_tasks_path(@task.course_id), class: "btn btn-default btn-back" %>

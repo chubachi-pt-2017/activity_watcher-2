@@ -40,5 +40,34 @@
         </td>
       </tr>
     </table>
+    
+      <%= link_to '戻る', list__course_tasks_path(@task.course_id), class: "btn btn-default" %>
+      <%= link_to 'チームを作成する', new__task_team_path(@task.id), class: "btn btn-primary" if @teams.pluck(:user_id).blank? %>
+      <% if @teams.any? %>
+        <br /><br />
+        <h5>この課題のチーム</h5>
+        <%= paginate @teams %>
+        <table class="table table-bordered">
+          <thead>
+            <tr class="success">
+              <th>チーム名</th>
+              <th>チーム詳細</th>
+              <th></th>
+            </tr>
+          </thead>
+          
+          <tbody>
+          <% @teams.each do |team| %>
+            <tr>
+              <td><%= team.name %></td>
+              <td><%= team.description.truncate(50) %></td>
+              <td><%= link_to '詳細を見る', team_url(team), class: "btn btn-default" if team.user_id.present? %></td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+        <%= paginate @teams %>
+      <% end %>
+    <%= link_to '課題一覧に戻る', _course_tasks_path, class: "btn btn-default" %>
   </div>
 </div>

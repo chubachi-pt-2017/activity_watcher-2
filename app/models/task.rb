@@ -18,9 +18,6 @@ class Task < ApplicationRecord
   validates :end_date,
     presence: true
   
-  validates :description,
-    length: {maximum: 256, allow_blank: true}
-    
   validates :slack_domain,
     presence: true,
     uniqueness: {allow_blank: true},
@@ -43,7 +40,7 @@ class Task < ApplicationRecord
   private
   
   def check_date_changed?
-    start_date_changed? || end_date_changed?
+    start_date_changed?
   end
   
   def validate_start_end_date

@@ -14,12 +14,11 @@ class Course < ApplicationRecord
   validates :student_entry_end,
     presence: true
   
-  validates :description,
-    length: {maximum: 256, allow_blank: true}
-  
   validate :validate_start_end_date
   
   validate :validate_start_date_before_today, if: :check_entry_date_changed?
+  
+  validate :validate_end_date, if: :check_entry_end_changed?
   
   class << self
     def get_list(user_id, university_id)
@@ -41,12 +40,24 @@ class Course < ApplicationRecord
   
   private
   
+  def time_current
+    Time.current
+  end
+  
+  def check_entry_end_changed?
+    student_entry_end_changed?
+  end
+  
   def check_entry_date_changed?
-    student_entry_start_changed? || student_entry_end_changed?
+    student_entry_start_changed?
   end
   
   def validate_start_end_date
     errors.add(:student_entry_end, "は開始日より前にはできません") if student_entry_start > student_entry_end
+  end
+  
+  def validate_end_date
+    errors.add(:student_entry_end, "は今日以降の日付にしてください") if student_entry_end < time_current
   end
   
   def validate_start_date_before_today
