@@ -1,5 +1,5 @@
 <div class="contents__header">
-  <%= render partial: 'layouts/activity_watcher/tasks/header', locals: { task: @task } %>
+  <%= render partial: 'layouts/activity_watcher/tasks/header' %>
 </div>
 
 <div class="contents__main">
@@ -64,7 +64,7 @@
 
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
-            <%= link_to '戻る', _course_tasks_path(@task.course_id), class: "btn btn-default" %>
+            <%= link_to '戻る', _course_tasks_path, class: "btn btn-default" %>
           </div>
         </div><!-- end of course-edit-right-area -->
     </div><!-- end of x_content -->
