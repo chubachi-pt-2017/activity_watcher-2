@@ -1,5 +1,5 @@
 <div class="contents__header">
-  <%= render partial: 'layouts/activity_watcher/tasks/header' %>
+  <%= render partial: 'layouts/activity_watcher/tasks/header', locals: { task: @task } %>
 </div>
 
 <div class="contents__main">
@@ -30,7 +30,7 @@
 
           <div class="form-group">
             <div>
-              <div class="edit-left-area__course-detail">課題詳細(最大256文字)</div>
+              <div class="edit-left-area__course-detail">課題詳細</div>
               <div class="edit-left-area__course-detail-count"><span>課題詳細の文字数：</span><span id="js-task-detail-count">0</span></div>
             </div>
             <%= f.input :description, label: false do %>
@@ -64,7 +64,7 @@
 
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
-            <%= link_to '戻る', _course_tasks_path, class: "btn btn-default" %>
+            <%= link_to '戻る', _course_tasks_path(@task.course_id), class: "btn btn-default" %>
           </div>
         </div><!-- end of course-edit-right-area -->
     </div><!-- end of x_content -->
