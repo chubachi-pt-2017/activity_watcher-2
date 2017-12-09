@@ -1,5 +1,5 @@
 <div class="contents__header">
-  <%= render partial: 'layouts/common/course' %>
+  <%= render partial: 'layouts/activity_watcher/courses/header' %>
 </div>
 
 <div class="contents__main">
@@ -11,7 +11,7 @@
     <% @courses.each do |course| %>
       <table class="table table-bordered table-word-break table-striped">
         <tr class="table-row">
-          <th class="col-md-2 table-title">タイトル</th>
+          <th class="col-md-2 table-title">コース名</th>
           <td><%= link_to course.title.truncate(50), course_path(course) %></td>
         </tr>
         <tr class="table-row">
