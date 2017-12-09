@@ -41,7 +41,7 @@ class Course < ApplicationRecord
   private
   
   def time_current
-    Time.current
+    Time.current.beginning_of_day
   end
   
   def check_entry_end_changed?
@@ -61,6 +61,6 @@ class Course < ApplicationRecord
   end
   
   def validate_start_date_before_today
-    errors.add(:student_entry_start, "は今日以降の日時を指定してください") if Time.current.beginning_of_day > student_entry_start
+    errors.add(:student_entry_start, "は今日以降の日時を指定してください") if time_current > student_entry_start
   end
 end

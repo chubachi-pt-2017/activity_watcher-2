@@ -27,6 +27,8 @@ class Task < ApplicationRecord
   
   validate :validate_start_date_before_today, if: :check_date_changed?
   
+  validate :validate_end_date_before_today, if: :check_end_date_changed?
+  
   scope :get_list, ->(course_id) { where("course_id = ? and start_date < ?", course_id, Time.current).order(id: :desc) }
   
   class << self
@@ -39,15 +41,27 @@ class Task < ApplicationRecord
   
   private
   
+  def time_current
+    Time.current.beginning_of_day
+  end
+  
   def check_date_changed?
     start_date_changed?
+  end
+  
+  def check_end_date_changed?
+    end_date_changed?
   end
   
   def validate_start_end_date
     errors.add(:end_date, "は開始日より前にはできません") if start_date > end_date
   end
   
+  def validate_end_date_before_today
+    errors.add(:end_date, "は今日以降の日時を指定してください") if time_current > end_date
+  end
+
   def validate_start_date_before_today
-    errors.add(:start_date, "は今日以降の日時を指定してください") if Time.current.beginning_of_day > start_date
+    errors.add(:start_date, "は今日以降の日時を指定してください") if time_current > start_date
   end
 end
