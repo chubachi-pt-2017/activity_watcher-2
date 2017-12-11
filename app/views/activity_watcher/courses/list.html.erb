@@ -5,11 +5,12 @@
     <h4>コースを見る</h4>
     
     <%= paginate @courses %>
+    <% time_current = Time.current %>
     <% @courses.each do |course| %>
       <table class="table table-bordered table-word-break table-striped">
         <tr class="table-row">
           <th class="col-md-2 table-title">タイトル</th>
-          <td><%= course.title.truncate(50) %></td>
+          <td><%= link_to course.title.truncate(50), detail_course_url(course.id) %></td>
         </tr>
         <tr class="table-row">
           <th class="col-md-2 table-title">履修受付開始日</th>
@@ -26,10 +27,9 @@
         <tr class="table-row">
           <th class="col-md-2 table-title">アクション</th>
           <td>
-            <% time_current = Time.current %>
-            <% if course.user_id.present? %>
+            <% if course.user_id.present? || current_user.Teacher? %>
               <%= link_to list__course_tasks_url(course.id) do %>
-                <button type="button" class="btn btn-success">課題を見る</button>
+                <button type="button" class="btn btn-success">課題一覧を見る</button>
               <% end %>
             <% elsif (course.student_entry_start <= time_current) && (course.student_entry_end >= time_current) %>
               <%= link_to entry_course_path(course.id) do %>

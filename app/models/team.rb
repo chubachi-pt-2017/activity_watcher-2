@@ -18,6 +18,8 @@ class Team < ApplicationRecord
   
   validate :validate_participants_uniquness, on: :update
   
+  scope :get_teams_list_with_user, ->(task_id) {includes([:tasks, :users]).where(tasks: {id: task_id}).order(id: :desc)}
+  
   private
   
   def validate_participants_uniquness

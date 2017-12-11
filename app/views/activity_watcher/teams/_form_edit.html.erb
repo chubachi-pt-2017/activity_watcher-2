@@ -1,4 +1,4 @@
-<%= form_for @team, url: team_path(@team) do |f| %>
+<%= form_for @team, url: _course_task_team_path(params[:course_id], params[:task_id], @team) do |f| %>
   <% if @team.errors.any? %>
     <div id="error_explanation" class="alert alert-danger">
       <h3><%= pluralize(@team.errors.count, "件") %> のエラーがあります</h3>

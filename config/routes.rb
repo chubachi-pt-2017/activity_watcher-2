@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post '/change-university', to: 'base#change_university'
     get '/', to: 'homes#index', as: 'activity_watcher'
 
-    resources :courses, shallow: true do
+    resources :courses do
       collection do
         get '/list', to: 'courses#list'
       end
@@ -21,14 +21,14 @@ Rails.application.routes.draw do
         get '/detail', to: 'courses#detail'
         get '/entry', to: 'courses#entry'
       end
-      resources :tasks, shallow: true do
+      resources :tasks do
         collection do
           get '/list', to: 'tasks#list'
         end
         member do
           get '/detail', to: 'tasks#detail'
         end
-        resources :teams, except: [:index], shallow: true do
+        resources :teams, except: [:index] do
           resources :task_teams, only: [:edit, :update]
         end
       end

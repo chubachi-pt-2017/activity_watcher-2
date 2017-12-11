@@ -1,5 +1,5 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail]
 
   def index
     @courses = Course.where(owner_id: current_user.id, university_id: session[:university_id])
@@ -80,4 +80,5 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   def course_params
     params.require(:course).permit(:title, :student_entry_start, :student_entry_end, :description)
   end
+  
 end

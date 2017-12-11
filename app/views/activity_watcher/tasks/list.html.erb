@@ -1,39 +1,39 @@
 <div class="contents__main">
   <div class="contents__wrap">
-    <p><%= notice %></p>
-    
-    <h4>課題を見る</h4>
-    
-    <%= paginate @tasks %>
-    <table class="table table-bordered table-word-break">
-      <thead>
-        <tr class="success">
-          <th class="col-md-3">タイトル</th>
-          <th class="col-md-2">開始日</th>
-          <th class="col-md-2">終了日</th>
-          <th>課題詳細</th>
-          <th class="col-md-1"></th>
+    <p id="notice"><%= notice %></p>
+    <h4><%= @course.title %>の課題一覧</h4>
+
+    <% @tasks.each do |task| %>
+      <table class="table table-bordered table-word-break table-striped">
+        <tr class="table-row">
+          <th class="col-md-2 table-title">課題名</th>
+          <td><%= task.title %></td>
         </tr>
-      </thead>
-    
-      <tbody>
-        <% time_medium = t('time.formats.medium') %>
-        <% @tasks.each do |task| %>
-          <tr>
-            <td><%= task.title %></td>
-            <td><%= task.start_date.strftime(time_medium) %></td>
-            <td><%= task.end_date.strftime(time_medium) %></td>
-            <td><%= task.description.truncate(50) %></td>
-            <td>
-              <%= link_to '詳細を見る', task_url(task), class: "btn btn-default" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= paginate @tasks %>
-    <br />
-    
-    <%= link_to 'コース一覧に戻る', list_courses_path, class: "btn btn-default" %>
+        <tr class="table-row">
+          <th class="col-md-2 table-title">課題開始日</th>
+          <td><%= l task.start_date, format: :medium %></td>
+        </tr>
+        <tr class="table-row">
+          <th class="col-md-2 table-title">課題終了日</th>
+          <td><%= l task.end_date, format: :medium %></td>
+        </tr>
+        <tr class="table-row">
+          <th class="col-md-2 table-title">課題詳細</th>
+          <td><%=  task.description.truncate(50) %></td>
+        </tr>
+        <tr class="table-row">
+          <th class="col-md-2 table-title">slackドメイン</th>
+          <td><%= task.slack_domain %></td>
+        </tr>        
+        <tr class="table-row">
+          <th class="col-md-2 table-title">アクション</th>
+          <td>
+            <%= link_to detail__course_task_url(task.course_id, task.id) do %>
+              <button type="button" class="btn btn-success">詳細を見る</button>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
   </div>
 </div>

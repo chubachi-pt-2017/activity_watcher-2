@@ -12,7 +12,7 @@ class TaskTeam < ApplicationRecord
     length: { maximum: 256, allow_blank: true }
   
   validates :ci_url,
-    length: { maximum: 256, allow_blank: true}
+    length: { maximum: 256, allow_blank: true }
   
   private
   

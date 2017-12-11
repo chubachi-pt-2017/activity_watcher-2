@@ -30,7 +30,7 @@
       <tr class="table-row">
         <th class="col-md-2 table-title">アクション</th>
         <td>
-          <%= link_to edit__course_task_path(@task) do %>
+          <%= link_to edit__course_task_path(@task.course_id, @task.id) do %>
             <button type="button" class="btn btn-success">コースを編集する</button>
           <% end %>
   

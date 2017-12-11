@@ -1,6 +1,5 @@
 class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :set_team, only: [:show, :destroy]
-  before_action :get_course_from_team_for_destroy, only: [:destroy]
   before_action :get_team_with_participants, only: [:edit, :update]
   before_action :get_new_member_list, only: [:new, :create]
   before_action :get_edit_member_list, only: [:edit, :update]
@@ -24,9 +23,9 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
     if !params[:team][:user_ids]
       # メンバー未選択だったら
       @team.user_ids = [current_user.id]
-    elsif params[:team][:user_ids].select{|n| n == current_user.id}.length == 0
+    elsif params[:team][:user_ids].select{|n| n == current_user.id}.length < 1
       # current_userが含まれてなかったら
-      @team.user_ids.push(current_user.id)
+      @team.user_ids = params[:team][:user_ids].push(current_user.id)
     end
 
     @team.task_teams.first.task_id = params[:task_id]
@@ -38,7 +37,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to task_url(params[:task_id]), notice: 'チームを作成しました' }
+        format.html { redirect_to detail__course_task_url(params[:course_id], params[:task_id]), notice: 'チームを作成しました' }
       else
         format.html { render :new }
       end
@@ -48,7 +47,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   def update
     respond_to do |format|
       if @team.update(team_update_params)
-        format.html { redirect_to @team, notice: 'チームを更新しました' }
+        format.html { redirect_to _course_task_team_url(params[:course_id], params[:task_id], @team.id), notice: 'チームを更新しました' }
       else
         format.html { render :edit }
       end
@@ -58,7 +57,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   def destroy
     @team.destroy
     respond_to do |format|
-      format.html { redirect_to list__course_tasks_url(@course_id), notice: 'チームを削除しました' }
+      format.html { redirect_to detail__course_task_url(params[:course_id], params[:task_id]), notice: 'チームを削除しました' }
     end
   end
 
@@ -77,10 +76,6 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   
   def get_team_with_participants
     @team = Team.includes(:team_participants).find_by(id: params[:id])
-  end
-  
-  def get_course_from_team_for_destroy
-    @course_id = @team.tasks.pluck(:course_id)[0]
   end
   
   def set_team

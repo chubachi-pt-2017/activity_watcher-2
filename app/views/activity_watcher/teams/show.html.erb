@@ -23,8 +23,8 @@
       <tr>
         <th>アクション</th>
         <td>
-          <%= link_to 'チーム情報を編集する', edit_team_url(@team), class: 'btn btn-success' %>
-          <%= link_to team_url(@team), method: :delete, 
+          <%= link_to 'チーム情報を編集する', edit__course_task_team_url(params[:course_id], params[:task_id], @team), class: 'btn btn-success' %>
+          <%= link_to _course_task_team_url(params[:course_id], params[:task_id], @team), method: :delete, 
             data: { confirm: "所属メンバーや提出物に関する情報も削除されますが、本当に実行しますか？"} do %>
             <button type="button" class="btn btn-danger">チーム情報を削除する</button>
           <% end %>
@@ -56,8 +56,8 @@
         <tr>
           <th>アクション</th>
           <td>
-            <%= link_to '情報を編集する', edit_task_team_url(tt.id), class: "btn btn-success" %>
-            <%= link_to '課題の詳細を見る', task_url(tt.task_id), class: "btn btn-info" %>
+            <%= link_to '情報を編集する', edit__course_task_team_task_team_url(params[:course_id], params[:task_id], @team.id, tt.id), class: "btn btn-success" %>
+            <%= link_to '課題の詳細を見る', detail__course_task_url(params[:course_id], tt.task_id), class: "btn btn-info" %>
           </td>
         </tr>
       </table>

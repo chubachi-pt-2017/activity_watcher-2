@@ -11,7 +11,7 @@
       <table class="table table-bordered table-word-break table-striped">
         <tr class="table-row">
           <th class="col-md-2 table-title">課題名</th>
-          <td><%= link_to task.title, task_url(task.id) %></td>
+          <td><%= link_to task.title, _course_task_url(task.course_id, task.id) %></td>
         </tr>
         <tr class="table-row">
           <th class="col-md-2 table-title">課題開始日</th>
@@ -32,10 +32,10 @@
         <tr class="table-row">
           <th class="col-md-2 table-title">アクション</th>
           <td>
-            <%= link_to edit_task_path(task.id) do %>
+            <%= link_to edit__course_task_path(task.course_id, task.id) do %>
               <button type="button" class="btn btn-default">編集</button>
             <% end %>
-            <%= link_to task_path(task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+            <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
               <button type="button" class="btn btn-danger">削除</button>
             <% end %>
           </td>
