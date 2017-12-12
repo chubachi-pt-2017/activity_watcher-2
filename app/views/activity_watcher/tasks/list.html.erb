@@ -28,6 +28,9 @@
         <tr class="table-row">
           <th class="col-md-2 table-title">アクション</th>
           <td>
+            <%= link_to detail_course_url(task.course_id) do %>
+              <button type="button" class="btn btn-default">コース詳細に戻る</button>
+            <% end %>
             <%= link_to detail__course_task_url(task.course_id, task.id) do %>
               <button type="button" class="btn btn-success">詳細を見る</button>
             <% end %>

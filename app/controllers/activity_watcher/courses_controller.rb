@@ -20,7 +20,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
   
   def detail
-    @user = @course.users.find_by(id: current_user.id) if current_user.Student?
+    @user = CourseParticipant.find_by(course_id: params[:id], user_id: current_user.id)
   end
 
   def new
