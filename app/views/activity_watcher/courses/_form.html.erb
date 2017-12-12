@@ -44,7 +44,7 @@
           </div>
 
           <div class="form-group">
-            <div>所属大学</div>
+            <div>大学切替</div>
             <%= f.input :university_id, label: false do %>
               <%= f.select :university_id, @universities.map { |u| [u.name, u.id] }, {}, class: "form-control edit-right-area__university" %>
             <% end %>
