@@ -31,7 +31,7 @@
         <th class="col-md-2 table-title">アクション</th>
         <td>
           <%= link_to edit__course_task_path(@task.course_id, @task.id) do %>
-            <button type="button" class="btn btn-success">課題を編集する</button>
+            <button type="button" class="btn btn-primary">課題を編集する</button>
           <% end %>
   
           <%= link_to _course_task_path(@task.course_id, @task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>

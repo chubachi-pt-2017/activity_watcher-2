@@ -30,11 +30,11 @@
           <th class="col-md-2 table-title">アクション</th>
           <td>
             <%= link_to edit_course_path(course) do %>
-              <button type="button" class="btn btn-success">コースを編集する</button>
+              <button type="button" class="btn btn-primary">コースを編集する</button>
             <% end %>
     
             <%= link_to _course_tasks_path(course) do %>
-              <button type="button" class="btn btn-warning">課題一覧をみる</button>
+              <button type="button" class="btn btn-primary">課題一覧をみる</button>
             <% end %>
     
             <%= link_to new__course_task_path(course) do %>
