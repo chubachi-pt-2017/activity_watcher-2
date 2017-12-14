@@ -30,7 +30,7 @@
       <tr class="table-row">
         <th class="col-md-2 table-title">アクション</th>
         <td>
-          <%= link_to edit__course_task_path(@task) do %>
+          <%= link_to edit__course_task_path(@task.course_id, @task.id) do %>
             <button type="button" class="btn btn-primary">課題を編集する</button>
           <% end %>
   
@@ -40,6 +40,5 @@
         </td>
       </tr>
     </table>
-    <%= link_to '課題一覧に戻る', _course_tasks_path, class: "btn btn-default" %>
   </div>
 </div>

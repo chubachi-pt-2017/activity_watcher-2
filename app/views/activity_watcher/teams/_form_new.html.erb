@@ -1,0 +1,50 @@
+<%= form_for @team, url: _course_task_teams_path do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h4><%= pluralize(@team.errors.count, "件") %> のエラーがあります</h4>
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <table class="table table-bordered table-striped" style="width: 700px">
+    <tr>
+      <th class="col-md-2">チーム名</th>
+      <td><%= f.text_field :name, maxlength: 64, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>チーム詳細</th>
+      <td><%= f.text_area :description, maxlength: 256, rows: '5', class: "form-control" %></td>
+    </tr>
+  </table>
+  <h5>メンバー</h5>
+  <table class="table table-bordered table-striped" style="width: 300px">
+    <tr>
+      <th class="col-md-2">メンバー</th>
+      <td class="col-md-3"><%= f.select :user_ids, @participants, {include_hidden: false}, {multiple: true, class: "form-control" } %></td>
+    </tr>
+  </table>
+  <h5>課題</h5>
+  <%= f.fields_for :task_teams, @team.task_teams do |tt| %>
+    <%= tt.hidden_field :id %>
+    <table class="table table-bordered table-striped" style="width: 700px">
+      <tr>
+        <th class="col-md-2">リポジトリ名</th>
+        <td><%= tt.text_field :repository_name, maxlength: 128, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th>サービスURL</th>
+        <th><%= tt.text_field :service_url, maxlength: 256, class: "form-control" %></th>
+      </tr>
+      <tr>
+        <th>CI URL</th>
+        <td><%= tt.text_field :ci_url, maxlength: 256, class: "form-control" %></td>
+      </tr>
+    </table>
+  <% end %>
+  <%= f.submit '登録する', class: "btn btn-primary" %>
+<% end %>
+<br />

@@ -1,78 +1,83 @@
-class ActivityWatcher::CoursesController < ActivityWatcher::Base
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :set_universities, only: [:new, :edit]
-  
-  # GET /courses
+class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail]
+
   def index
-    @courses = Course.where(owner_id: current_user.id).order(id: :asc)
+    @courses = Course.get_index(current_user.id, session[:university_id]).page(params[:page])
+  end
+  
+  def list
+    @courses = Course.get_list(current_user.id, session[:university_id]).page(params[:page])
   end
 
-  # GET /courses/1
   def show
     if @course.blank?
       respond_to do |format|
         format.html {render text: "リクエストされたURLは存在しません", layout: "activity_watcher/base", status: "404"}
       end
+      return
     end
-    return
+  end
+  
+  def detail
+    @user = CourseParticipant.find_by(course_id: params[:id], user_id: current_user.id)
   end
 
-  # GET /courses/new
   def new
     @course = Course.new
   end
 
-  # GET /courses/1/edit
   def edit
   end
 
-  # POST /courses
   def create
     @course = Course.new(course_params)
     @course.owner_id = current_user.id
+    @course.university_id = session[:university_id]
 
     respond_to do |format|
       if @course.save
         format.html { redirect_to courses_url, notice: 'コースの登録が完了しました' }
       else
-        set_universities
         format.html { render :new }
       end
     end
   end
 
-  # PATCH/PUT /courses/1
   def update
     respond_to do |format|
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'コースの更新が完了しました' }
       else
-        set_universities
         format.html { render :edit }
       end
     end
   end
 
-  # DELETE /courses/1
   def destroy
     @course.destroy
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'コースの削除が完了しました' }
     end
   end
+  
+  def entry
+    respond_to do |format|
+      if Course.create_participant(params[:id], current_user.id)
+        format.html { redirect_to list_courses_url, notice: 'コースへの参加登録が完了しました' }
+      else
+        format.html { render action: 'list' }
+      end
+    end
+  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find_by(id: params[:id])
-    end
-    
-    def set_universities
-      @universities = University.all
-    end
-    
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def course_params
-      params.require(:course).permit(:title, :student_entry_start, :student_entry_end, :description, :university_id)
-    end
+
+  def set_course
+    @course = Course.find_by(id: params[:id])
+  end
+  
+  def course_params
+    params.require(:course).permit(:title, :student_entry_start, :student_entry_end, :description)
+  end
+  
 end

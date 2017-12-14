@@ -1,5 +1,3 @@
-<h4>課題の新規作成</h4>
-
 <%= simple_form_for @task, url: _course_tasks_path, wrapper: "horizontal_form", html: { class: "form-horizontal" } do |f| %>
   <%= render 'form', f: f, task: @task %>
 <% end %>

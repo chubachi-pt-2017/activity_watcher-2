@@ -23,8 +23,14 @@
           </div>
 
           <div class="form-group">
+            <div>slackドメイン</div>
+            <%= f.input :slack_domain, label: false, :input_html => { class: 'edit-left-area__slack-area' } %>
+          </div>
+
+
+          <div class="form-group">
             <div>
-              <div class="edit-left-area__course-detail">課題詳細(最大256文字)</div>
+              <div class="edit-left-area__course-detail">課題詳細</div>
               <div class="edit-left-area__course-detail-count"><span>課題詳細の文字数：</span><span id="js-task-detail-count">0</span></div>
             </div>
             <%= f.input :description, label: false do %>
@@ -39,13 +45,22 @@
             <div>課題開始日</div>
             <%= f.input :start_date, label: false, :input_html => { class: 'edit-right-area__entry-start-area' } %>
             <div>課題終了日</div>
-            <%= f.input :end_date, label: false, :input_html => { class: 'edit-right-area__entry-end-area' } %>
+            <%= f.input :end_date, label: false, class: 'edit-right-area__entry-end-area' %>
           </div>
 
-          <div class="form-group">
-            <div>slackドメイン</div>
-            <%= f.input :slack_domain, label: false %>
-          </div>
+          <% if task.id.blank? %>
+            <div class="form-group">
+              <label class="checkbox-inline">
+                <%= f.check_box :check_take_over, {}, true %>
+                チームを引き継ぐ
+              </label>
+            </div>
+            <div class="form-group">
+              <%= f.input :before_task_id, input_wrapper_html: { class: "col-md-6" } do %>
+                <%= f.select :before_task_id, @task_select, {}, class: "form-control" %>
+              <% end %>
+            </div>
+          <% end %>
 
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>

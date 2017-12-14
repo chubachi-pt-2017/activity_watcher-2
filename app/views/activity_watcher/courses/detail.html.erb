@@ -1,0 +1,36 @@
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    
+    <table class="table table-bordered table-word-break table-striped">
+      <tr class="table-row">
+        <th class="col-md-2">コース名</th>
+        <td><%= @course.title %></td>
+      </tr>
+      <tr class="table-row">
+        <th class="col-md-2 table-title">履修受付開始日</th>
+        <td><%= l @course.student_entry_start, format: :medium %></td>
+      </tr>
+      <tr class="table-row">
+        <th class="col-md-2 table-title">履修受付終了日</th>
+        <td><%= l @course.student_entry_end, format: :medium %></td>
+      </tr>
+      <tr class="table-row">
+        <th class="col-md-2 table-title">コース詳細</th>
+        <td><%= @course.description %></td>
+      </tr>
+      <tr class="table-row">
+        <th class="col-md-2 table-title">アクション</th>
+        <td>
+          <%= link_to '一覧に戻る', list_courses_url ,class: "btn btn-default" %>
+          <% if @user.blank? && current_user.Student? %>
+            <%= link_to 'コースに参加する', entry_course_url(@course.id), class: "btn btn-primary" %>
+          <% else %>
+            <%= link_to '課題一覧を見る', list__course_tasks_url(@course.id), class: "btn btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+</div>

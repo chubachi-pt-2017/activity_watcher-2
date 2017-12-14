@@ -1,0 +1,70 @@
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    
+    <table class="table table-bordered table-word-break table-striped">
+      <tr>
+        <th class="col-md-2">課題名</th>
+        <td><%= @task.title %></td>
+      </tr>
+      <tr>
+        <th class="col-md-2">課題開始日</th>
+        <td><%= l @task.start_date, format: :medium %></td>
+      </tr>
+      <tr>
+        <th class="col-md-2">課題受付終了日</th>
+        <td><%= l @task.end_date, format: :medium %></td>
+      </tr>
+      <tr>
+        <th class="col-md-2">slackドメイン</th>
+        <td><%= @task.slack_domain %></td>
+      </tr>      
+      <tr>
+        <th class="col-md-2">課題詳細</th>
+        <td><%= @task.description %></td>
+      </tr>
+      <tr class="table-row">
+        <th class="col-md-2 table-title">アクション</th>
+        <td>
+          <%= link_to '課題一覧に戻る', list__course_tasks_url(params[:course_id]), class: "btn btn-default" %>
+          <% if !@included && current_user.Student? %>
+            <%= link_to 'チームを作成する', new__course_task_team_url(@task.course_id, @task.id), class: "btn btn-primary" %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+    
+    <% if @teams.any? %>
+      <br /><br />
+      <h5>この課題のチーム</h5>
+      <%= paginate @teams %>
+      <% @teams.each do |team| %>
+        <table class="table table-bordered table-word-break table-striped">
+          <tr class="table-row">
+            <th class="col-md-2 table-title">チーム名</th>
+            <td><%= team.name %></td>
+          </tr>
+          <tr class="table-row">
+            <th class="col-md-2 table-title">チームメンバー</th>
+            <td><%= team.users.pluck(:user_full_name).join('、') %></td>
+          </tr>
+          <tr class="table-row">
+            <th class="col-md-2 table-title">チーム人数</th>
+            <td><%= team.users.pluck(:user_full_name).length.to_s %>人</td>
+          </tr>
+          <tr class="table-row">
+            <th class="col-md-2 table-title">アクション</th>
+            <td>
+              <% if team.users.pluck(:id).select{|id| id == current_user.id}.length > 0 %>
+                <%= link_to _course_task_team_url(@task.course_id, @task.id, team.id) do %>
+                  <button type="button" class="btn btn-success">チーム詳細を見る</button>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+      <%= paginate @teams %>
+    <% end %>
+  </div>
+</div>

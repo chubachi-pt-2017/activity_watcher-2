@@ -2,6 +2,9 @@ class User < ApplicationRecord
   
   has_many :universities, through: :user_universities
   has_many :user_universities, dependent: :destroy, inverse_of: :user
+  has_many :course_participants, dependent: :destroy
+  has_many :teams, through: :team_participants
+  has_many :team_participants, dependent: :destroy
   accepts_nested_attributes_for :user_universities, allow_destroy: true
   
   include ActiveRecord::Confirmable

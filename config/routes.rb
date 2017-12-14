@@ -10,10 +10,30 @@ Rails.application.routes.draw do
   get 'users/email_resend', to: 'sessions#resend', as: 'users_email_resend'
   
   namespace :activity_watcher, path: 'activity-watcher', as: "" do
+    post '/change-university', to: 'base#change_university'
     get '/', to: 'homes#index', as: 'activity_watcher'
+
     resources :courses do
-      resources :tasks
+      collection do
+        get '/list', to: 'courses#list'
+      end
+      member do
+        get '/detail', to: 'courses#detail'
+        get '/entry', to: 'courses#entry'
+      end
+      resources :tasks do
+        collection do
+          get '/list', to: 'tasks#list'
+        end
+        member do
+          get '/detail', to: 'tasks#detail'
+        end
+        resources :teams, except: [:index] do
+          resources :task_teams, only: [:edit, :update]
+        end
+      end
     end
+
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

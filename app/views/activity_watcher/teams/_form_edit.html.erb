@@ -1,0 +1,40 @@
+<%= form_for @team, url: _course_task_team_path(params[:course_id], params[:task_id], @team) do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h3><%= pluralize(@team.errors.count, "件") %> のエラーがあります</h3>
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <table class="table table-bordered table-striped" style="width: 700px;">
+    <tr>
+      <th class="col-md-2">チーム名</td>
+      <td><%= f.text_field :name, maxlength: 64, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>チーム詳細</td>
+      <td><%= f.text_area :description, maxlength: 256, rows: '5', class: "form-control" %></td>
+    </tr>
+  </table>
+  <h5>メンバー</h5>
+  <table class="table table-bordered table-striped" style="width: 500px;">
+    <tbody id="team_participants">
+      <%= f.fields_for :team_participants do |tp| %>
+        <%= render 'team_participant_fields', f: tp %>
+      <% end %>
+    </tbody>
+  </table>
+  <div id="links">
+    <%= link_to_add_association "メンバーを追加", f, :team_participants, 
+      data: {"association-insertion-node" => "tbody#team_participants", "association-insertion-method" => "append"}, 
+      class: "btn btn-success" %>
+  </div>
+  <br />
+  <%= f.submit '更新する', class: "btn btn-primary" %>
+<% end %>
+<br />
+

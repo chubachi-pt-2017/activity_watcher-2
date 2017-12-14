@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
     elsif user.user_universities.email_unconfirmed.any?
       redirect_to users_email_unconfirmed_url
     else
+      session[:university_id] = user.user_universities.pluck(:id, :university_id).sort_by(&:first).first.last
       redirect_to activity_watcher_url
     end
   end
@@ -44,6 +45,7 @@ class SessionsController < ApplicationController
       
       if @user_universities.blank?
         session[:user_id] = @user.id
+        session[:university_id] = @user.user_universities.pluck(:id, :university_id).sort_by(&:first).first.last
         redirect_to activity_watcher_url
         return
       end
@@ -76,6 +78,7 @@ class SessionsController < ApplicationController
         if user.user_universities.email_unconfirmed.any?
           format.html { redirect_to users_email_unconfirmed_url }
         else
+          session[:university_id] = user.user_universities.pluck(:id, :university_id).sort_by(&:first).first.last
           format.html { redirect_to activity_watcher_url }
         end
       end

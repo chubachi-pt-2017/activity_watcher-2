@@ -18,18 +18,18 @@
           <div class="form-group">
             <div>
               <div class="edit-left-area__title">コース名(最大50文字)</div>
-              <div class="edit-left-area__title-count"><span>コース名の文字数：</span><span id="js-task-title-count">0</span></div>
+              <div class="edit-left-area__title-count"><span>コース名の文字数：</span><span id="js-course-title-count">0</span></div>
             </div>
-            <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-task-title" } %>
+            <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-course-title" } %>
           </div>
 
           <div class="form-group">
             <div>
-              <div class="edit-left-area__course-detail">コース詳細(最大256文字)</div>
-              <div class="edit-left-area__course-detail-count"><span>コース詳細の文字数：</span><span id="js-task-detail-count">0</span></div>
+              <div class="edit-left-area__course-detail">コース詳細</div>
+              <div class="edit-left-area__course-detail-count"><span>コース詳細の文字数：</span><span id="js-course-detail-count">0</span></div>
             </div>
             <%= f.input :description, label: false do %>
-              <%= f.text_area :description, rows: '15', class: "form-control", id: "js-task-detail" %>
+              <%= f.text_area :description, rows: '15', class: "form-control", id: "js-course-detail" %>
             <% end %>
           </div>
 
@@ -43,12 +43,6 @@
             <%= f.input :student_entry_end, label: false, :input_html => { class: 'edit-right-area__entry-end-area' } %>
           </div>
 
-          <div class="form-group">
-            <div>所属大学</div>
-            <%= f.input :university_id, label: false do %>
-              <%= f.select :university_id, @universities.map { |u| [u.name, u.id] }, {}, class: "form-control edit-right-area__university" %>
-            <% end %>
-          </div>
 
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
