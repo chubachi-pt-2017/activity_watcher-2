@@ -20,6 +20,20 @@ class Team < ApplicationRecord
   
   scope :get_teams_list_with_user, ->(task_id) {includes([:tasks, :users]).where(tasks: {id: task_id}).order(id: :desc)}
   
+  class << self
+    def get_new_member_list(course_id, task_id)
+      user_ids = User.includes(teams: :tasks).where(tasks: {id: task_id}).pluck(:id)
+      User.includes(:course_participants)
+                  .where(course_participants: {course_id: course_id})
+                  .where.not(id: user_ids).order(:login_name).pluck(:login_name, :id)
+    end
+    
+    def get_included_member_in_the_team(course_id, team_id)
+      user_ids = TeamParticipant.where(team_id: team_id).pluck(:user_id)
+      User.where(id: user_ids).order(:login_name).pluck(:login_name, :id)
+    end
+  end
+  
   private
   
   def validate_participants_uniquness

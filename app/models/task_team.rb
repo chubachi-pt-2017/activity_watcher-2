@@ -14,6 +14,8 @@ class TaskTeam < ApplicationRecord
   validates :ci_url,
     length: { maximum: 256, allow_blank: true }
   
+  scope :get_tasks_lists_from_team, ->(team_id) {includes(:task).where(team_id: team_id).order(id: :desc)}
+  
   private
   
 end

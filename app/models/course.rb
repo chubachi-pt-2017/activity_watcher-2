@@ -20,6 +20,9 @@ class Course < ApplicationRecord
   
   validate :validate_end_date, if: :check_entry_end_changed?
   
+  scope :get_index, ->(owner_id, university_id) {
+                              where(owner_id: owner_id, university_id: university_id).order(id: :desc) }
+  
   class << self
     def get_list(user_id, university_id)
       course_participants = CourseParticipant.where(user_id: user_id)

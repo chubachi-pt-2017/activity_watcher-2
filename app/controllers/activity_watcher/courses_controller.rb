@@ -2,8 +2,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :set_course, only: [:show, :edit, :update, :destroy, :detail]
 
   def index
-    @courses = Course.where(owner_id: current_user.id, university_id: session[:university_id])
-                      .order(id: :desc).page(params[:page])
+    @courses = Course.get_index(current_user.id, session[:university_id]).page(params[:page])
   end
   
   def list

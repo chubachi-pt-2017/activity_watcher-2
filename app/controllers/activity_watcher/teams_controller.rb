@@ -5,7 +5,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :get_edit_member_list, only: [:edit, :update]
 
   def show
-    @task_teams = TaskTeam.includes(:task).where(team_id: params[:id]).order(id: :desc).page(params[:page])
+    @task_teams = TaskTeam.get_tasks_lists_from_team(params[:id]).page(params[:page])
   end
 
   def new
@@ -64,14 +64,12 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   private
   
   def get_new_member_list
-    user_ids = Task.includes(:course).find_by(id: params[:task_id]).course.course_participants.pluck(:user_id)
-    @participants = User.Student.where(id: user_ids).order(:login_name).pluck(:login_name, :id)
+    @participants = Team.get_new_member_list(params[:course_id], params[:task_id])
   end
   
   def get_edit_member_list
-    task_id = Team.find_by(id: params[:id]).tasks.ids[0]
-    user_ids = Task.includes(:course).find_by(id: task_id).course.course_participants.pluck(:user_id)
-    @participants = User.Student.where(id: user_ids).order(:login_name).pluck(:login_name, :id)
+    @participants = Team.get_included_member_in_the_team(params[:course_id], params[:id]) + 
+                      Team.get_new_member_list(params[:course_id], params[:task_id])
   end
   
   def get_team_with_participants

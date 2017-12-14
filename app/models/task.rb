@@ -29,7 +29,11 @@ class Task < ApplicationRecord
   
   validate :validate_end_date_before_today, if: :check_end_date_changed?
   
+  scope :get_index, ->(course_id) { where(course_id: course_id).order(id: :desc) }
+  
   scope :get_list, ->(course_id) { where("course_id = ? and start_date < ?", course_id, Time.current).order(id: :desc) }
+  
+  scope :get_select_item, ->(course_id) { where(course_id: course_id).order(id: :desc).pluck(:title, :id) }
 
   class << self
     def included_in_the_team(task_id, user_id)

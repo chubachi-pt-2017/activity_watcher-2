@@ -4,7 +4,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   before_action :get_tasks_select, only: [:new, :create]
 
   def index
-    @tasks = Task.where(course_id: params[:course_id]).order(id: :desc).page(params[:page])
+    @tasks = Task.get_index(params[:course_id]).page(params[:page])
   end
   
   def list
@@ -74,7 +74,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   end
   
   def get_tasks_select
-    @task_select = Task.where(course_id: params[:course_id]).order(id: :desc).pluck(:title, :id)
+    @task_select = Task.get_select_item(params[:course_id])
   end
   
   def set_task
