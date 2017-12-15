@@ -8,12 +8,12 @@
         <td><%= @course.title %></td>
       </tr>
       <tr class="table-row">
-        <th class="col-md-2 table-title">履修受付開始日</th>
-        <td><%= l @course.student_entry_start, format: :medium %></td>
+        <th class="col-md-2 table-title">受講開始日</th>
+        <td><%= l @course.start_date, format: :medium %></td>
       </tr>
       <tr class="table-row">
-        <th class="col-md-2 table-title">履修受付終了日</th>
-        <td><%= l @course.student_entry_end, format: :medium %></td>
+        <th class="col-md-2 table-title">受講終了日</th>
+        <td><%= l @course.end_date, format: :medium %></td>
       </tr>
       <tr class="table-row">
         <th class="col-md-2 table-title">コース詳細</th>
@@ -22,11 +22,12 @@
       <tr class="table-row">
         <th class="col-md-2 table-title">アクション</th>
         <td>
+          <% time_current = Time.current %>
           <%= link_to '一覧に戻る', list_courses_url ,class: "btn btn-default" %>
-          <% if @user.blank? && current_user.Student? %>
-            <%= link_to 'コースに参加する', entry_course_url(@course.id), class: "btn btn-primary" %>
-          <% else %>
+          <% if @user.present? || current_user.Teacher? %>
             <%= link_to '課題一覧を見る', list__course_tasks_url(@course.id), class: "btn btn-success" %>
+          <% elsif (time_current >= @course.start_date) && (time_current <= @course.end_date) %>
+            <%= link_to 'コースに参加する', entry_course_url(@course.id), class: "btn btn-primary" %>
           <% end %>
         </td>
       </tr>

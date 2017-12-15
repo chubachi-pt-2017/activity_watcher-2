@@ -77,7 +77,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
   
   def course_params
-    params.require(:course).permit(:title, :student_entry_start, :student_entry_end, :description)
+    params.require(:course).permit(:title, :start_date, :end_date, :description)
   end
   
 end

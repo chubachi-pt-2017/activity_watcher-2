@@ -8,17 +8,17 @@ class Course < ApplicationRecord
     uniqueness: {allow_blank: true},
     length: {maximum: 50, allow_blank: true}
   
-  validates :student_entry_start,
+  validates :start_date,
     presence: true
 
-  validates :student_entry_end,
+  validates :end_date,
     presence: true
   
   validate :validate_start_end_date
   
-  validate :validate_start_date_before_today, if: :check_entry_date_changed?
+  validate :validate_start_date_before_today, if: :check_start_date_changed?
   
-  validate :validate_end_date, if: :check_entry_end_changed?
+  validate :validate_end_date, if: :check_end_date_changed?
   
   scope :get_index, ->(owner_id, university_id) {
                               where(owner_id: owner_id, university_id: university_id).order(id: :desc) }
@@ -47,23 +47,23 @@ class Course < ApplicationRecord
     Time.current.beginning_of_day
   end
   
-  def check_entry_end_changed?
-    student_entry_end_changed?
+  def check_start_date_changed?
+    start_date_changed?
   end
   
-  def check_entry_date_changed?
-    student_entry_start_changed?
+  def check_end_date_changed?
+    end_date_changed?
   end
   
   def validate_start_end_date
-    errors.add(:student_entry_end, "は開始日より前にはできません") if student_entry_start > student_entry_end
+    errors.add(:end_date, "は開始日より前にはできません") if start_date > end_date
   end
   
   def validate_end_date
-    errors.add(:student_entry_end, "は今日以降の日付にしてください") if student_entry_end < time_current
+    errors.add(:end_date, "は今日以降の日付にしてください") if end_date < time_current
   end
   
   def validate_start_date_before_today
-    errors.add(:student_entry_start, "は今日以降の日時を指定してください") if time_current > student_entry_start
+    errors.add(:start_date, "は今日以降の日時を指定してください") if time_current > start_date
   end
 end

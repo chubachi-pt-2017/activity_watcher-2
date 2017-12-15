@@ -15,12 +15,12 @@
           <td><%= link_to course.title.truncate(50), course_path(course) %></td>
         </tr>
         <tr class="table-row">
-          <th class="col-md-2 table-title">履修受付開始日</th>
-          <td><%= l course.student_entry_start, format: :medium %></td>
+          <th class="col-md-2 table-title">受講開始日</th>
+          <td><%= l course.start_date, format: :medium %></td>
         </tr>
         <tr class="table-row">
-          <th class="col-md-2 table-title">履修受付終了日</th>
-          <td><%= l course.student_entry_end, format: :medium %></td>
+          <th class="col-md-2 table-title">受講終了日</th>
+          <td><%= l course.end_date, format: :medium %></td>
         </tr>
         <tr class="table-row">
           <th class="col-md-2 table-title">コース詳細</th>
