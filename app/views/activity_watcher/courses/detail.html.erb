@@ -22,11 +22,10 @@
       <tr class="table-row">
         <th class="col-md-2 table-title">アクション</th>
         <td>
-          <% time_current = Time.current %>
           <%= link_to '一覧に戻る', list_courses_url ,class: "btn btn-default" %>
-          <% if @user.present? || current_user.Teacher? %>
+          <% if @participant.present? || current_user.Teacher? %>
             <%= link_to '課題一覧を見る', list__course_tasks_url(@course.id), class: "btn btn-success" %>
-          <% elsif (time_current >= @course.start_date) && (time_current <= @course.end_date) %>
+          <% elsif (@time_current >= @course.start_date) && (@time_current <= @course.end_date) %>
             <%= link_to 'コースに参加する', entry_course_url(@course.id), class: "btn btn-primary" %>
           <% end %>
         </td>

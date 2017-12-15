@@ -1,4 +1,5 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
+  before_action :get_time_current, only: [:list, :detail]
   before_action :set_course, only: [:show, :edit, :update, :destroy, :detail]
 
   def index
@@ -19,7 +20,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
   
   def detail
-    @user = CourseParticipant.find_by(course_id: params[:id], user_id: current_user.id)
+    @participant = CourseParticipant.find_by(course_id: params[:id], user_id: current_user.id)
   end
 
   def new
@@ -71,6 +72,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   private
+  
+  def get_time_current
+    @time_current = Time.current
+  end
 
   def set_course
     @course = Course.find_by(id: params[:id])
