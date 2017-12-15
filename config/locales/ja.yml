@@ -18,7 +18,7 @@ ja:
         user_full_name: 姓名
         slack_user: slackユーザ名
         authority: 利用者権限
-        teachers_password: パスワード (教職員のみ)
+        teachers_password: パスワード (講師のみ)
         user_universities: 大学情報
       user_university:
         email: メールアドレス
@@ -26,8 +26,8 @@ ja:
         university_id: 所属大学
       course:
         title: コース名
-        student_entry_start: 履修受付開始日
-        student_entry_end: 履修受付終了日
+        start_date: 受講開始日
+        end_date: 受講終了日
         description: コース詳細
         university_id: 所属大学
       task:

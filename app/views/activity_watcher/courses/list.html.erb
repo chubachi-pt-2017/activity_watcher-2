@@ -5,7 +5,6 @@
     <h4>コースを見る</h4>
     
     <%= paginate @courses %>
-    <% time_current = Time.current %>
     <% @courses.each do |course| %>
       <table class="table table-bordered table-word-break table-striped">
         <tr class="table-row">
@@ -13,12 +12,12 @@
           <td><%= link_to course.title.truncate(50), detail_course_url(course.id) %></td>
         </tr>
         <tr class="table-row">
-          <th class="col-md-2 table-title">履修受付開始日</th>
-          <td><%= l course.student_entry_start, format: :medium %></td>
+          <th class="col-md-2 table-title">受講開始日</th>
+          <td><%= l course.start_date, format: :medium %></td>
         </tr>
         <tr class="table-row">
-          <th class="col-md-2 table-title">履修受付終了日</th>
-          <td><%= l course.student_entry_end, format: :medium %></td>
+          <th class="col-md-2 table-title">受講終了日</th>
+          <td><%= l course.end_date, format: :medium %></td>
         </tr>
         <tr class="table-row">
           <th class="col-md-2 table-title">コース詳細</th>
@@ -31,7 +30,7 @@
               <%= link_to list__course_tasks_url(course.id) do %>
                 <button type="button" class="btn btn-success">課題一覧を見る</button>
               <% end %>
-            <% elsif (course.student_entry_start <= time_current) && (course.student_entry_end >= time_current) %>
+            <% elsif (course.start_date <= @time_current) && (course.end_date >= @time_current) %>
               <%= link_to entry_course_path(course.id) do %>
                 <button type="button" class="btn btn-primary">コースに参加する</button>
               <% end %>

@@ -90,16 +90,16 @@ class User < ApplicationRecord
   
   # 子モデル項目の一括登録時ユニーク確認用method
   def validate_user_universities_uniqueness
-    a_university_id = []
-    a_email = []
+    university_ids = []
+    emails = []
     user_universities.each do |user_university|
-      a_university_id.push(user_university.university_id)
-      a_email.push(user_university.email)
+      university_ids.push(user_university.university_id)
+      emails.push(user_university.email)
     end
-    r_university_id = a_university_id.group_by{ |arr| arr }.reject{ |k, v| v.one? }.keys
-    r_email = a_email.group_by{ |arr| arr }.reject{ |k, v| v.one? }.keys.reject(&:blank?)
-    errors.add(:user_universities, "の所属大学が重複しています") if r_university_id.length > 0
-    errors.add(:user_universities, "のメールアドレスが重複しています") if r_email.length > 0
+    result_university = university_ids.group_by{ |arr| arr }.reject{ |k, v| v.one? }.keys
+    result_email = emails.group_by{ |arr| arr }.reject{ |k, v| v.one? }.keys.reject(&:blank?)
+    errors.add(:user_universities, "の所属大学が重複しています") if result_university.length > 0
+    errors.add(:user_universities, "のメールアドレスが重複しています") if result_email.length > 0
   end
   
 end
