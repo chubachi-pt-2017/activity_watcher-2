@@ -21,7 +21,7 @@ class Course < ApplicationRecord
   validate :validate_end_date, if: :check_end_date_changed?
   
   scope :get_index, ->(owner_id, university_id) {
-                              where(owner_id: owner_id, university_id: university_id).order(id: :desc) }
+                              where(owner_id: owner_id, university_id: university_id).order(updated_at: :desc) }
   
   class << self
     def get_list(user_id, university_id)
