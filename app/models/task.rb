@@ -29,7 +29,7 @@ class Task < ApplicationRecord
   
   validate :validate_end_date_before_today, if: :check_end_date_changed?
   
-  scope :get_index, ->(course_id) { where(course_id: course_id).order(id: :desc) }
+  scope :get_index, ->(course_id) { where(course_id: course_id).order(updated_at: :desc) }
   
   scope :get_list, ->(course_id) { where("course_id = ? and start_date < ?", course_id, Time.current).order(id: :desc) }
   
