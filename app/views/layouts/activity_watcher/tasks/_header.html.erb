@@ -1,4 +1,4 @@
 <div class="header-button">
     <%= link_to '課題を追加', new__course_task_path, class: "btn btn-primary" %>
-    <%= link_to 'コース一覧に戻る', courses_path, class: "btn btn-default back-to-course-button" %>
+    <%= link_to '課題一覧に戻る', _course_tasks_path(params[:course_id]), class: "btn btn-default back-to-course-button" %>
 </div>
