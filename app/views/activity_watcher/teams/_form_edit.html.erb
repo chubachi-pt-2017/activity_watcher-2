@@ -1,3 +1,7 @@
+<div class="contents__header">
+  <%= render partial: 'layouts/activity_watcher/teams/header' %>
+</div>
+
 <%= form_for @team, url: _course_task_team_path(params[:course_id], params[:task_id], @team) do |f| %>
   <% if @team.errors.any? %>
     <div id="error_explanation" class="alert alert-danger">
