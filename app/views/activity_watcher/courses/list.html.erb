@@ -30,8 +30,10 @@
               <%= link_to list__course_tasks_url(course.id) do %>
                 <button type="button" class="btn btn-success">課題一覧を見る</button>
               <% end %>
+              <%= link_to "参加を取りやめる", entry_course_path(course.id, participate: "cancel"), data: {confirm: "参加を取りやめます。よろしいですか？"},
+                class: "btn btn-danger" if (course.start_date <= @time_current) && (course.end_date >= @time_current) && current_user.Student? %>
             <% elsif (course.start_date <= @time_current) && (course.end_date >= @time_current) %>
-              <%= link_to entry_course_path(course.id) do %>
+              <%= link_to entry_course_path(course.id), data: {confirm: "このコースに参加します。よろしいですか？"} do %>
                 <button type="button" class="btn btn-primary">コースに参加する</button>
               <% end %>
             <% end %>
