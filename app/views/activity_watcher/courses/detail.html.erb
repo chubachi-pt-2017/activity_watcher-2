@@ -26,7 +26,7 @@
           <% if @participant.present? || current_user.Teacher? %>
             <%= link_to '課題一覧を見る', list__course_tasks_url(@course.id), class: "btn btn-success" %>
             <%= link_to '参加を取りやめる', entry_course_url(@course.id, participate: "cancel"), data: {confirm: "参加を取りやめます。よろしいですか？"},
-                  class: "btn btn-danger" if (@time_current >= @course.start_date) && (@time_current <= @course.end_date) %>
+              class: "btn btn-danger" if (@time_current >= @course.start_date) && (@time_current <= @course.end_date) && current_user.Student? %>
           <% elsif (@time_current >= @course.start_date) && (@time_current <= @course.end_date) %>
             <%= link_to 'コースに参加する', entry_course_url(@course.id), data: {confirm: "このコースに参加します。よろしいですか？"}, class: "btn btn-primary" %>
           <% end %>
