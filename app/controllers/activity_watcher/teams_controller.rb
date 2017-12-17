@@ -5,10 +5,12 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :get_edit_member_list, only: [:edit, :update]
 
   def show
+        @msg = '[チーム][詳細表示]'
     @task_teams = TaskTeam.get_tasks_lists_from_team(params[:id]).page(params[:page])
   end
 
   def new
+    @msg = '[チーム][新規作成]'
     @team = Team.new
     @team.task_teams.build
   end
