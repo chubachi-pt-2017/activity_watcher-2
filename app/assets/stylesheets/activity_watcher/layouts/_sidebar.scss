@@ -1,3 +1,5 @@
+$chr_color : #f0f0f0;
+
 .sidebar {
   position: fixed;
   font-size: 14px;
@@ -8,14 +10,14 @@
   height: 100%;
 
   &__wrap {
-    width: 200px;
+    width: 196px;
     background: #363f44;
     height: 100%;
   }
 
   &__menu-wrap {
-    padding: 50px 15px 15px 15px;
-        color: #ffffff;
+    padding: 15px 15px 15px 15px;
+    color: $chr_color;
   }
 
   &__items {
@@ -31,7 +33,7 @@
   }
 
   a {
-    color: #f0f0f0;
+    color: $chr_color;
     text-decoration: none;
   }
 
