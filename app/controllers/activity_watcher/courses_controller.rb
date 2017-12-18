@@ -63,8 +63,13 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   
   def entry
     respond_to do |format|
-      if Course.create_participant(params[:id], current_user.id)
-        format.html { redirect_to list_courses_url, notice: 'コースへの参加登録が完了しました' }
+      if Course.create_or_destroy_participant(params[:id], current_user.id, params[:participate])
+        if params[:participate] == "cancel"
+          notice = 'コースへの参加を取り消しました'
+        else
+          notice = 'コースへの参加登録が完了しました'
+        end
+        format.html { redirect_to list_courses_url, notice: notice }
       else
         format.html { render action: 'list' }
       end

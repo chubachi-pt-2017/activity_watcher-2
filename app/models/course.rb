@@ -30,11 +30,13 @@ class Course < ApplicationRecord
         university_id: university_id).order(id: :desc)
     end
   
-    def create_participant(course_id, user_id)
+    def create_or_destroy_participant(course_id, user_id, participate = nil)
       cp = CourseParticipant.find_or_initialize_by(course_id: course_id, user_id: user_id)
       if cp.new_record?
         return false if cp.invalid?
         cp.save
+      elsif participate.present? && participate == "cancel"
+        cp.destroy
       end
       true
     end
