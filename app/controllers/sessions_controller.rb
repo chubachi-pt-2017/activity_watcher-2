@@ -4,6 +4,16 @@ class SessionsController < ApplicationController
   
   def callback
     auth = request.env['omniauth.auth']
+    
+    # Slack認証用
+    if auth['provider'] == 'slack'
+      respond_to do |format|
+        data = { url: auth['extra']['raw_info']['url'], token: auth['credentials']['token'] }
+        format.html {render nothing: true, status: 200 }
+        format.json {render json: data}
+      end
+      return
+    end
 
     user = User.find_by(login_provider: auth['provider'], uid: auth['uid']) || User.create_with_omniauth(auth)
     

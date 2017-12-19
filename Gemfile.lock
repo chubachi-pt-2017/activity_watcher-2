@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/kmrshntr/omniauth-slack.git
+  revision: afd9f5c055d4393b70f3218c99baa21adfb458df
+  specs:
+    omniauth-slack (2.3.0)
+      omniauth-oauth2 (~> 1.4)
+
+GIT
   remote: https://github.com/stephskardal/rails_admin_import.git
   revision: 2f0cf6a6e7540c8654db5d102d61b7a74a4367b3
   specs:
@@ -490,6 +497,7 @@ DEPENDENCIES
   octokit
   omniauth
   omniauth-github
+  omniauth-slack!
   overcommit
   pg (~> 0.18)
   pry-byebug

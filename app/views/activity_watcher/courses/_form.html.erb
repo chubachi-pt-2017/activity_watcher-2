@@ -22,6 +22,12 @@
             </div>
             <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-course-title" } %>
           </div>
+          
+          <% if course.new_record? %>
+            <div class="form-group">
+              <%= link_to "Slackにログインする", '/auth/slack', target: ['_blank'], class: "btn btn-sm btn-success", id: "js-slack-omniauth" %>
+            </div>
+          <% end %>
 
           <div class="form-group">
             <div>
