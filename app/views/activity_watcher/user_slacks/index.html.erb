@@ -1,0 +1,47 @@
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    <h3><%= current_user.user_full_name %>さんのSlackワークスペース一覧</h3>
+    
+    <p>ActivityWatcherと連携するSlackワークスペースを追加できます。<br />
+    追加したワークスペースをコース作成時に選択すると、ワークスペースへの招待やChannelの作成を自動化できます。</p>
+
+    <% if @user_slacks.blank? %>
+      <p>ActivityWatcherと連携されたワークスペースはありません</p>
+    <% else %>
+      <%= paginate @user_slacks %>
+      <table class="table table-bordered table-word-break table-striped">
+        <thead>
+          <tr>
+            <th class="col-md-4">ドメイン名</th>
+            <th class="col-md-4">利用しているコース</th>
+            <th class="col-md-4">連携／連携解除</th>
+          </tr>
+        </thead>
+        
+        <% @user_slacks.each do |user_slack| %>
+          <tbody>
+            <tr>
+              <td><%= link_to user_slack.domain, user_slack.url.to_s %></td>
+              <td><%= user_slack.course.present? ? link_to(user_slack.course.title, course_path(user_slack.course.id)) : "" %></td>
+              <td>
+                <% if user_slack.course.blank? %>
+                  <%= link_to "コースを作成する", new_course_path, class: "btn btn-sm btn-primary" %>
+                  <%= link_to "ActivityWatcherとの連携を解除する", slack_path(user_slack.id), 
+                    method: :delete, data: {confirm: "ActivityWatcherとの連携が解除されます。よろしいですか？"}, 
+                    class: "btn btn-sm btn-danger" %>
+                <% else %>
+                  <%= link_to "コースでの利用をやめる", edit_course_path(user_slack.course.id), 
+                    data: {confirm: "コースの編集画面に遷移します。よろしいですか？"}, class: "btn btn-sm btn-default" %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+        </table>
+      <%= paginate @user_slacks %>
+    <% end %>
+    <%= link_to "連携するワークスペースを追加する", "/auth/slack", 
+      data: {confirm: "ワークスペースは作成済みですか？まだの場合は「キャンセル」してSlackでワークスペースを作成してください"}, class: "btn btn-primary" %>
+  </div>
+</div>

@@ -8,9 +8,11 @@ class SessionsController < ApplicationController
     # Slack認証用
     if auth['provider'] == 'slack'
       respond_to do |format|
-        data = { url: auth['extra']['raw_info']['url'], token: auth['credentials']['token'] }
-        format.html {render nothing: true, status: 200 }
-        format.json {render json: data}
+        if UserSlack.create_user_slack(auth, session[:user_id])
+          format.html { redirect_to slack_index_url, notice: 'Slack連携ワークスペースの追加に成功しました' }
+        else
+          format.html { redirect_to slack_index_url, notice: 'Slack連携ワークスペースの追加に失敗しました' }
+        end
       end
       return
     end
@@ -31,7 +33,12 @@ class SessionsController < ApplicationController
       redirect_to activity_watcher_url
     end
   end
-
+  
+  # oauthによる認証先で認証をキャンセルした際に呼び出し
+  def oauth_failure
+    redirect_to slack_index_url
+  end
+  
   def destroy
     reset_session
     redirect_to root_path

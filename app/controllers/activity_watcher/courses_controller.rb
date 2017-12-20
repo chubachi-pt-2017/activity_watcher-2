@@ -1,6 +1,8 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :get_time_current, only: [:list, :detail]
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry]
+  before_action :get_user_slacks_new_select, only: [:new, :create]
+  before_action :get_user_slacks_edit_select, only: [:edit, :update]
 
   def index
     @courses = Course.get_index(current_user.id, session[:university_id]).page(params[:page])
@@ -68,6 +70,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
           notice = 'コースへの参加を取り消しました'
         else
           notice = 'コースへの参加登録が完了しました'
+          if @course.user_slack_id.present?
+            slack = SlackManager.new(@course.user_slack.token)
+            slack.send_invite_email(current_university.email)
+          end
         end
         format.html { redirect_to list_courses_url, notice: notice }
       else
@@ -81,13 +87,21 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   def get_time_current
     @time_current = Time.current
   end
+  
+  def get_user_slacks_new_select
+    @user_slacks = UserSlack.get_user_slacks_select(current_user.id)
+  end
+
+  def get_user_slacks_edit_select
+    @user_slacks = UserSlack.get_user_slacks_select(current_user.id, params[:id])
+  end
 
   def set_course
     @course = Course.find_by(id: params[:id])
   end
   
   def course_params
-    params.require(:course).permit(:title, :start_date, :end_date, :description)
+    params.require(:course).permit(:title, :start_date, :end_date, :description, :user_slack_id)
   end
   
 end

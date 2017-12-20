@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   namespace :activity_watcher, path: 'activity-watcher', as: "" do
     post '/change-university', to: 'base#change_university'
     get '/', to: 'homes#index', as: 'activity_watcher'
+    
+    resources :user_slacks, path: 'slack', as: 'slack', only: [:index, :destroy]
 
     resources :courses do
       collection do

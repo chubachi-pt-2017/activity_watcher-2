@@ -34,6 +34,12 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
       render :new
       return
     end
+    
+    @course = Course.find_by(id: params[:course_id])
+    if @course.user_slack_id.present?
+      slack = SlackManager.new(@course.user_slack.token)
+      slack.create_channel(@team.name)
+    end
 
     respond_to do |format|
       if @team.save

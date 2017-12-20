@@ -2,6 +2,7 @@ class Course < ApplicationRecord
   has_many :tasks, dependent: :destroy, inverse_of: :course
   has_many :users, through: :course_participants
   has_many :course_participants, dependent: :destroy, inverse_of: :course
+  belongs_to :user_slack, inverse_of: :course
 
   validates :title,
     presence: true,

@@ -23,12 +23,6 @@
             <%= f.input :title, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-course-title" } %>
           </div>
           
-          <% if course.new_record? %>
-            <div class="form-group">
-              <%= link_to "Slackにログインする", '/auth/slack', target: ['_blank'], class: "btn btn-sm btn-success", id: "js-slack-omniauth" %>
-            </div>
-          <% end %>
-
           <div class="form-group">
             <div>
               <div class="edit-left-area__course-detail">コース詳細</div>
@@ -49,6 +43,12 @@
             <%= f.input :end_date, label: false, :input_html => { class: 'edit-right-area__entry-end-area' } %>
           </div>
 
+          <div class="form-group">
+            <div>Slackワークスペース</div>
+            <%= f.input :user_slack_id, label: false, hint: "選択可能なワークスペースは右上の「Slackを管理する」から登録できます", :input_html => { class: 'edit-right-area__entry-start-area' } do %>
+              <%= f.select :user_slack_id, @user_slacks, {include_blank: "-- Slack連携を行う場合は選択してください --"}, class: "form-control" %>
+            <% end %>
+          </div>
 
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>

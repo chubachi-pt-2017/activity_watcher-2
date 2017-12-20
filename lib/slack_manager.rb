@@ -19,11 +19,4 @@ class SlackManager
     json['ok'] == true ? true : json['error']
   end
   
-  # tokenの整合性チェック(登録時のvalidateで使用)
-  def check_token
-    client = Slack::Client.new token: @token
-    json = client.auth_test
-    json['ok'] == true ? json['url'] : json['error']
-  end
-
 end
