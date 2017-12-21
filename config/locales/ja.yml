@@ -29,7 +29,7 @@ ja:
         start_date: 受講開始日
         end_date: 受講終了日
         description: コース詳細
-        university_id: 所属切替
+        university_id: 大学切替
       task:
         title: 課題名
         start_date: 開始日
