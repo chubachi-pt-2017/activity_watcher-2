@@ -5,8 +5,19 @@
       <div>
         <ul>
           
-           <p id="notice"><%= notice %></p>
-    <h4><span style="color: red;"><%= current_user.user_full_name %>さん</h4>
+           
+    
+   
+         <li class="sidebar__items">
+            
+            <%= link_to activity_watcher_path do %>
+            
+            <div class="sidebar__item"><i class="fa fa-home" aria-hidden="true"></i><span class="sidebar__action"><%= current_user.user_full_name %>さん</span></div>
+               
+ 
+            <% end %>
+           
+          </li>
     
           <li class="sidebar__items">
             <%= link_to activity_watcher_path do %>
@@ -35,6 +46,7 @@
     </div>
 <!-- /sidebar__menu -->
 <!-- sidebar__form -->
+ 
     <div class="sidebar__form-wrap">
       <%= render 'layouts/common/sidebar_form' %>
     </div>
