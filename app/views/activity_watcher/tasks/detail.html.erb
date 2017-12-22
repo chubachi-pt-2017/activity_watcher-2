@@ -28,7 +28,11 @@
         <td>
           <%= link_to '課題一覧に戻る', list__course_tasks_url(params[:course_id]), class: "btn btn-default" %>
           <% if !@included && current_user.Student? %>
-            <%= link_to 'チームを作成する', new__course_task_team_url(@task.course_id, @task.id), class: "btn btn-primary" %>
+            <% if @task.reference_task_id.blank? %>
+              <%= link_to 'チームを作成する', new__course_task_team_url(@task.course_id, @task.id), class: "btn btn-primary" %>
+            <% else %>
+              <%= link_to 'チームを作成する', new__course_task_team_url(@task.course_id, @task.reference_task_id), class: "btn btn-primary" %>
+            <% end %>
           <% end %>
         </td>
       </tr>

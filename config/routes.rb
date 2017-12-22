@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         end
         member do
           get '/detail', to: 'tasks#detail'
+          get '/reference', to: 'tasks#reference'
         end
         resources :teams, except: [:index] do
           resources :task_teams, only: [:edit, :update]

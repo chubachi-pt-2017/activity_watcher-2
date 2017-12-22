@@ -48,16 +48,11 @@
             <%= f.input :end_date, label: false, class: 'edit-right-area__entry-end-area' %>
           </div>
 
-          <% if task.id.blank? %>
+          <% if !@has_referenced_task %>
             <div class="form-group">
-              <label class="checkbox-inline">
-                <%= f.check_box :check_take_over, {}, true %>
-                チームを引き継ぐ
-              </label>
-            </div>
-            <div class="form-group">
-              <%= f.input :before_task_id, input_wrapper_html: { class: "col-md-6" } do %>
-                <%= f.select :before_task_id, @task_select, {}, class: "form-control" %>
+              <div>どの課題とチーム構成を同じにしますか？</div>
+              <%= f.input :reference_task_id, label: false, input_html: { class: "edit-right-area__entry-start-area" } do %>
+                <%= f.select :reference_task_id, @task_select, {include_blank: "-- 独自のチーム構成にしたい場合はこのままにしてください --"}, class: "form-control" %>
               <% end %>
             </div>
           <% end %>

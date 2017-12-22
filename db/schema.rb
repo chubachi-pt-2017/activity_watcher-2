@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215113601) do
+ActiveRecord::Schema.define(version: 20171222101137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,14 +53,15 @@ ActiveRecord::Schema.define(version: 20171215113601) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "title",        limit: 128, default: "", null: false
-    t.datetime "start_date",                            null: false
-    t.datetime "end_date",                              null: false
+    t.string   "title",             limit: 128, default: "", null: false
+    t.datetime "start_date",                                 null: false
+    t.datetime "end_date",                                   null: false
     t.text     "description"
-    t.string   "slack_domain", limit: 128, default: "", null: false
+    t.string   "slack_domain",      limit: 128, default: "", null: false
     t.integer  "course_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "reference_task_id"
     t.index ["course_id"], name: "index_tasks_on_course_id", using: :btree
     t.index ["slack_domain"], name: "index_tasks_on_slack_domain", unique: true, using: :btree
     t.index ["title"], name: "index_tasks_on_title", unique: true, using: :btree

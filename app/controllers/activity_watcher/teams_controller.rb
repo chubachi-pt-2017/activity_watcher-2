@@ -34,6 +34,10 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
       render :new
       return
     end
+    
+    # 当該課題をチーム構成の参照元にしている課題があれば追加で生成
+    task_ids = Task.get_reference_task_ids(params[:task_id])
+    @team.task_ids = task_ids if task_ids.length > 0
 
     respond_to do |format|
       if @team.save
