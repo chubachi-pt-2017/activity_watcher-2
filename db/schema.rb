@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222101137) do
+ActiveRecord::Schema.define(version: 20171223145557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20171222101137) do
     t.integer  "reference_task_id"
     t.index ["course_id"], name: "index_tasks_on_course_id", using: :btree
     t.index ["slack_domain"], name: "index_tasks_on_slack_domain", unique: true, using: :btree
-    t.index ["title"], name: "index_tasks_on_title", unique: true, using: :btree
+    t.index ["title", "course_id"], name: "index_tasks_on_title_and_course_id", unique: true, using: :btree
   end
 
   create_table "team_participants", force: :cascade do |t|
