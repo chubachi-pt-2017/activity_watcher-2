@@ -1,5 +1,5 @@
 <%= form_tag({ controller: 'base', action: 'change_university', html: { class: 'form-horizontal' } }) do %>
-  <%= label_tag :university_id, "所属大学", class: 'sidebar__form-label' %>
+  <%= label_tag :university_id, "大学切替", class: 'sidebar__form-label' %>
   <%= select_tag :university_id, options_for_select(current_universities, session[:university_id]), class: 'form-control input-sm' %>
   <%= submit_tag "切替", data: (!current_page?(activity_watcher_path) ? { confirm: 'HOME画面に遷移しますが、よろしいですか？' } : nil), class: "btn btn-sm" %>
 <% end %>

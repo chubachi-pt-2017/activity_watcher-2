@@ -98,7 +98,7 @@ class User < ApplicationRecord
     end
     result_university = university_ids.group_by{ |arr| arr }.reject{ |k, v| v.one? }.keys
     result_email = emails.group_by{ |arr| arr }.reject{ |k, v| v.one? }.keys.reject(&:blank?)
-    errors.add(:user_universities, "の所属大学が重複しています") if result_university.length > 0
+    errors.add(:user_universities, "の大学切替が重複しています") if result_university.length > 0
     errors.add(:user_universities, "のメールアドレスが重複しています") if result_email.length > 0
   end
   
