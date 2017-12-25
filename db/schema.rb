@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220115619) do
+ActiveRecord::Schema.define(version: 20171225082849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,15 +94,17 @@ ActiveRecord::Schema.define(version: 20171220115619) do
   end
 
   create_table "user_slacks", force: :cascade do |t|
-    t.string   "domain",     limit: 128, default: "", null: false
-    t.string   "token",      limit: 256, default: "", null: false
-    t.string   "url",        limit: 512
+    t.string   "domain",         limit: 128, default: "", null: false
+    t.string   "token",          limit: 256, default: "", null: false
+    t.string   "url",            limit: 512
     t.integer  "user_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "workspace_name", limit: 64,  default: "", null: false
     t.index ["domain"], name: "index_user_slacks_on_domain", unique: true, using: :btree
     t.index ["token"], name: "index_user_slacks_on_token", unique: true, using: :btree
     t.index ["user_id"], name: "index_user_slacks_on_user_id", using: :btree
+    t.index ["workspace_name"], name: "index_user_slacks_on_workspace_name", unique: true, using: :btree
   end
 
   create_table "user_universities", force: :cascade do |t|

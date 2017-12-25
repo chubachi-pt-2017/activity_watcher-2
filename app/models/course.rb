@@ -23,6 +23,8 @@ class Course < ApplicationRecord
   
   scope :get_index, ->(owner_id, university_id) {
                               where(owner_id: owner_id, university_id: university_id).order(updated_at: :desc) }
+  scope :get_select_non_user_slacks, ->(user_id) {
+                              where(owner_id: user_id, user_slack_id: [nil, 0]).order(id: :desc).pluck(:title, :id)}
   
   class << self
     def get_list(user_id, university_id)

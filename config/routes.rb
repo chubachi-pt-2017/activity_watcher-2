@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     post '/change-university', to: 'base#change_university'
     get '/', to: 'homes#index', as: 'activity_watcher'
     
-    resources :user_slacks, path: 'slack', as: 'slack', only: [:index, :destroy]
+    resources :user_slacks, path: 'slack', as: 'slack', only: [:index, :destroy] do
+      collection do
+        post '/collaborate_course', to: 'user_slacks#collaborate_course'
+      end
+    end
 
     resources :courses do
       collection do
