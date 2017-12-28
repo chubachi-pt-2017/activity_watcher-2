@@ -3,6 +3,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry]
   before_action :get_user_slacks_new_select, only: [:new, :create]
   before_action :get_user_slacks_edit_select, only: [:edit, :update]
+  before_action :get_user_slack, only: [:show, :detail]
 
   def index
     @courses = Course.get_index(current_user.id, session[:university_id]).page(params[:page])
@@ -94,6 +95,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
 
   def get_user_slacks_edit_select
     @user_slacks = UserSlack.get_user_slacks_select(current_user.id, params[:id])
+  end
+  
+  def get_user_slack
+    @user_slack = UserSlack.find_by(id: @course.user_slack_id)
   end
 
   def set_course

@@ -1,11 +1,47 @@
+.slack-user-dialog {
+    width: 90%;
+}
 .tutorial-content {
     width: 60%;
     display: inline-block;
     margin: 0 20px 20px 20px;
+    font-size: 14px;
+    h2 {
+        padding: 0.8em 1.0em;
+        color: #494949;
+        background: #f4f4f4;
+        border-left: solid 5px #7db4e6;
+        border-bottom: solid 3px #d7d7d7;
+        font-size: 18px;
+    }
+    h3 {
+        padding: 0.6em 2.0em;
+        color: #494949;
+        background: #f4f4f4;
+        border-left: solid 5px #7db4e6;
+        border-bottom: solid 3px #d7d7d7;
+        font-size: 16px;
+    }
+    h4 {
+        padding: 0.4em 3.0em;
+        color: #494949;
+        border-left: solid 5px #7db4e6;
+        border-bottom: solid 3px #d7d7d7;
+        font-size: 14px;
+    }
+    p {
+        font-size: 14px;
+    }
+    ul li {
+        list-style: disc inside ;
+    }
+    img {
+        width: 100%;
+    }
 }
 
 .tutorial-table-of-content {
-    margin-top: 20px;
+    margin: 20px 20px 0 0;
     float: right;
     width: 30%;
 }
@@ -16,8 +52,8 @@
     display: table;
     font-size: 95%;
     margin-bottom: 1em;
-    padding: 20px;
-    width: 70%;
+    padding: 15px;
+    width: 100%;
 }
 
 .toc_title {
@@ -26,5 +62,12 @@
 }
 
 #toc_container li, #toc_container ul, #toc_container ul li{
-    list-style: outside none none !important;
+    // list-style: outside none none !important;
+    list-style: none none !important;
+}
+
+.sticky {
+    position: -webkit-sticky;/* for safari */
+    position: sticky;
+    top: 25px;/* 固定時の上位置 */
 }

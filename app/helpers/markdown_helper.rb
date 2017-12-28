@@ -1,7 +1,7 @@
 module MarkdownHelper
   def markdown(text)
     unless @markdown
-      renderer = Redcarpet::Render::HTML.new(filter_html: true, with_toc_data: true, hard_wrap: true)
+      renderer = Redcarpet::Render::HTML.new(filter_html: true, with_toc_data: true, hard_wrap: true, link_attributes: {target: '_blank'})
       options = {
             autolink: true,
             space_after_headers: true,
@@ -19,7 +19,7 @@ module MarkdownHelper
     @markdown.render(text).html_safe
   end
   
-  def table_of_content(text)
+  def create_toc(text)
     @toc = Redcarpet::Markdown.new Redcarpet::Render::HTML_TOC
     @toc.render(text).html_safe
   end
