@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171223145557) do
+ActiveRecord::Schema.define(version: 20171225082849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,11 @@ ActiveRecord::Schema.define(version: 20171223145557) do
     t.text     "description"
     t.integer  "owner_id"
     t.integer  "university_id"
+    t.integer  "user_slack_id"
     t.index ["owner_id"], name: "index_courses_on_owner_id", using: :btree
     t.index ["title"], name: "index_courses_on_title", unique: true, using: :btree
     t.index ["university_id"], name: "index_courses_on_university_id", using: :btree
+    t.index ["user_slack_id"], name: "index_courses_on_user_slack_id", using: :btree
   end
 
   create_table "task_teams", force: :cascade do |t|
@@ -53,17 +55,16 @@ ActiveRecord::Schema.define(version: 20171223145557) do
   end
 
   create_table "tasks", force: :cascade do |t|
+<<<<<<< HEAD
     t.string   "title",             limit: 128, default: "", null: false
     t.datetime "start_date",                                 null: false
     t.datetime "end_date",                                   null: false
     t.text     "description"
-    t.string   "slack_domain",      limit: 128, default: "", null: false
     t.integer  "course_id"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.integer  "reference_task_id"
     t.index ["course_id"], name: "index_tasks_on_course_id", using: :btree
-    t.index ["slack_domain"], name: "index_tasks_on_slack_domain", unique: true, using: :btree
     t.index ["title", "course_id"], name: "index_tasks_on_title_and_course_id", unique: true, using: :btree
   end
 
@@ -92,6 +93,20 @@ ActiveRecord::Schema.define(version: 20171223145557) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "email_domain", limit: 64,  default: "", null: false
+  end
+
+  create_table "user_slacks", force: :cascade do |t|
+    t.string   "domain",         limit: 128, default: "", null: false
+    t.string   "token",          limit: 256, default: "", null: false
+    t.string   "url",            limit: 512
+    t.integer  "user_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "workspace_name", limit: 64,  default: "", null: false
+    t.index ["domain"], name: "index_user_slacks_on_domain", unique: true, using: :btree
+    t.index ["token"], name: "index_user_slacks_on_token", unique: true, using: :btree
+    t.index ["user_id"], name: "index_user_slacks_on_user_id", using: :btree
+    t.index ["workspace_name"], name: "index_user_slacks_on_workspace_name", unique: true, using: :btree
   end
 
   create_table "user_universities", force: :cascade do |t|
@@ -136,6 +151,7 @@ ActiveRecord::Schema.define(version: 20171223145557) do
   add_foreign_key "tasks", "courses"
   add_foreign_key "team_participants", "teams"
   add_foreign_key "team_participants", "users"
+  add_foreign_key "user_slacks", "users"
   add_foreign_key "user_universities", "universities"
   add_foreign_key "user_universities", "users"
 end

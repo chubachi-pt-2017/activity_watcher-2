@@ -39,6 +39,13 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
     task_ids = Task.get_reference_task_ids(params[:task_id])
     @team.task_ids = task_ids if task_ids.length > 0
 
+
+    @course = Course.find_by(id: params[:course_id])
+    if @course.user_slack_id.present?
+      slack = SlackManager.new(@course.user_slack.token)
+      slack.create_channel(@team.name)
+    end
+
     respond_to do |format|
       if @team.save
         format.html { redirect_to detail__course_task_url(params[:course_id], params[:task_id]), notice: 'チームを作成しました' }

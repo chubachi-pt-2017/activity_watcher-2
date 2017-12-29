@@ -18,11 +18,6 @@ class Task < ApplicationRecord
   validates :end_date,
     presence: true
   
-  validates :slack_domain,
-    presence: true,
-    uniqueness: {allow_blank: true},
-    length: {maximum: 128, allow_blank: true}
-    
   validate :validate_start_end_date
   
   validate :validate_start_date_before_today, if: :check_date_changed?

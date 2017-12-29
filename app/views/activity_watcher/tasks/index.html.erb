@@ -26,10 +26,6 @@
           <td><%=  task.description.truncate(50) %></td>
         </tr>
         <tr class="table-row">
-          <th class="col-md-2 table-title">slackドメイン</th>
-          <td><%= task.slack_domain %></td>
-        </tr>        
-        <tr class="table-row">
           <th class="col-md-2 table-title">アクション</th>
           <td>
             <%= link_to edit__course_task_path(task.course_id, task.id) do %>
