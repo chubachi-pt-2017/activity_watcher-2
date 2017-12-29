@@ -1,0 +1,73 @@
+<div class="contents__header">
+  <%= render partial: 'layouts/activity_watcher/user_slacks/header' %>
+</div>
+
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    <h3><%= current_user.user_full_name %>さんのSlackワークスペース一覧</h3>
+    
+    <p>ActivityWatcherと連携するSlackワークスペースを追加できます。<br />
+    追加したワークスペースをコース作成時に選択すると、ワークスペースへの招待やChannelの作成を自動化できます。</p>
+    
+    <p>SlackについてやActivityWatcherとの連携についての説明は
+    <a href="" data-toggle="modal" data-target="#modal-user-slacks">こちら</a>
+    を参照</p>
+    
+    <div class="modal" id="modal-user-slacks" tabindex="-1" role="dialog" data-backdrop="static">
+      <%= render partial: 'modal_user_slack' %>
+    </div><!--.modal -->
+
+    <% if @user_slacks.blank? %>
+      <p>ActivityWatcherと連携されたワークスペースはありません</p>
+    <% else %>
+      <%= paginate @user_slacks %>
+      <table class="table table-bordered table-word-break table-striped">
+        <thead>
+          <tr>
+            <th class="col-md-4">ワークスペース名</th>
+            <th class="col-md-4">利用しているコース</th>
+            <th class="col-md-4">連携／連携解除</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% @user_slacks.each do |user_slack| %>
+            <tr>
+              <td><%= link_to user_slack.workspace_name, user_slack.url.to_s, target: "_blank" %></td>
+              <td>
+                <% if user_slack.course.present? %>
+                  <%= link_to user_slack.course.title, course_path(user_slack.course.id) %>
+                <% else %>
+                  <%= form_tag({ controller: 'user_slacks', action: 'collaborate_course' }) do %>
+                    <div class="form-inline">
+                      <%= select_tag :course_id, options_for_select(@course_select), {include_blank: "紐付けを行うコースを選択してください", 
+                        class: "form-control input-sm"} %>
+                      <%= hidden_field_tag :user_slack_id, user_slack.id %>
+                      <%= submit_tag "紐付ける", class: 'btn btn-sm btn-primary' %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% if user_slack.course.blank? %>
+                  <%= link_to "ActivityWatcherとの連携を解除する", slack_path(user_slack.id), 
+                    method: :delete, data: {confirm: "ActivityWatcherとの連携が解除されます。よろしいですか？"}, 
+                    class: "btn btn-sm btn-danger" %>
+                <% else %>
+                  <%= button_to "コースとの紐付きを解除する", { controller: 'user_slacks', action: 'collaborate_course', course_id: user_slack.course.id}, 
+                    data: {confirm: "#{user_slack.course.title}との紐付きを解除します。よろしいですか？"}, class: "btn btn-sm btn-default" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @user_slacks %>
+    <% end %>
+    <%= link_to "連携するワークスペースを選択する", "/auth/slack", 
+      data: {confirm: "ワークスペースは作成済みですか？まだの場合は「Slackで新規にワークスペースを作成する」のリンクからワークスペースを作成してください"}, class: "btn btn-primary" %><br /><br />
+    <%= link_to "Slackで新規にワークスペースを作成する", "https://slack.com/intl/ja/create", target: '_blank', 
+      data: {confirm: "slackのワークスペース作成画面を別タブで開きます"} %>
+  </div>
+</div>
