@@ -124,8 +124,43 @@
     </div>
   <!-- end of Participants -->
 
+  <!-- Tasks -->
+    <div>
+      <h2><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Tasks</h2>
+    </div>
 
-
+    <div class="panel panel-default">
+      <div class="panel-heading ui-draggable-handle">
+          <h3 class="panel-title">このコースの課題</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>課題名</th>
+              <th>受付開始日時</th>
+              <th>受付終了日時</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Ruby On Railsでブログをつくる</td>
+              <td>2017/12/29</td>
+              <td>2018/1/31</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>データベースを作成する</td>
+              <td>2018/1/5</td>
+              <td>2018/1/20</td>
+            </tr>
+          </tbody>
+        </table>                                
+      </div>
+    </div>
+  <!-- end of Tasks -->
 
     <%= link_to 'コース一覧に戻る', courses_path, class: "btn btn-default" %>
   </div>
