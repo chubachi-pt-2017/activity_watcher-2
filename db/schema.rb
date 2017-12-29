@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20171225082849) do
   end
 
   create_table "tasks", force: :cascade do |t|
-<<<<<<< HEAD
     t.string   "title",             limit: 128, default: "", null: false
     t.datetime "start_date",                                 null: false
     t.datetime "end_date",                                   null: false
