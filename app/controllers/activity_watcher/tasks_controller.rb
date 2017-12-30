@@ -3,7 +3,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   before_action :get_course, only: [:index, :list]
   before_action :get_tasks_new_select, only: [:new, :create]
   before_action :get_tasks_edit_select, only: [:edit, :update]
-  before_action :get_has_reference_task_id, only: [:show, :edit]
+  before_action :get_has_reference_task_title, only: [:show, :edit]
 
   def index
     @tasks = Task.get_index(params[:course_id]).page(params[:page])
@@ -88,8 +88,8 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
     @task_select = Task.get_select_item(params[:course_id], params[:id])
   end
   
-  def get_has_reference_task_id
-    @has_referenced_task = Task.has_referenced_task?(params[:id])
+  def get_has_reference_task_title
+    @referenced_task_titles = Task.get_has_reference_task_title(params[:id])
   end
   
   def set_task

@@ -32,15 +32,13 @@ class Task < ApplicationRecord
                                          .where.not(id: task_id).order(id: :desc).pluck(:title, :id) }
   
   scope :get_reference_task_ids, ->(task_id) { where(reference_task_id: task_id).order(:id).pluck(:id) }
+  
+  scope :get_has_reference_task_title, ->(task_id) { where(reference_task_id: task_id).order(:id).pluck(:title)}
 
   class << self
     def included_in_the_team(task_id, user_id)
       team_ids = TaskTeam.where(task_id: task_id).pluck(:team_id)
       TeamParticipant.where(team_id: team_ids, user_id: user_id).count > 0 ? true : false
-    end
-    
-    def has_referenced_task?(task_id)
-      Task.where(reference_task_id: task_id).count > 0 ? true : false
     end
   end
   

@@ -21,6 +21,17 @@
           <th class="col-md-2 table-title">課題終了日</th>
           <td><%= l task.end_date, format: :medium %></td>
         </tr>
+        <% if task.reference_task_id.present? %>
+          <tr class="table-row">
+            <th class="col-md-2 table-title">チーム構成参照先</th>
+            <td><%=  Task.find_by(id: task.reference_task_id).title %></td>
+          </tr>
+        <% elsif task.own_join.present? %>
+          <tr class="table-row">
+            <th class="col-md-2 table-title">同じチーム構成</th>
+            <td><%= task.own_join.pluck(:title).join('、') %></td>
+          </tr>
+        <% end %>
         <tr class="table-row">
           <th class="col-md-2 table-title">課題詳細</th>
           <td><%=  task.description.truncate(50) %></td>
