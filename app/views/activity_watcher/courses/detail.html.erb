@@ -16,6 +16,10 @@
         <td><%= l @course.end_date, format: :medium %></td>
       </tr>
       <tr class="table-row">
+        <th class="col-md-2 table-title">Slackワークスペース</th>
+        <td><%= link_to @user_slack.workspace_name, @user_slack.url.to_s, target: '_blank' if @user_slack.present? %></td>
+      </tr>
+      <tr class="table-row">
         <th class="col-md-2 table-title">コース詳細</th>
         <td><%= @course.description %></td>
       </tr>

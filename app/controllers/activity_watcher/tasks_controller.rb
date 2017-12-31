@@ -82,7 +82,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   end
 
   def task_params
-    params.require(:task).permit(:title, :start_date, :end_date, :description, :slack_domain,
+    params.require(:task).permit(:title, :start_date, :end_date, :description,
                                  :check_take_over, :before_task_id)
   end
 end
