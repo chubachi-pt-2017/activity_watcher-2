@@ -42,7 +42,7 @@
             <%= f.input :end_date, label: false, class: 'edit-right-area__entry-end-area' %>
           </div>
 
-          <% if @referenced_task_titles.length == 0 %>
+          <% if @task.new_record? || @referenced_task_titles.blank? %>
             <div class="form-group">
               <div>どの課題とチーム構成を同じにしますか？</div>
               <%= f.input :reference_task_id, label: false, hint: "この課題独自またはチーム構成のベースとなる課題の場合は何も選択せず、このままにしてください。", input_html: { class: "edit-right-area__entry-start-area" } do %>
