@@ -22,7 +22,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   
   def detail
     @teams = Team.get_teams_list_with_user(params[:id]).page(params[:page])
-    @included = Task.included_in_the_team(params[:id], current_user.id)
+    @has_tasks = Task.has_tasks_in_the_team(params[:id], current_user.id)
   end
 
   def new
