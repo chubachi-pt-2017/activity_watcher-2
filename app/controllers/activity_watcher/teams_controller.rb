@@ -5,6 +5,10 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :get_edit_member_list, only: [:edit, :update]
 
   def show
+    if @team.blank?
+      redirect_to list__course_tasks_url(params[:course_id])
+      return
+    end
     @task_teams = TaskTeam.get_tasks_lists_from_team(params[:id]).page(params[:page])
   end
 

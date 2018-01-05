@@ -44,20 +44,20 @@ ActivityWatcherでは講師の方が登録したコースとワークスペー�
 
 [Slackの新規ワークスペース作成画面](https://slack.com/intl/ja/create)を開き、メールアドレスを入力して「次へ」を押下します。
 
-![Slackワークスペースの新規作成画面](/assets/activity_watcher/tutorials/user_slacks/step1_0001.png)
+[![Slackワークスペースの新規作成画面](/assets/activity_watcher/tutorials/user_slacks/step1_0001.png)](/assets/activity_watcher/tutorials/user_slacks/step1_0001.png)
 
 
 
 入力したメールアドレスに確認コードが記されたメールが届きますので、確認して画面に入力しましょう。
 
-![Slack確認コード入力画面](/assets/activity_watcher/tutorials/user_slacks/step1_0002.png)
+[![Slack確認コード入力画面](/assets/activity_watcher/tutorials/user_slacks/step1_0002.png)](/assets/activity_watcher/tutorials/user_slacks/step1_0002.png)
 
 
 その後は名前、表示名、パスワードを画面の指示に従って入力して進みます。
 
 Slackの使用目的等尋ねられますが、選択肢の中から1番近いものを選び、先に進みます。
 
-![Slack teaminfo入力画面](/assets/activity_watcher/tutorials/user_slacks/step1_0003.png)
+[![Slack teaminfo入力画面](/assets/activity_watcher/tutorials/user_slacks/step1_0003.png)](/assets/activity_watcher/tutorials/user_slacks/step1_0003.png)
 
 
 グループの名前の入力を求められますが、これがワークスペース名になります。
@@ -65,12 +65,12 @@ Slackの使用目的等尋ねられますが、選択肢の中から1番近い�
 
 あとはワークスペースのURLを入力し、利用規約に同意するとワークスペースが作成されます。
 
-![Slack URL入力画面](/assets/activity_watcher/tutorials/user_slacks/step1_0004.png)
+[![Slack URL入力画面](/assets/activity_watcher/tutorials/user_slacks/step1_0004.png)](/assets/activity_watcher/tutorials/user_slacks/step1_0004.png)
 
 
 最後にワークスペースに招待するメールアドレスの入力ができますが、ActivityWatcherで使用するワークスペースであれば、あなたのコースに参加する受講生は自動で招待できますので、ここでは「後で」を選択します。
 
-![Slack 招待送信画面](/assets/activity_watcher/tutorials/user_slacks/step1_0005.png)
+[![Slack 招待送信画面](/assets/activity_watcher/tutorials/user_slacks/step1_0005.png)](/assets/activity_watcher/tutorials/user_slacks/step1_0005.png)
 
 
 以上でワークスペースの作成は完了です。
@@ -84,16 +84,16 @@ Slackの利用自体始めての方は用意されているチュートリアル
 
 ワークスペースへログインしていない場合は、Slackのログイン画面が表示されますので、URL、メールアドレス、パスワードを入力してログインしてください。
 
-![Slack ログイン画面](/assets/activity_watcher/tutorials/user_slacks/step2_0002.png)
+[![Slack ログイン画面](/assets/activity_watcher/tutorials/user_slacks/step2_0002.png)](/assets/activity_watcher/tutorials/user_slacks/step2_0002.png)
 
 ログイン後あるいはSTEP1でワークスペースへのログインが済んでいる場合、ワークスペースとActivityWatcherの連携を許可する画面が表示されます。
 ActivityWatcherと連携を行いたいワークスペース名が表示されていることを確認の上、「許可する」を押下します。
 
-![Slack 連携許可画面](/assets/activity_watcher/tutorials/user_slacks/step2_0001.png)
+[![Slack 連携許可画面](/assets/activity_watcher/tutorials/user_slacks/step2_0001.png)](/assets/activity_watcher/tutorials/user_slacks/step2_0001.png)
 
 すると、ActivityWatcherと連携したワークスペースの一覧にさきほどのワークスペースが追加されます。
 
-![ワークスペース一覧画面１](/assets/activity_watcher/tutorials/user_slacks/step2_0003.png)
+[![ワークスペース一覧画面１](/assets/activity_watcher/tutorials/user_slacks/step2_0003.png)](/assets/activity_watcher/tutorials/user_slacks/step2_0003.png)
 
 一覧の右端の「ActivityWatcherとの連携を解除する」を押下するとワークスペースとActivityWatcherとの連携をやめ、一覧から削除することができます。
 
@@ -114,7 +114,7 @@ STEP2までで、ActivityWatcherと連携するワークスペースを追加す
 ここで追加したワークスペースと紐付けたいコースを選択し、「紐付ける」ボタンを押下するだけです。
 コース選択からボタン押下後には画面はこのようになります。
 
-![ワークスペース一覧画面２](/assets/activity_watcher/tutorials/user_slacks/step3_0001.png)
+[![ワークスペース一覧画面２](/assets/activity_watcher/tutorials/user_slacks/step3_0001.png)](/assets/activity_watcher/tutorials/user_slacks/step3_0001.png)
 
 ワークスペースとコースとの紐付きを解除したい場合は、一覧右端の「コースとの紐付きを解除する」を押下すると解除ができます。
 
@@ -132,20 +132,20 @@ STEP3で説明したセレクトボックスには「ワークスペースとの
 
 まずワークスペースの一覧画面を表示し、ヘッダー部にある「コースを作成する」を押下してください。
 
-![ワークスペース一覧画面１](/assets/activity_watcher/tutorials/user_slacks/step2_0003.png)
+[![ワークスペース一覧画面１](/assets/activity_watcher/tutorials/user_slacks/step2_0003.png)](/assets/activity_watcher/tutorials/user_slacks/step2_0003.png)
 
 コースの登録画面に遷移しますので、必要事項を入力します。
 このとき、右下の「Slackワークスペース」でさきほどAcitvityWatcherと連携したワークスペースが選択できると思いますので、選択した状態で「登録する」を押下します。
 
-![番外編 コース登録画面](/assets/activity_watcher/tutorials/user_slacks/outside_0001.png)
+[![番外編 コース登録画面](/assets/activity_watcher/tutorials/user_slacks/outside_0001.png)](/assets/activity_watcher/tutorials/user_slacks/outside_0001.png)
 
 すると、選択したワークスペースと作成したコースが紐付いたのが確認できます。
 
-![番外編 コース一覧画面](/assets/activity_watcher/tutorials/user_slacks/outside_0002.png)
+[![番外編 コース一覧画面](/assets/activity_watcher/tutorials/user_slacks/outside_0002.png)](/assets/activity_watcher/tutorials/user_slacks/outside_0002.png)
 
 またヘッダー部の「Slackを管理する」を押下し、ワークスペースの一覧画面を表示すると、作成したコース名が「利用しているコース」に表示されているのが確認できます。
 
-![番外編 ワークスペース一覧画面](/assets/activity_watcher/tutorials/user_slacks/outside_0003.png)
+[![番外編 ワークスペース一覧画面](/assets/activity_watcher/tutorials/user_slacks/outside_0003.png)](/assets/activity_watcher/tutorials/user_slacks/outside_0003.png)
 
 
 以上でコース登録時にワークスペースとの紐付けを行う場合の手順は完了です。

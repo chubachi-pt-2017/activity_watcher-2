@@ -21,7 +21,7 @@
       </tr>
       <tr class="table-row">
         <th class="col-md-2 table-title">コース詳細</th>
-        <td><%= @course.description %></td>
+        <td><%= markdown(@course.description) %></td>
       </tr>
       <tr class="table-row">
         <th class="col-md-2 table-title">アクション</th>

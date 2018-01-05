@@ -1,0 +1,101 @@
+## 課題間におけるチーム構成の共有
+ActivityWatcherでは課題ごとに受講生にチームを組んでもらって、課題に対する成果物(Githubのリポジトリ等)を作成する様式としていますが、実際の運用では必ずしも課題ごとに毎回チームをつくり直したくはない場合があると思います。
+
+ある日の講義で課題１・課題２を用意していて、課題１と課題２で同一のチーム構成で演習を行いたい場合等がこれにあたります。
+
+ActivityWatcherでは、このような利用シーンを想定して
+
+- 課題ごとに受講生がチームを構成する
+- 複数の課題でチーム構成を共有する(同じチーム構成を使いたい)
+
+のどちらにも対応できるようにしています。
+
+## 実際どう使うの？
+こうしたいんだけど、どう設定すればいいの？という利用ケースを以下に例を挙げて説明していますので、参考にしてみてください。
+
+### ＜CASE1＞課題ごとに別のチーム構成にする
+特に他の課題とチーム構成を共有せず、課題ごとに受講生にチームを組んでもらうケースです。
+
+このケースの場合は特別な設定は不要です。
+
+課題１、課題２を作る場合の設定は以下のようになります。
+
+|課題名|SelectBoxの選択値   |
+|------|--------------------|
+|課題１|初期値のまま変更なし|
+|課題２|初期値のまま変更なし|
+
+この設定で課題１、課題２と作成した後の画面は下のようになります。
+
+[![CASE1　課題作成後一覧画面](/assets/activity_watcher/tutorials/sharing_team_structure/case1_0001.png)](/assets/activity_watcher/tutorials/sharing_team_structure/case1_0001.png)
+
+この状態で受講生が課題１で「チームA」を作成した場合、作成後は以下のようになります。
+
+|課題名|紐付くチーム|
+|------|------------|
+|課題１|チームA     |
+|課題２|            |
+
+このように「課題ごと」にチームを作成できるようになります。
+
+### ＜CASE2＞複数の課題でチーム構成を共有するようにする
+複数の課題でチーム構成を共有する前提で課題を登録するケースを見てみましょう。
+
+|課題名|SelectBoxの選択値   |
+|------|--------------------|
+|課題１|初期値のまま変更なし|
+|課題２|**課題１**          |
+
+この設定で課題１、課題２と作成した後の画面は下のようになります。
+課題２の「チーム構成参照先」が**課題１**になっており、課題１と同じチーム構成を参照しているのが確認できます。
+
+[![CASE2　課題作成後一覧画面](/assets/activity_watcher/tutorials/sharing_team_structure/case2_0001.png)](/assets/activity_watcher/tutorials/sharing_team_structure/case2_0001.png)
+
+この状態で受講生が課題１または課題２で「チームA」を作成した場合、作成後は以下のようになります。
+
+|課題名|紐付くチーム|
+|------|------------|
+|課題１|チームA     |
+|課題２|チームA     |
+
+受講生側で作成した「チームA」では課題１、課題２の成果物を管理することができるようになります。
+
+[![CASE2　受講生側チーム詳細画面](/assets/activity_watcher/tutorials/sharing_team_structure/case2_0002.png)](/assets/activity_watcher/tutorials/sharing_team_structure/case2_0002.png)
+
+### ＜CASE3＞同じチーム構成で作成した課題を、あとから独自のチーム構成にする
+同じチーム構成で行う想定で作成した、課題１・課題２があったが、あとから課題２を別のチーム構成にしたくなった、というようなケースですね。
+
+当初はこのような設定で課題を作成し、
+
+|課題名|SelectBoxの選択値   |
+|------|--------------------|
+|課題１|初期値のまま変更なし|
+|課題２|**課題１**          |
+
+受講生側でチームの作成も進んでいて、
+
+|課題名|紐付くチーム    |
+|------|----------------|
+|課題１|チームA、チームB|
+|課題２|チームA、チームB|
+
+このような状態になっているとします。
+この場合、講師側の課題一覧画面はこのようになっていて
+
+[![CASE3　課題一覧画面１](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0001.png)](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0001.png)
+
+受講生側の課題詳細画面はこのようになっています。課題１、課題２とチームA、チームBが紐付いています。
+
+[![CASE3　受講生側課題詳細画面１](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0002.png)](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0002.png)
+
+講師側の課題一覧画面の**課題２**のアクション欄に「チーム構成の参照を解除する」ボタンがあるので、
+これを押下すると、課題２とチームA、チームBとの紐付きが解除されます。
+
+解除後の講師側課題一覧画面は下のようになり、
+
+[![CASE3　課題一覧画面２](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0003.png)](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0003.png)
+
+受講生側の課題詳細画面はこのように、課題２のみチームAおよびチームBとの紐付きが解除され、新たにチーム編成が可能に成ります。
+
+[![CASE3　受講生側課題詳細画面２](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0004.png)](/assets/activity_watcher/tutorials/sharing_team_structure/case3_0004.png)
+

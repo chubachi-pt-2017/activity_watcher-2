@@ -43,8 +43,13 @@ class Task < ApplicationRecord
   end
   
   def create_task_teams
+    # レコード更新でかつチーム構成参照元の課題が変更されていたら現行の紐付きを解除
     if !self.new_record? && self.reference_task_id_changed?
-      # レコード更新でかつチーム構成参照元の課題が変更されていたら現行の紐付きを解除
+      if self.reference_task_id_was == nil
+        # 独自チーム構成の課題からの変更でチームが既に作成済みだったら削除
+        team_ids = TaskTeam.where(task_id: self.id).pluck(:team_id)
+        Team.destroy_all(id: team_ids) if team_ids.length > 0
+      end
       TaskTeam.destroy_all(task_id: self.id)
     end
     
