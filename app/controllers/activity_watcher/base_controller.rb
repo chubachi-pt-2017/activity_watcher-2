@@ -1,7 +1,7 @@
 class ActivityWatcher::BaseController < ApplicationController
   before_action :authenticate
   
-  helper_method :current_user, :logged_in?, :current_universities, :get_source_path
+  helper_method :current_user, :logged_in?, :current_universities, :current_university
   
   LIST_PAGINATE_TEAM_TASKS = 5
   
@@ -22,6 +22,11 @@ class ActivityWatcher::BaseController < ApplicationController
     return unless session[:user_id]
     @current_universities ||= current_user.universities.order('user_universities.id').pluck(:name, :id)
   end
+  
+  def current_university
+    return unless session[:user_id]
+    @current_email ||= current_user.user_universities.find_by(university_id: session[:university_id])
+  end
 
   def logged_in?
     !!session[:user_id]
@@ -32,8 +37,4 @@ class ActivityWatcher::BaseController < ApplicationController
     redirect_to root_path, alert: 'ログインしてください'
   end
   
-  # 遷移元path取得用メソッド
-  def get_source_path
-    @path = Rails.application.routes.recognize_path(request.referrer)
-  end
 end

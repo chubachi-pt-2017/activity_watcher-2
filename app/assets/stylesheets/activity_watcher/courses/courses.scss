@@ -9,3 +9,78 @@
 .edit-right-area {
   @include edit-right-area;
 }
+
+/* show.html.erb */
+.contents__course-summary {
+  width: 1100px;
+
+  i {
+    font-size: 60px;
+    margin: 0 30px 0 30px;
+  }
+
+  &__icon {
+    display: inline-block;
+  }
+
+  &__info {
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &__contents-wrap-participant {
+    @include course-summary-contents-wrap;
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+  }
+
+  &__contents-wrap-task {
+    @include course-summary-contents-wrap;
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+  }
+
+  &__contents-wrap-team {
+    @include course-summary-contents-wrap;
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+  }
+
+}
+
+.contents__start-end-date {
+  width: 235px;
+  display: inline-block;
+}
+
+.contents__action {
+  display: inline-block;
+  float: right;
+}
+
+.contents__box-wrap {
+  position: relative;
+  margin: 2em 0;
+  padding: 0.5em 1em;
+  border: solid 3px #9CC2CB;
+  border-radius: 8px;
+
+  p {
+    margin: 0; 
+    padding: 0;
+    word-wrap: break-word;
+  }
+}
+
+.contents__box-title {
+  position: absolute;
+  display: inline-block;
+  top: -13px;
+  left: 10px;
+  padding: 0 9px;
+  line-height: 1;
+  font-size: 19px;
+  background: #FFF;
+  color: #9CC2CB;
+  font-weight: bold;
+}
+
+/* end of show.html.erb */
