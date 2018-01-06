@@ -3,22 +3,10 @@
 <!-- sidebar menu -->
     <div class="sidebar__menu-wrap">
       <div>
-      
-          
-           
-    
-   
-         <li class="sidebar__items">
-            
-            <%= link_to activity_watcher_path do %>
-            
-            <div class="sidebar__item"><i class="fa fa-github " aria-hidden="true"></i><span class="sidebar__action"><%= current_user.user_full_name %>さん</span></div>
-               
- 
-            <% end %>
-           
-          </li>
-      <ul>
+       <%= link_to activity_watcher_path do %>
+        <div class="sidebar__item"><span class="sidebar__action"><%= current_user.user_full_name %>さん</span></div>
+       <% end %>
+        <ul>
           <li class="sidebar__items">
             <%= link_to activity_watcher_path do %>
               <div class="sidebar__item"><i class="fa fa-home" aria-hidden="true"></i><span class="sidebar__action">ホーム</span></div>
