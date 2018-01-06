@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'github', to: 'github#test'
+  
   get 'auth/:provider/callback', to: 'sessions#callback'
   get 'users/logout', to: 'sessions#destroy'
   get 'users/registration', to: 'sessions#register', as: 'user_register'
