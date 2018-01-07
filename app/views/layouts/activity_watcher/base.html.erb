@@ -11,7 +11,8 @@
       <%= stylesheet_link_tag 'activity_watcher/application_activity_watcher', media: 'all' %>
       <%= javascript_include_tag "activity_watcher/application" %>
       <%= javascript_include_tag params[:controller] %>
-  
+      <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
+      <%= javascript_include_tag "lib/xcharts.js" %>
       <title>Activity Watcher</title>
       <%= csrf_meta_tags %>
   </head>

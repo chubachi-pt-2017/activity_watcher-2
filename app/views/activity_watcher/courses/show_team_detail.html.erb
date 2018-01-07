@@ -1,0 +1,64 @@
+<div class="contents__header">
+  <%= render partial: 'layouts/activity_watcher/courses/header' %>
+</div>
+
+<div class="contents__main">
+  <div class="contents__wrap">
+    <p id="notice"><%= notice %></p>
+    <div>
+      <!--後ほど動的にする -->
+      <h1><%="ほげほげチームの詳細ページ /" %> <small><%= "#{@course.title}コース" %></small></h1>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>学籍番号</th>
+                <th>氏名</th>
+                <th>Github ID</th>
+                <th>Commit</th>
+                <th>Pull Request</th>
+                <th>Code Review Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">a15z7kn</th>
+                <td>新妻健介</td>
+                <td>niitsken</td>
+                <td>100 (▲10%)</td>
+                <td>20 (▼5.21%)</td>
+                <td>30 (▲0.41%)</td>
+              </tr>
+              <tr>
+                <th scope="row">a16ade7</th>
+                <td>鈴木太郎</td>
+                <td>suzukitaro</td>
+                <td>45 (▲13%)</td>
+                <td>2 (▲1.11%)</td>
+                <td>23 (▲5.57%)</td>
+              </tr>
+              <tr>
+                <th scope="row">a16cd76</th>
+                <td>山田花子</td>
+                <td>yamada</td>
+                <td>10 (▲8.2%)</td>
+                <td>2 (▼3.98%)</td>
+                <td>3 (▲0.81%)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h2><i class="fa fa-area-chart" aria-hidden="true"></i>&nbsp;&nbsp;Weekly Team Total Commit Stats</h2>
+    <div class="team-commit-chart">
+      <p class="team-commit-chart__description"><span class="team-commit-chart__blue">This Week</span> / <span class="team-commit-chart__green">Last Week</span></p>
+      <figure style="height: 300px;" id="team-commit-chart"></figure>
+    </div>
+  </div>
+</div>

@@ -25,66 +25,96 @@ $(function(){
     });
   }
 
-  if ($("#myChart").length) {
-    // var data = {
-    //   "xScale": "ordinal",
-    //   "yScale": "linear",
-    //   "main": [
-    //     {
-    //       "className": ".pizza",
-    //       "data": [
-    //         {
-    //           "x": "Pepperoni",
-    //           "y": 4
-    //         },
-    //         {
-    //           "x": "Cheese",
-    //           "y": 8
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // };
-    // var myChart = new xChart('bar', data, '#myChart');
+  if ($("#team-commit-chart").length) {
+    var data = [
+      {
+        "xScale":"ordinal",
+        "yScale":"linear",
+        "type":"line-dotted",
+        "comp":[],
+        "main":[
+          { 
+            "className":".main.l1",
+            "data": [
+              {
+                "y":15,
+                "x":"2012-11-19T00:00:00"
+              },
+              {
+                "y":11,
+                "x":"2012-11-20T00:00:00"
+              },
+              {
+                "y":8,
+                "x":"2012-11-21T00:00:00"
+              },
+              {
+                "y":10,
+                "x":"2012-11-22T00:00:00"
+              },
+              {
+                "y":1,
+                "x":"2012-11-23T00:00:00"
+              },
+              {
+                "y":6,
+                "x":"2012-11-24T00:00:00"
+              },
+              {
+                "y":8,
+                "x":"2012-11-25T00:00:00"
+              }
+            ]
+          },
+          {
+            "className":".main.l2",
+            "data":[
+              {
+                "y":29,
+                "x":"2012-11-19T00:00:00"
+              },
+              {
+                "y":33,
+                "x":"2012-11-20T00:00:00"
+              },
+              {
+                "y":13,
+                "x":"2012-11-21T00:00:00"
+              },
+              {
+                "y":16,
+                "x":"2012-11-22T00:00:00"
+              },
+              {
+                "y":7,
+                "x":"2012-11-23T00:00:00"
+              },
+              {
+                "y":18,
+                "x":"2012-11-24T00:00:00"
+              },
+              {
+                "y":8,
+                "x":"2012-11-25T00:00:00"
+              }
+            ]
+          }],
+      }
+    ];
 
-var data = {
-  "xScale": "ordinal",
-  "yScale": "linear",
-  "type": "bar",
-  "main": [
-    {
-      "className": ".pizza",
-      "data": [
-        {
-          "x": "Pepperoni",
-          "y": 12
+    var order = [0, 1, 0, 2],
+      i = 0,
+      xFormat = d3.time.format('%A'),
+      chart = new xChart('line-dotted', data[order[i]], '#team-commit-chart', {
+        axisPaddingTop: 5,
+        dataFormatX: function (x) {
+          return new Date(x);
         },
-        {
-          "x": "Cheese",
-          "y": 8
-        }
-      ]
-    }
-  ],
-  "comp": [
-    {
-      "className": ".pizza",
-      "type": "line-dotted",
-      "data": [
-        {
-          "x": "Pepperoni",
-          "y": 10
+        tickFormatX: function (x) {
+          return xFormat(x);
         },
-        {
-          "x": "Cheese",
-          "y": 4
-        }
-      ]
-    }
-  ]
-}
-var myChart = new xChart('bar', data, '#myChart');
-
+        timing: 1250
+      });
   }
 });
 

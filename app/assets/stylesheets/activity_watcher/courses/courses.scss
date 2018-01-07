@@ -84,3 +84,22 @@
 }
 
 /* end of show.html.erb */
+
+/* show_team_detail.html.erb */
+.team-commit-chart {
+  margin-left: -30px;
+  width: 800px;
+
+  &__description {
+    margin-left: 40px;
+  }
+  &__blue {
+    color: #3880aa; 
+  }
+  
+  &__green {
+    color: #4da944; 
+  }
+}
+
+/* end of show_team_detail.html.erb */
