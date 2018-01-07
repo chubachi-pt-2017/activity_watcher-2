@@ -1,6 +1,6 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :get_time_current, only: [:list, :detail]
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry, :show_team_detail]
   before_action :get_user_slacks_new_select, only: [:new, :create]
   before_action :get_user_slacks_edit_select, only: [:edit, :update]
   before_action :get_user_slack, only: [:show, :detail]
@@ -82,6 +82,11 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       end
     end
   end
+
+  def show_team_detail
+  
+  end
+
 
   private
   
