@@ -115,6 +115,47 @@ $(function(){
         },
         timing: 1250
       });
+      
+    var pullRequestData = {
+      "xScale": "ordinal",
+      "yScale": "linear",
+      "main": [
+        {
+          "className": ".pizza",
+          "data": [
+            {
+              "x": "12月12日",
+              "y": 4
+            },
+            {
+              "x": "12月13日",
+              "y": 8
+            },
+            {
+              "x": "12月14日",
+              "y": 8
+            },
+            {
+              "x": "12月15日",
+              "y": 0
+            },
+            {
+              "x": "12月16日",
+              "y": 1
+            },
+            {
+              "x": "12月17日",
+              "y": 8
+            },
+            {
+              "x": "12月18日",
+              "y": 7
+            }            
+          ]
+        }
+      ]
+    };
+    var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request');      
   }
 });
 

@@ -87,6 +87,7 @@
 
 /* show_team_detail.html.erb */
 .weekly-commit-summary {
+  margin-bottom: 60px;
   &__chart {
     margin-left: -40px;
     width: 830px;
@@ -102,12 +103,20 @@
   }
     
   &__green {
-    color: #4da944; 
+    color: #4da944;
   }
   
   &__total-commit-table {
     display: inline-block;
     float: right;
+  }
+}
+
+.weekly-pull-request-summary {
+  margin-bottom: 60px;
+  &__chart {
+    width: 650px;
+    height: 250px;
   }
 }
 
