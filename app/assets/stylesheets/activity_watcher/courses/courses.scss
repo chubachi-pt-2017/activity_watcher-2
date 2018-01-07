@@ -86,20 +86,34 @@
 /* end of show.html.erb */
 
 /* show_team_detail.html.erb */
-.team-commit-chart {
-  margin-left: -30px;
-  width: 800px;
+.weekly-commit-summary {
+  &__chart {
+    margin-left: -30px;
+    width: 780px;
+    display: inline-block;
+  }
 
   &__description {
     margin-left: 40px;
   }
+
   &__blue {
     color: #3880aa; 
   }
-  
+    
   &__green {
     color: #4da944; 
   }
+  
+  &__total-commit-table {
+    display: inline-block;
+    float: right;
+    // margin-top: 30px;
+  }
+}
+
+.table {
+  margin-bottom: 0;
 }
 
 /* end of show_team_detail.html.erb */

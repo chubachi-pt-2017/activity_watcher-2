@@ -25,7 +25,7 @@ $(function(){
     });
   }
 
-  if ($("#team-commit-chart").length) {
+  if ($("#js-team-commit-chart").length) {
     var data = [
       {
         "xScale":"ordinal",
@@ -105,7 +105,7 @@ $(function(){
     var order = [0, 1, 0, 2],
       i = 0,
       xFormat = d3.time.format('%A'),
-      chart = new xChart('line-dotted', data[order[i]], '#team-commit-chart', {
+      chart = new xChart('line-dotted', data[order[i]], '#js-team-commit-chart', {
         axisPaddingTop: 5,
         dataFormatX: function (x) {
           return new Date(x);
