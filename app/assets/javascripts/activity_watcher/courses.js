@@ -25,7 +25,31 @@ $(function(){
     });
   }
 
+  // チーム・個人詳細ページ
   if ($("#js-team-commit-chart").length) {
+
+    // default表示は一番左のメンバーを表示しておく
+    $(".js-individual-summary").addClass("disnon");
+    $(".js-individual-summary").eq(0).removeClass("disnon");
+    $(".off-tab").eq(0).removeClass("off-tab").addClass("on-tab");
+    
+    // 個人詳細をみるをクリックしたときの処理
+    // 該当メンバーの情報を表示しつつスクロールする
+    $(".js-scroll-to-individual-summary").on("click", function(){
+      var num = $(".js-scroll-to-individual-summary").index(this);
+      show_target_member_summary(num);
+
+      $("html,body").animate({
+        scrollTop : $("#js-individual-summary-area").offset().top
+      });
+    });
+
+    // individual Summaryのタブ制御、タップされたメンバーのサマリーのみ表示。
+    $(".js-member-name").on("click", function(){
+      var num = $(".js-member-name").index(this);
+      show_target_member_summary(num);
+    });
+
     var data = [
       {
         "xScale":"ordinal",
@@ -164,4 +188,14 @@ function set_alert_before_transition() {
   $(window).on('beforeunload', function(e) {
     return "";
   });
+}
+
+function show_target_member_summary(num) {
+  // 該当メンバーのタブに切り替え
+  $(".js-member-name").removeClass("on-tab").addClass("off-tab");
+  $(".js-member-name").eq(num).removeClass("off-tab").addClass("on-tab");
+
+  // 該当メンバーのサマリーに切り替え
+  $(".js-individual-summary").addClass("disnon");
+  $(".js-individual-summary").eq(num).removeClass("disnon");
 }
