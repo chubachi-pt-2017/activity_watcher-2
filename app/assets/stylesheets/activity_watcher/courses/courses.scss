@@ -188,4 +188,24 @@ input[name="tab-item"] {
   display: none;
 }
 
+.contents-area {
+  padding: 20px 10px 20px 10px;
+  display: flex;
+  justify-content: space-around;
+
+  &__individual-progress-bar {
+    width: 300px;
+  }
+
+  &__commit-history {
+    width: 350px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &__pull-request-history {
+    width: 350px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
 /* end of show_team_detail.html.erb */
