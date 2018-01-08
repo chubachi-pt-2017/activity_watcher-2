@@ -109,14 +109,22 @@
   &__total-commit-table {
     display: inline-block;
     float: right;
+    width: 250px;
   }
 }
 
 .weekly-pull-request-summary {
   margin-bottom: 60px;
   &__chart {
+    display: inline-block;
     width: 650px;
     height: 250px;
+  }
+  
+  &__total-pull-request-table {
+    display: inline-block;
+    float: right;
+    width: 250px;
   }
 }
 

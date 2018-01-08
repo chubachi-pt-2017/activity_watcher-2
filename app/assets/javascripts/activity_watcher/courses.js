@@ -155,7 +155,7 @@ $(function(){
         }
       ]
     };
-    var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request');      
+    var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request', { axisPaddingTop: 5 });
   }
 });
 
