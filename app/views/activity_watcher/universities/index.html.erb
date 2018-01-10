@@ -1,0 +1,36 @@
+<div class="contents__header">
+  <%= render partial: 'layouts/activity_watcher/universities/header' %>
+</div>
+
+<div class="contents__main">
+  <div class="contents__wrap">
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <h2>大学情報管理ページ</h2><br />
+    
+    <table class="table table-hover table-condensed">
+      <thead>
+        <th>ID</th>
+        <th>名称(日本語)</th>
+        <th>名称(英語)</th>
+        <th>メールドメイン</th>
+      </thead>
+      
+      <tbody>
+        <% @universities.each do |university| %>
+          <tr>
+            <td><%= university.id %></td>
+            <td><%= link_to university.name, university_url(university.id) %></td>
+            <td><%= university.name_en %></td>
+            <td><%= university.email_domain %></td>
+            <td><%= link_to "編集", edit_university_url(university.id), class: "btn btn-sm btn-default" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

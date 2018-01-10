@@ -4,9 +4,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :get_user_slacks_new_select, only: [:new, :create]
   before_action :get_user_slacks_edit_select, only: [:edit, :update]
   before_action :get_user_slack, only: [:show, :detail]
+  before_action :get_all_universities, only: [:new, :edit, :create, :update]
 
   def index
-    @courses = Course.get_index(current_user.id, session[:university_id]).page(params[:page])
+    @courses = Course.get_index(current_user.id).page(params[:page])
   end
   
   def list
@@ -36,7 +37,6 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   def create
     @course = Course.new(course_params)
     @course.owner_id = current_user.id
-    @course.university_id = session[:university_id]
 
     respond_to do |format|
       if @course.save
@@ -85,6 +85,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
 
   private
   
+  def get_all_universities
+    @universities = University.order(:id).pluck(:name, :id)
+  end
+  
   def get_time_current
     @time_current = Time.current
   end
@@ -106,7 +110,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
   
   def course_params
-    params.require(:course).permit(:title, :start_date, :end_date, :description, :user_slack_id)
+    params.require(:course).permit(:title, :start_date, :end_date, :description, :user_slack_id, :university_id, :publish_other_universities_flg)
   end
   
 end

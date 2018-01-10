@@ -21,16 +21,16 @@ class Course < ApplicationRecord
   
   validate :validate_end_date, if: :check_end_date_changed?
   
-  scope :get_index, ->(owner_id, university_id) {
-                              includes(:user_slack).where(owner_id: owner_id, university_id: university_id).references(:user_slacks).order(updated_at: :desc) }
+  scope :get_index, ->(owner_id) {
+                              includes(:user_slack).where(owner_id: owner_id).references(:user_slacks).order(updated_at: :desc) }
   scope :get_select_non_user_slacks, ->(user_id) {
                               where(owner_id: user_id, user_slack_id: [nil, 0]).order(id: :desc).pluck(:title, :id)}
   
   class << self
     def get_list(user_id, university_id)
       course_participants = CourseParticipant.where(user_id: user_id)
-      Course.joins("LEFT JOIN (#{course_participants.to_sql}) cp ON courses.id = cp.course_id").select("courses.*, cp.user_id").where(
-        university_id: university_id).order(id: :desc)
+      Course.joins("LEFT JOIN (#{course_participants.to_sql}) cp ON courses.id = cp.course_id").select("courses.*, cp.user_id")
+        .where("courses.university_id = ? or courses.publish_other_universities_flg = true", university_id).order(id: :desc)
     end
   
     def create_or_destroy_participant(course_id, user_id, participate = nil)

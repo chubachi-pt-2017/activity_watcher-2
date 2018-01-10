@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225082849) do
+ActiveRecord::Schema.define(version: 20180110210749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,15 +26,16 @@ ActiveRecord::Schema.define(version: 20171225082849) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.string   "title",         limit: 128, default: "", null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.datetime "start_date",                             null: false
-    t.datetime "end_date",                               null: false
+    t.string   "title",                          limit: 128, default: "",   null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.datetime "start_date",                                                null: false
+    t.datetime "end_date",                                                  null: false
     t.text     "description"
     t.integer  "owner_id"
     t.integer  "university_id"
     t.integer  "user_slack_id"
+    t.boolean  "publish_other_universities_flg",             default: true
     t.index ["owner_id"], name: "index_courses_on_owner_id", using: :btree
     t.index ["title"], name: "index_courses_on_title", unique: true, using: :btree
     t.index ["university_id"], name: "index_courses_on_university_id", using: :btree
@@ -87,7 +88,7 @@ ActiveRecord::Schema.define(version: 20171225082849) do
   create_table "universities", force: :cascade do |t|
     t.string   "name",         limit: 64,  default: "", null: false
     t.string   "name_en",      limit: 128, default: "", null: false
-    t.string   "description",  limit: 256
+    t.text     "description"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "email_domain", limit: 64,  default: "", null: false
