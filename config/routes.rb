@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       member do
         get '/detail', to: 'courses#detail'
         get '/entry', to: 'courses#entry'
-        get '/team/:id', to: 'courses#show_team_detail'        
+        get '/team/:team_id', to: 'courses#show_team_detail'        
       end
       resources :tasks do
         collection do
