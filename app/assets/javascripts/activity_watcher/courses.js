@@ -50,6 +50,38 @@ $(function(){
       show_target_member_summary(num);
     });
 
+    // 最初の課題をefault表示にする
+    $(".js-contents-wrap").addClass("disnon");
+    $(".js-contents-wrap").eq(0).removeClass("disnon");
+
+    $("#js-task-list").change(function(){
+      var val = $(this).val();
+      $(".js-contents-wrap").addClass("disnon");
+      $(".js-contents-wrap").eq(val).removeClass("disnon");
+      instantiate_graph(val);
+    });
+    instantiate_graph(0);
+  }
+});
+
+function set_alert_before_transition() {
+  $(window).off('beforeunload');
+  $(window).on('beforeunload', function(e) {
+    return "";
+  });
+}
+
+function show_target_member_summary(num) {
+  // 該当メンバーのタブに切り替え
+  $(".js-member-name").removeClass("on-tab").addClass("off-tab");
+  $(".js-member-name").eq(num).removeClass("off-tab").addClass("on-tab");
+
+  // 該当メンバーのサマリーに切り替え
+  $(".js-individual-summary").addClass("disnon");
+  $(".js-individual-summary").eq(num).removeClass("disnon");
+}
+
+function instantiate_graph(num) {
     var data = [
       {
         "xScale":"ordinal",
@@ -180,22 +212,4 @@ $(function(){
       ]
     };
     var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request', { axisPaddingTop: 5 });
-  }
-});
-
-function set_alert_before_transition() {
-  $(window).off('beforeunload');
-  $(window).on('beforeunload', function(e) {
-    return "";
-  });
-}
-
-function show_target_member_summary(num) {
-  // 該当メンバーのタブに切り替え
-  $(".js-member-name").removeClass("on-tab").addClass("off-tab");
-  $(".js-member-name").eq(num).removeClass("off-tab").addClass("on-tab");
-
-  // 該当メンバーのサマリーに切り替え
-  $(".js-individual-summary").addClass("disnon");
-  $(".js-individual-summary").eq(num).removeClass("disnon");
 }

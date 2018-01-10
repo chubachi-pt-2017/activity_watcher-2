@@ -207,4 +207,14 @@ input[name="tab-item"] {
   }
 }
 
+.task-list-box-area {
+  margin-bottom: 50px;
+
+  &__list-box {
+    width: 200px;
+    float: right;
+    margin-right: 30px;
+  }
+}
+
 /* end of show_team_detail.html.erb */

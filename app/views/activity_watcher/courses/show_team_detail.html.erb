@@ -3,11 +3,19 @@
 </div>
 
 <div class="contents__main">
-  <div class="contents__wrap">
+  <div class="task-list-box-area">
+    <select class="form-control task-list-box-area__list-box" id="js-task-list" name="number">
+      <option value="0">課題名0</option>
+      <option value="1">課題名1</option>
+      <option value="2">課題名2</option>
+    </select>
+  </div>
+
+  <div class="contents__wrap js-contents-wrap">
     <p id="notice"><%= notice %></p>
     <div>
       <!--後ほど動的にする -->
-      <h1><%="ほげほげチームの詳細ページ /" %> <small><%= "#{@course.title}コース" %></small></h1>
+      <h1><%="ここは課題名0 /" %> <small><%= "#{@course.title}コース" %></small></h1>
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -564,4 +572,1128 @@
 
     </div><!-- end of tabs -->
   </div><!-- end of contents__wrap -->
+
+  <div class="contents__wrap js-contents-wrap">
+    <p id="notice"><%= notice %></p>
+    <div>
+      <!--後ほど動的にする -->
+      <h1><%="ここは課題名1 /" %> <small><%= "#{@course.title}コース" %></small></h1>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>学籍番号</th>
+                <th>氏名</th>
+                <th>Github ID</th>
+                <th>Commit</th>
+                <th>Pull Request</th>
+                <th>Code Review Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>a15z7kn</td>
+                <td>新妻健介</td>
+                <td>niitsken</td>
+                <td>100 (▲10%)</td>
+                <td>20 (▼5.21%)</td>
+                <td>30 (▲0.41%)</td>
+                <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>
+              </tr>
+              <tr>
+                <td>a16ade7</td>
+                <td>鈴木太郎</td>
+                <td>suzukitaro</td>
+                <td>45 (▲13%)</td>
+                <td>2 (▲1.11%)</td>
+                <td>23 (▲5.57%)</td>
+                <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>                
+              </tr>
+              <tr>
+                <td>a16cd76</td>
+                <td>山田花子</td>
+                <td>yamada</td>
+                <td>10 (▲8.2%)</td>
+                <td>2 (▼3.98%)</td>
+                <td>3 (▲0.81%)</td>
+                <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <h2><i class="fa fa-area-chart" aria-hidden="true"></i>  Weekly Team Total Commit</h2>
+    <div class="weekly-commit-summary">
+      <div class="weekly-commit-summary__chart">
+        <p class="weekly-commit-summary__description"><span class="weekly-commit-summary__blue">This Week</span> / <span class="weekly-commit-summary__green">Last Week</span></p>
+        <figure style="height: 300px;" id="js-team-commit-chart"></figure>
+      </div>
+  
+      <div class="panel panel-default weekly-commit-summary__total-commit-table">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12月1日〜12月7日</td>
+                <td>29</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>1200</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>              
+            </tbody>
+          </table>                                
+        </div>
+      </div><!-- end of weekly-commit-summary__total-commit-table -->
+
+      <div class="clearfix"></div>
+
+      <h3>Latest Commit History</h3>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_content">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Commit ID</th>
+                  <th>Message</th>
+                  <th>Committer</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+    </div><!-- end of weekly-commit-summary -->
+
+    <div class="clearfix"></div>
+    
+    <h2><i class="fa fa-bar-chart" aria-hidden="true"></i>  Weekly Team Total Pull Request</h2>
+
+    <div class="weekly-pull-request-summary">
+      <div class="weekly-pull-request-summary__chart">
+        <figure style="height: 300px;" id="js-pull-request"></figure>
+      </div>
+
+      <div class="panel panel-default weekly-pull-request-summary__total-pull-request-table">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12月1日〜12月7日</td>
+                <td>29</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>1200</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>              
+            </tbody>
+          </table>                                
+        </div>
+      </div><!-- end of weekly-commit-summary__total-pull-request-table -->
+
+    </div><!-- end of weekly-pull-request-summary -->
+
+    <h3>Latest Pull Request History</h3>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Title</th>
+                <th>Review Comments</th>
+                <th>Created By</th>
+                <th>Creation Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Open</td>
+                <td>courseコントローラーを修正</td>
+                <td>0</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Open</td>
+                <td>courseコントローラーを修正</td>
+                <td>3</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Closed</td>
+                <td>courseコントローラーを修正</td>
+                <td>10</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Open</td>
+                <td>courseコントローラーを修正</td>
+                <td>30</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Closed</td>
+                <td>courseコントローラーを修正</td>
+                <td>0</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- end of Latest Pull Request History-->
+    
+    <div class="clearfix"></div>
+    <h2><i class="fa fa-user" aria-hidden="true"></i>  Individual Summary</h2>
+
+    <div class="tabs" id="js-individual-summary-area">
+      <input id="234567" type="radio" name="tab-item">
+      <label class="tab-item off-tab js-member-name" for="234567">新妻健介</label>
+
+      <input id="123456" type="radio" name="tab-item">
+      <label class="tab-item off-tab js-member-name" for="123456">鈴木太郎</label>
+
+      <input id="345678" type="radio" name="tab-item">
+      <label class="tab-item off-tab js-member-name" for="345678">山田花子</label>
+
+      <div class="js-individual-summary">
+        <div class="contents-area">
+          <div class="contents-area__progress">
+            <p>・Contribution % of Total Commits</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Pull Requests</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Code Review Comments</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
+              </div>
+            </div>
+          </div><!-- end of content-area__progress -->
+
+          <div class="contents-area__commit-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Commit History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__commit-history -->
+
+          <div class="contents-area__pull-request-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Pull Request History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__pull-request-history -->
+        </div><!-- end of content-area -->
+      </div><!-- end of js-individual-summary-->
+
+      <div class="js-individual-summary">
+        <div class="contents-area">
+          <div class="contents-area__progress">
+            <p>・Contribution % of Total Commits</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Pull Requests</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Code Review Comments</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
+              </div>
+            </div>
+          </div><!-- end of content-area__progress -->
+
+          <div class="contents-area__commit-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Commit History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__commit-history -->
+
+          <div class="contents-area__pull-request-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Pull Request History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__pull-request-history -->
+        </div>
+      </div><!-- end of js-individual-summary-->
+      
+      <div class="js-individual-summary">
+        <div class="contents-area">
+          <div class="contents-area__progress">
+            <p>・Contribution % of Total Commits</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Pull Requests</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Code Review Comments</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
+              </div>
+            </div>
+          </div><!-- end of content-area__progress -->
+
+          <div class="contents-area__commit-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Commit History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__commit-history -->
+
+          <div class="contents-area__pull-request-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Pull Request History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__pull-request-history -->
+        </div>
+      </div><!-- end of js-individual-summary-->
+
+    </div><!-- end of tabs -->
+  </div><!-- end of contents__wrap -->
+
+  <div class="contents__wrap js-contents-wrap">
+    <p id="notice"><%= notice %></p>
+    <div>
+      <!--後ほど動的にする -->
+      <h1><%="ここは課題名2 /" %> <small><%= "#{@course.title}コース" %></small></h1>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>学籍番号</th>
+                <th>氏名</th>
+                <th>Github ID</th>
+                <th>Commit</th>
+                <th>Pull Request</th>
+                <th>Code Review Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>a15z7kn</td>
+                <td>新妻健介</td>
+                <td>niitsken</td>
+                <td>100 (▲10%)</td>
+                <td>20 (▼5.21%)</td>
+                <td>30 (▲0.41%)</td>
+                <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>
+              </tr>
+              <tr>
+                <td>a16ade7</td>
+                <td>鈴木太郎</td>
+                <td>suzukitaro</td>
+                <td>45 (▲13%)</td>
+                <td>2 (▲1.11%)</td>
+                <td>23 (▲5.57%)</td>
+                <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>                
+              </tr>
+              <tr>
+                <td>a16cd76</td>
+                <td>山田花子</td>
+                <td>yamada</td>
+                <td>10 (▲8.2%)</td>
+                <td>2 (▼3.98%)</td>
+                <td>3 (▲0.81%)</td>
+                <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <h2><i class="fa fa-area-chart" aria-hidden="true"></i>  Weekly Team Total Commit</h2>
+    <div class="weekly-commit-summary">
+      <div class="weekly-commit-summary__chart">
+        <p class="weekly-commit-summary__description"><span class="weekly-commit-summary__blue">This Week</span> / <span class="weekly-commit-summary__green">Last Week</span></p>
+        <figure style="height: 300px;" id="js-team-commit-chart"></figure>
+      </div>
+  
+      <div class="panel panel-default weekly-commit-summary__total-commit-table">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12月1日〜12月7日</td>
+                <td>29</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>1200</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>              
+            </tbody>
+          </table>                                
+        </div>
+      </div><!-- end of weekly-commit-summary__total-commit-table -->
+
+      <div class="clearfix"></div>
+
+      <h3>Latest Commit History</h3>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_content">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Commit ID</th>
+                  <th>Message</th>
+                  <th>Committer</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>
+                <tr>
+                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
+                  <td>courseコントローラーを修正</td>
+                  <td>新妻健介</td>
+                  <td>2017/12/10</td>                  
+                </tr>                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+    </div><!-- end of weekly-commit-summary -->
+
+    <div class="clearfix"></div>
+    
+    <h2><i class="fa fa-bar-chart" aria-hidden="true"></i>  Weekly Team Total Pull Request</h2>
+
+    <div class="weekly-pull-request-summary">
+      <div class="weekly-pull-request-summary__chart">
+        <figure style="height: 300px;" id="js-pull-request"></figure>
+      </div>
+
+      <div class="panel panel-default weekly-pull-request-summary__total-pull-request-table">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12月1日〜12月7日</td>
+                <td>29</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>1200</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>12月8日〜12月14日</td>
+                <td>120</td>
+              </tr>              
+            </tbody>
+          </table>                                
+        </div>
+      </div><!-- end of weekly-commit-summary__total-pull-request-table -->
+
+    </div><!-- end of weekly-pull-request-summary -->
+
+    <h3>Latest Pull Request History</h3>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Title</th>
+                <th>Review Comments</th>
+                <th>Created By</th>
+                <th>Creation Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Open</td>
+                <td>courseコントローラーを修正</td>
+                <td>0</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Open</td>
+                <td>courseコントローラーを修正</td>
+                <td>3</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Closed</td>
+                <td>courseコントローラーを修正</td>
+                <td>10</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Open</td>
+                <td>courseコントローラーを修正</td>
+                <td>30</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+              <tr>
+                <td>Closed</td>
+                <td>courseコントローラーを修正</td>
+                <td>0</td>
+                <td>新妻健介</td>
+                <td>2017/12/10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- end of Latest Pull Request History-->
+    
+    <div class="clearfix"></div>
+    <h2><i class="fa fa-user" aria-hidden="true"></i>  Individual Summary</h2>
+
+    <div class="tabs" id="js-individual-summary-area">
+      <input id="234567" type="radio" name="tab-item">
+      <label class="tab-item off-tab js-member-name" for="234567">新妻健介</label>
+
+      <input id="123456" type="radio" name="tab-item">
+      <label class="tab-item off-tab js-member-name" for="123456">鈴木太郎</label>
+
+      <input id="345678" type="radio" name="tab-item">
+      <label class="tab-item off-tab js-member-name" for="345678">山田花子</label>
+
+      <div class="js-individual-summary">
+        <div class="contents-area">
+          <div class="contents-area__progress">
+            <p>・Contribution % of Total Commits</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Pull Requests</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Code Review Comments</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
+              </div>
+            </div>
+          </div><!-- end of content-area__progress -->
+
+          <div class="contents-area__commit-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Commit History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__commit-history -->
+
+          <div class="contents-area__pull-request-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Pull Request History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__pull-request-history -->
+        </div><!-- end of content-area -->
+      </div><!-- end of js-individual-summary-->
+
+      <div class="js-individual-summary">
+        <div class="contents-area">
+          <div class="contents-area__progress">
+            <p>・Contribution % of Total Commits</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Pull Requests</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Code Review Comments</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
+              </div>
+            </div>
+          </div><!-- end of content-area__progress -->
+
+          <div class="contents-area__commit-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Commit History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__commit-history -->
+
+          <div class="contents-area__pull-request-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Pull Request History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__pull-request-history -->
+        </div>
+      </div><!-- end of js-individual-summary-->
+      
+      <div class="js-individual-summary">
+        <div class="contents-area">
+          <div class="contents-area__progress">
+            <p>・Contribution % of Total Commits</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Pull Requests</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
+              </div>
+            </div>
+  
+            <p>・Contribution % of Total Code Review Comments</p>
+            <div class="contents-area__individual-progress-bar">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
+              </div>
+            </div>
+          </div><!-- end of content-area__progress -->
+
+          <div class="contents-area__commit-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Commit History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__commit-history -->
+
+          <div class="contents-area__pull-request-history">
+            <div class="x_panel">
+              <div class="x_content">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Latest Pull Request History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
+                    </tr>
+                    <tr>
+                      <td>total pull requestのデザイン一旦完成</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>
+                    <tr>
+                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
+                    </tr>                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end of content-area__pull-request-history -->
+        </div>
+      </div><!-- end of js-individual-summary-->
+
+    </div><!-- end of tabs -->
+  </div><!-- end of contents__wrap -->  
 </div>
