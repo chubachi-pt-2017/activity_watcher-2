@@ -3,9 +3,9 @@
 <!-- sidebar menu -->
     <div class="sidebar__menu-wrap">
       <div>
-       <%= link_to activity_watcher_path do %>
-        <div class="sidebar__item"><span class="sidebar__action"><%= current_user.user_full_name %>さん</span></div>
-       <% end %>
+        <%= link_to activity_watcher_path do %>
+         <div class="sidebar__item"><i aria-hidden="true"></i><span class="sidebar__action"><%= current_user.user_full_name %>さん</span></div>
+        <% end %>
         <ul>
           <li class="sidebar__items">
             <%= link_to activity_watcher_path do %>
