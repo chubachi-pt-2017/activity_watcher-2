@@ -5,7 +5,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :get_edit_member_list, only: [:edit, :update]
 
   def show
-    @task_teams = TaskTeam.get_tasks_lists_from_team(params[:id]).page(params[:page])
+    @task_teams = TaskTeam.get_tasks_lists_for_team(params[:id]).page(params[:page])
   end
 
   def new
