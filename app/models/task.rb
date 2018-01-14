@@ -31,7 +31,7 @@ class Task < ApplicationRecord
   scope :get_select_item, ->(course_id) { where(course_id: course_id).order(id: :desc).pluck(:title, :id) }
 
   class << self
-    def included_in_the_team(task_id, user_id)
+    def has_tasks_in_the_team(task_id, user_id)
       team_ids = TaskTeam.where(task_id: task_id).pluck(:team_id)
       count = TeamParticipant.where(team_id: team_ids, user_id: user_id).count
       count > 0 ? true : false
