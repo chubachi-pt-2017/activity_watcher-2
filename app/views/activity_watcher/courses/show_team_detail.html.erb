@@ -71,8 +71,14 @@
     <h2><i class="fa fa-area-chart" aria-hidden="true"></i>  Weekly Team Total Commit</h2>
     <div class="weekly-commit-summary">
       <div class="weekly-commit-summary__chart">
-        <figure style="height: 300px;" id="js-team-commit-chart"></figure>
+        <!-- 折れ線グラフ -->
+        <figure style="height: 300px;" id="js-team-commit-chart-0"></figure>
       </div>
+
+      <!-- Weekly Team Total Commitの折れ線グラフデータ -->
+      <div style="display:none" id="js-this-week-commit-date-0" data-this-week-commit-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
+      <div style="display:none" id="js-this-week-commit-number-0" data-this-week-commit-numbers='{"Sunday":10,"Monday":3,"Tuesday":6,"Wednesday":20,"Thursday":13,"Friday":10,"Saturday":8}'></div>
+      <!-- Weekly Team Total Commitの折れ線グラフデータ -->
   
       <div class="panel panel-default weekly-commit-summary__total-commit-table">
         <div class="panel-body">
@@ -185,11 +191,6 @@
         </div>
       </div>
 
-      <!-- Weekly Team Total Commitのグラフデータ -->
-      <div style="display:none" id="js-this-week-commit-date" data-this-week-commit-dates='{"Sunday":"2017-12-10","Monday":"2017-12-11","Tuesday":"2017-12-12","Wednesday":"2017-12-13","Thursday":"2017-12-14","Friday":"2017-12-15","Saturday":"2017-12-16"}'></div>
-      <div style="display:none" id="js-this-week-commit-number" data-this-week-commit-numbers='{"Sunday":10,"Monday":3,"Tuesday":6,"Wednesday":20,"Thursday":13,"Friday":10,"Saturday":8}'></div>
-      <!-- Weekly Team Total Commitのグラフデータ -->
-
       <h3>Latest Commit History</h3>
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -248,8 +249,14 @@
 
     <div class="weekly-pull-request-summary">
       <div class="weekly-pull-request-summary__chart">
-        <figure style="height: 300px;" id="js-pull-request"></figure>
+        <!-- 棒グラフデータ -->
+        <figure style="height: 300px;" id="js-pull-request-0"></figure>
       </div>
+
+      <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
+      <div style="display:none" id="js-this-week-pull-request-date-0" data-this-week-pull-request-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
+      <div style="display:none" id="js-this-week-pull-request-number-0" data-this-week-pull-request-numbers='{"Sunday":10,"Monday":3,"Tuesday":6,"Wednesday":20,"Thursday":13,"Friday":10,"Saturday":8}'></div>
+      <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
 
       <div class="panel panel-default weekly-pull-request-summary__total-pull-request-table">
         <div class="panel-body">
@@ -698,8 +705,14 @@
     <h2><i class="fa fa-area-chart" aria-hidden="true"></i>  Weekly Team Total Commit</h2>
     <div class="weekly-commit-summary">
       <div class="weekly-commit-summary__chart">
-        <figure style="height: 300px;" id="js-team-commit-chart"></figure>
+        <!-- 折れ線グラフ -->
+        <figure style="height: 300px;" id="js-team-commit-chart-1"></figure>
       </div>
+
+      <!-- Weekly Team Total Commitの折れ線グラフデータ -->
+      <div style="display:none" id="js-this-week-commit-date-1" data-this-week-commit-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
+      <div style="display:none" id="js-this-week-commit-number-1" data-this-week-commit-numbers='{"Sunday":3,"Monday":3,"Tuesday":19,"Wednesday":21,"Thursday":17,"Friday":15,"Saturday":8}'></div>
+      <!-- Weekly Team Total Commitの折れ線グラフデータ -->
   
       <div class="panel panel-default weekly-commit-summary__total-commit-table">
         <div class="panel-body">
@@ -765,46 +778,46 @@
               </thead>
               <tbody>
                 <tr>
-                  <td id="js-this-week-date-12-10">12月10日</td>
-                  <td id="js-this-week-commit-10">10</td>
-                  <td id="js-last-week-date-12-3">12月3日</td>
-                  <td id="js-last-week-commit-16">16</td>                  
+                  <td>12月10日</td>
+                  <td>10</td>
+                  <td>12月3日</td>
+                  <td>16</td>                  
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-11">12月11日</td>
-                  <td id="js-this-week-commit-13">13</td>
-                  <td id="js-last-week-date-12-4">12月4日</td>
-                  <td id="js-last-week-commit-17">17</td>                  
+                  <td>12月11日</td>
+                  <td>13</td>
+                  <td>12月4日</td>
+                  <td>17</td>                  
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-12">12月12日</td>
-                  <td id="js-this-week-commit-16">16</td>
-                  <td id="js-last-week-date-12-5">12月5日</td>
-                  <td id="js-last-week-commit-11">11</td>
+                  <td>12月12日</td>
+                  <td>16</td>
+                  <td>12月5日</td>
+                  <td>11</td>
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-13">12月13日</td>
-                  <td id="js-this-week-commit-5">5</td>
-                  <td id="js-last-week-date-12-6">12月6日</td>
-                  <td id="js-last-week-commit-20">20</td>   
+                  <td>12月13日</td>
+                  <td>5</td>
+                  <td>12月6日</td>
+                  <td>20</td>   
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-14">12月14日</td>
-                  <td id="js-this-week-commit-9">9</td>
-                  <td id="js-last-week-date-12-7">12月7日</td>
-                  <td id="js-last-week-commit-9">9</td>
+                  <td>12月14日</td>
+                  <td>9</td>
+                  <td>12月7日</td>
+                  <td>9</td>
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-15">12月15日</td>
-                  <td id="js-this-week-commit-3">3</td>
-                  <td id="js-last-week-date-12-8">12月8日</td>
-                  <td id="js-last-week-commit-13">13</td>
+                  <td>12月15日</td>
+                  <td>3</td>
+                  <td>12月8日</td>
+                  <td>13</td>
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-16">12月16日</td>
-                  <td id="js-this-week-commit-18">18</td>
-                  <td id="js-last-week-date-12-9">12月9日</td>
-                  <td id="js-last-week-commit-11">11</td>
+                  <td>12月16日</td>
+                  <td>18</td>
+                  <td>12月9日</td>
+                  <td>11</td>
                 </tr>
               </tbody>
             </table>
@@ -870,8 +883,13 @@
 
     <div class="weekly-pull-request-summary">
       <div class="weekly-pull-request-summary__chart">
-        <figure style="height: 300px;" id="js-pull-request"></figure>
+        <figure style="height: 300px;" id="js-pull-request-1"></figure>
       </div>
+
+      <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
+      <div style="display:none" id="js-this-week-pull-request-date-1" data-this-week-pull-request-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
+      <div style="display:none" id="js-this-week-pull-request-number-1" data-this-week-pull-request-numbers='{"Sunday":1,"Monday":7,"Tuesday":6,"Wednesday":2,"Thursday":10,"Friday":4,"Saturday":8}'></div>
+      <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
 
       <div class="panel panel-default weekly-pull-request-summary__total-pull-request-table">
         <div class="panel-body">
@@ -1320,9 +1338,15 @@
     <h2><i class="fa fa-area-chart" aria-hidden="true"></i>  Weekly Team Total Commit</h2>
     <div class="weekly-commit-summary">
       <div class="weekly-commit-summary__chart">
-        <figure style="height: 300px;" id="js-team-commit-chart"></figure>
+        <!-- 折れ線グラフ -->
+        <figure style="height: 300px;" id="js-team-commit-chart-2"></figure>
       </div>
-  
+
+      <!-- Weekly Team Total Commitの折れ線グラフデータ -->
+      <div style="display:none" id="js-this-week-commit-date-2" data-this-week-commit-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
+      <div style="display:none" id="js-this-week-commit-number-2" data-this-week-commit-numbers='{"Sunday":13,"Monday":8,"Tuesday":5,"Wednesday":17,"Thursday":12,"Friday":10,"Saturday":8}'></div>
+      <!-- Weekly Team Total Commitの折れ線グラフデータ -->
+
       <div class="panel panel-default weekly-commit-summary__total-commit-table">
         <div class="panel-body">
           <table class="table table-hover">
@@ -1387,46 +1411,46 @@
               </thead>
               <tbody>
                 <tr>
-                  <td id="js-this-week-date-12-10">12月10日</td>
-                  <td id="js-this-week-commit-10">10</td>
-                  <td id="js-last-week-date-12-3">12月3日</td>
-                  <td id="js-last-week-commit-16">16</td>                  
+                  <td>12月10日</td>
+                  <td>10</td>
+                  <td>12月3日</td>
+                  <td>16</td>                  
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-11">12月11日</td>
-                  <td id="js-this-week-commit-13">13</td>
-                  <td id="js-last-week-date-12-4">12月4日</td>
-                  <td id="js-last-week-commit-17">17</td>                  
+                  <td>12月11日</td>
+                  <td>13</td>
+                  <td>12月4日</td>
+                  <td>17</td>                  
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-12">12月12日</td>
-                  <td id="js-this-week-commit-16">16</td>
-                  <td id="js-last-week-date-12-5">12月5日</td>
-                  <td id="js-last-week-commit-11">11</td>
+                  <td>12月12日</td>
+                  <td>16</td>
+                  <td>12月5日</td>
+                  <td>11</td>
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-13">12月13日</td>
-                  <td id="js-this-week-commit-5">5</td>
-                  <td id="js-last-week-date-12-6">12月6日</td>
-                  <td id="js-last-week-commit-20">20</td>   
+                  <td>12月13日</td>
+                  <td>5</td>
+                  <td>12月6日</td>
+                  <td>20</td>   
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-14">12月14日</td>
-                  <td id="js-this-week-commit-9">9</td>
-                  <td id="js-last-week-date-12-7">12月7日</td>
-                  <td id="js-last-week-commit-9">9</td>
+                  <td>12月14日</td>
+                  <td>9</td>
+                  <td>12月7日</td>
+                  <td>9</td>
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-15">12月15日</td>
-                  <td id="js-this-week-commit-3">3</td>
-                  <td id="js-last-week-date-12-8">12月8日</td>
-                  <td id="js-last-week-commit-13">13</td>
+                  <td>12月15日</td>
+                  <td>3</td>
+                  <td>12月8日</td>
+                  <td>13</td>
                 </tr>
                 <tr>
-                  <td id="js-this-week-date-12-16">12月16日</td>
-                  <td id="js-this-week-commit-18">18</td>
-                  <td id="js-last-week-date-12-9">12月9日</td>
-                  <td id="js-last-week-commit-11">11</td>
+                  <td>12月16日</td>
+                  <td>18</td>
+                  <td>12月9日</td>
+                  <td>11</td>
                 </tr>
               </tbody>
             </table>
@@ -1492,8 +1516,13 @@
 
     <div class="weekly-pull-request-summary">
       <div class="weekly-pull-request-summary__chart">
-        <figure style="height: 300px;" id="js-pull-request"></figure>
+        <figure style="height: 300px;" id="js-pull-request-2"></figure>
       </div>
+
+      <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
+      <div style="display:none" id="js-this-week-pull-request-date-2" data-this-week-pull-request-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
+      <div style="display:none" id="js-this-week-pull-request-number-2" data-this-week-pull-request-numbers='{"Sunday":3,"Monday":8,"Tuesday":2,"Wednesday":1,"Thursday":7,"Friday":6,"Saturday":6}'></div>
+      <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
 
       <div class="panel panel-default weekly-pull-request-summary__total-pull-request-table">
         <div class="panel-body">
