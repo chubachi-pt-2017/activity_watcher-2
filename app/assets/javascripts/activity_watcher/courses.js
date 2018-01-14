@@ -58,9 +58,8 @@ $(function(){
       var val = $(this).val();
       $(".js-contents-wrap").addClass("disnon");
       $(".js-contents-wrap").eq(val).removeClass("disnon");
-      instantiate_graph(val);
     });
-    instantiate_graph(0);
+    instantiate_graph();
   }
 });
 
@@ -81,7 +80,11 @@ function show_target_member_summary(num) {
   $(".js-individual-summary").eq(num).removeClass("disnon");
 }
 
-function instantiate_graph(num) {
+function instantiate_graph() {
+  var thisWeekCommitDates = $("#js-this-week-commit-date").data("this-week-commit-dates");
+  var thisWeekCommitNumbers = $("#js-this-week-commit-number").data("this-week-commit-numbers");
+  var time = "T00:00:00";
+
     var data = [
       {
         "xScale":"ordinal",
@@ -93,68 +96,36 @@ function instantiate_graph(num) {
             "className":".main.l1",
             "data": [
               {
-                "y":15,
-                "x":"2012-11-19T00:00:00"
+                "y":thisWeekCommitNumbers.Sunday,
+                "x":thisWeekCommitDates.Sunday + time
               },
               {
-                "y":11,
-                "x":"2012-11-20T00:00:00"
+                "y":thisWeekCommitNumbers.Monday,
+                "x":thisWeekCommitDates.Monday + time
               },
               {
-                "y":8,
-                "x":"2012-11-21T00:00:00"
+                "y":thisWeekCommitNumbers.Tuesday,
+                "x":thisWeekCommitDates.Tuesday + time
               },
               {
-                "y":10,
-                "x":"2012-11-22T00:00:00"
+                "y":thisWeekCommitNumbers.Wednesday,
+                "x":thisWeekCommitDates.Wednesday + time
               },
               {
-                "y":1,
-                "x":"2012-11-23T00:00:00"
+                "y":thisWeekCommitNumbers.Thursday,
+                "x":thisWeekCommitDates.Thursday + time
               },
               {
-                "y":6,
-                "x":"2012-11-24T00:00:00"
+                "y":thisWeekCommitNumbers.Friday,
+                "x":thisWeekCommitDates.Friday + time
               },
               {
-                "y":8,
-                "x":"2012-11-25T00:00:00"
+                "y":thisWeekCommitNumbers.Saturday,
+                "x":thisWeekCommitDates.Saturday + time
               }
             ]
           },
-          {
-            "className":".main.l2",
-            "data":[
-              {
-                "y":29,
-                "x":"2012-11-19T00:00:00"
-              },
-              {
-                "y":33,
-                "x":"2012-11-20T00:00:00"
-              },
-              {
-                "y":13,
-                "x":"2012-11-21T00:00:00"
-              },
-              {
-                "y":16,
-                "x":"2012-11-22T00:00:00"
-              },
-              {
-                "y":7,
-                "x":"2012-11-23T00:00:00"
-              },
-              {
-                "y":18,
-                "x":"2012-11-24T00:00:00"
-              },
-              {
-                "y":8,
-                "x":"2012-11-25T00:00:00"
-              }
-            ]
-          }],
+        ],
       }
     ];
 
