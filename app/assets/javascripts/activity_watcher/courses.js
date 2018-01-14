@@ -59,7 +59,7 @@ $(function(){
       var val = $(this).val();
       $(".js-contents-wrap").addClass("disnon");
       $(".js-contents-wrap").eq(val).removeClass("disnon");
-      instantiate_graph(val);      
+      instantiate_graph(val);
     });
     instantiate_graph(0);
   }
