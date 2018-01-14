@@ -1,14 +1,14 @@
 
 $(function() {
   // team_participantsのチーム編集ページだったら
-  if($('#team_participants').length) {
+  if($('#js_team_participants').length) {
     check_content();
     
-    $('#team_participants').on('cocoon:after-insert', function() {
+    $('#js_team_participants').on('cocoon:after-insert', function() {
       check_content();
     });
     
-    $('#team_participants').on('cocoon:after-remove', function() {
+    $('#js_team_participants').on('cocoon:after-remove', function() {
       check_content();
     });
   }
@@ -16,13 +16,13 @@ $(function() {
 });
 
 function check_content() {
-  var elements_display = $('#team_participants .nested-fields:not(:has(a.destroyed)).nested-fields:has(:visible)');
+  var elements_display = $('#js_team_participants .nested-fields:not(:has(a.destroyed)).nested-fields:has(:visible)');
 
   if(elements_display.length <= 1) {
-    $('#team_participants a.remove_fields').hide();
+    $('#js_team_participants a.remove_fields').hide();
   } else {
-    $('#team_participants a.remove_fields').show();
+    $('#js_team_participants a.remove_fields').show();
   }
-  $('#team_participants a.add_fields').show();
+  $('#js_team_participants a.add_fields').show();
 };
 

@@ -22,7 +22,7 @@
   </table>
   <h5>メンバー</h5>
   <table class="table table-bordered table-striped" style="width: 500px;">
-    <tbody id="team_participants">
+    <tbody id="js_team_participants">
       <%= f.fields_for :team_participants do |tp| %>
         <%= render 'team_participant_fields', f: tp %>
       <% end %>
@@ -30,7 +30,7 @@
   </table>
   <div id="links">
     <%= link_to_add_association "メンバーを追加", f, :team_participants, 
-      data: {"association-insertion-node" => "tbody#team_participants", "association-insertion-method" => "append"}, 
+      data: {"association-insertion-node" => "tbody#js_team_participants", "association-insertion-method" => "append"}, 
       class: "btn btn-success" %>
   </div>
   <br />
