@@ -1,6 +1,6 @@
 
 $(function() {
-  // team_participantsの子要素があるページだったら
+  // team_participantsのチーム編集ページだったら
   if($('#team_participants').length) {
     check_content();
     
