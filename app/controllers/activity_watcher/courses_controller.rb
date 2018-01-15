@@ -111,7 +111,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
   
   def course_params
-    params.require(:course).permit(:title, :start_date, :end_date, :description, :user_slack_id)
+    params.require(:course).permit(:title, :start_date, :end_date, :description, :user_slack_id, :team_id)
   end
   
 end

@@ -73,7 +73,7 @@ class User < ApplicationRecord
       errors.add(:teachers_password, "が正しくありません")
     end
   end
-  
+
   private
   
   # 子モデルのバリデーションメソッド(配列の要素ごとにエラーメッセージを表示するため、親モデルで定義)
