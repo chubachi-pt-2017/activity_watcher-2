@@ -36,6 +36,12 @@ class Task < ApplicationRecord
       count = TeamParticipant.where(team_id: team_ids, user_id: user_id).count
       count > 0 ? true : false
     end
+    
+    def get_for_the_course(course_id)
+      select("id, title")
+      .where(course_id: course_id)
+      .order(id: :asc)
+    end
   end
   
   private

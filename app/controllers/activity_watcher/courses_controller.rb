@@ -84,7 +84,8 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def show_team_detail
-  
+    @tasks = Task.get_for_the_course(@course.id)
+    # raise @tasks.inspect
   end
 
 
