@@ -39,16 +39,6 @@
             <%= f.input :email_domain, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-university-email-domain" } %>
           </div>
           
-          <div class="form-group">
-            <div>
-              <div class="edit-left-area__course-detail">大学情報詳細</div>
-              <div class="edit-left-area__course-detail-count"><span>大学情報詳細の文字数：</span><span id="js-university-detail-count">0</span></div>
-            </div>
-            <%= f.input :description, label: false do %>
-              <%= f.text_area :description, rows: '10', class: "form-control", id: "js-university-detail" %>
-            <% end %>
-          </div>
-
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
             <%= link_to '戻る', universities_url, class: "btn btn-default" %>

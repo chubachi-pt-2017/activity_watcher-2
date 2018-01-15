@@ -24,7 +24,7 @@
         <% @universities.each do |university| %>
           <tr>
             <td><%= university.id %></td>
-            <td><%= link_to university.name, university_url(university.id) %></td>
+            <td><%= university.name %></td>
             <td><%= university.name_en %></td>
             <td><%= university.email_domain %></td>
             <td><%= link_to "編集", edit_university_url(university.id), class: "btn btn-sm btn-default" %></td>
@@ -32,5 +32,7 @@
         <% end %>
       </tbody>
     </table>
+    
+    <%= link_to '大学情報を追加する', new_university_url, class: 'btn btn-primary' %>
   </div>
 </div>

@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :universities, path: 'university', except: [:destroy]
+    resources :universities, path: 'university', except: [:show, :destroy]
 
   end
 

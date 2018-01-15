@@ -30,16 +30,6 @@ $(function(){
       set_alert_before_transition();
     });
 
-    // 詳細のテキストカウンター
-    var detailTextCount = $("#js-university-detail-count");
-    var detailText = $("#js-university-detail");
-    detailTextCount.text(detailText.val().length);
-  
-    detailText.on("keyup", function() {
-      detailTextCount.text(detailText.val().replace(/[\n\s　]/g, "").length);
-      set_alert_before_transition();
-    });
-    
     $("#js-submit-button").on("click", function(){
       $(window).off('beforeunload');
     });

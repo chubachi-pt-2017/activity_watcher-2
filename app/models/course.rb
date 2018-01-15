@@ -3,6 +3,7 @@ class Course < ApplicationRecord
   has_many :users, through: :course_participants
   has_many :course_participants, dependent: :destroy, inverse_of: :course
   belongs_to :user_slack, inverse_of: :course
+  belongs_to :university, inverse_of: :courses
 
   validates :title,
     presence: true,
@@ -22,14 +23,14 @@ class Course < ApplicationRecord
   validate :validate_end_date, if: :check_end_date_changed?
   
   scope :get_index, ->(owner_id) {
-                              includes(:user_slack).where(owner_id: owner_id).references(:user_slacks).order(updated_at: :desc) }
+                              includes([:user_slack, :university]).where(owner_id: owner_id).references([:user_slacks, :universities]).order(updated_at: :desc) }
   scope :get_select_non_user_slacks, ->(user_id) {
                               where(owner_id: user_id, user_slack_id: [nil, 0]).order(id: :desc).pluck(:title, :id)}
   
   class << self
     def get_list(user_id, university_id)
       course_participants = CourseParticipant.where(user_id: user_id)
-      Course.joins("LEFT JOIN (#{course_participants.to_sql}) cp ON courses.id = cp.course_id").select("courses.*, cp.user_id")
+      Course.joins("LEFT JOIN (#{course_participants.to_sql}) cp ON courses.id = cp.course_id LEFT JOIN universities u ON courses.university_id = u.id").select("courses.*, cp.user_id, u.name AS university_name")
         .where("courses.university_id = ? or courses.publish_other_universities_flg = true", university_id).order(id: :desc)
     end
   

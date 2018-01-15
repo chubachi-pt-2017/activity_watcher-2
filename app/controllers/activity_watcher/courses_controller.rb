@@ -1,6 +1,7 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   before_action :get_time_current, only: [:list, :detail]
   before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry]
+  before_action :get_university_name, only: [:show, :detail]
   before_action :get_user_slacks_new_select, only: [:new, :create]
   before_action :get_user_slacks_edit_select, only: [:edit, :update]
   before_action :get_user_slack, only: [:show, :detail]
@@ -28,7 +29,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def new
-    @course = Course.new
+    @course = Course.new(university_id: session[:university_id])
   end
 
   def edit
@@ -91,6 +92,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   
   def get_time_current
     @time_current = Time.current
+  end
+  
+  def get_university_name
+    @university_name = University.find_by(id: @course.university_id).name
   end
   
   def get_user_slacks_new_select
