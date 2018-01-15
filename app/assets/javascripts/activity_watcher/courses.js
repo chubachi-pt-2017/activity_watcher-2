@@ -55,11 +55,14 @@ $(function(){
     $(".js-contents-wrap").eq(0).removeClass("disnon");
 
     $("#js-task-list").change(function(){
-      // $("#change-task").submit();
       var val = $(this).val();
       $(".js-contents-wrap").addClass("disnon");
       $(".js-contents-wrap").eq(val).removeClass("disnon");
       instantiate_graph(val);
+
+      $(".js-individual-summary").addClass("disnon");
+      $(".js-individual-summary").eq(3).removeClass("disnon");
+      $(".off-tab").eq(0).removeClass("off-tab").addClass("on-tab");
     });
     instantiate_graph(0);
   }
