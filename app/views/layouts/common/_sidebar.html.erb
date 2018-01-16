@@ -20,6 +20,11 @@
                 <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コースを作成する</span></div>
               <% end %>
             </li>
+            <li class="sidebar__items">
+              <%= link_to @course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
+                <div class="sidebar__item"><i class="fa fa-files-o" aria-hidden="true"></i><span class="sidebar__action">コースを削除する</span></div>
+              <% end %>
+            </li>
           <% end %>
           <li class="sidebar__items">
             <%= link_to list_courses_url do %>
