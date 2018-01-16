@@ -84,17 +84,25 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def show_team_detail
-    @task = Task.get_by_id(7) #task ID
+    @task = Task.get_by_id(7).first #task ID
     repos = TaskTeam.get_repository_name(7) #task ID
 
-    github = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
+    @github = {} # 全てのgithub情報をこのハッシュにまとめる
+    githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
     if repos[0].repository_name.present?
-      raise github.get_contributors_for_the_repository(repos[0].repository_name).inspect
+      set_data_to_hash(githubManager.get_contributors_for_the_repository(repos[0].repository_name), "github_user_name")
+      githubManager.get_commits_last_week(repos[0].repository_name)
     end
   end
 
-
   private
+  
+  def set_data_to_hash(github_data, hash_key)
+    # keyはgithubのuser ID(数字)
+    github_data.each do |key, value|
+      @github[key] = { hash_key => value }
+    end
+  end
   
   def get_time_current
     @time_current = Time.current
