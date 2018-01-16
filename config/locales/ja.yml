@@ -25,6 +25,10 @@ ja:
         email: メールアドレス
         student_no: 学生番号 (受講生のみ)
         university_id: 所属大学
+      user/user_universities:
+        email: メールアドレス
+        student_no: 学生番号 (受講生のみ)
+        university_id: 所属大学
       course:
         title: コース名
         start_date: 受講開始日
@@ -57,7 +61,6 @@ ja:
         name: 大学名(日本語)
         name_en: 大学名(英語)
         email_domain: メールドメイン
-        description: 大学情報詳細
   date:
     abbr_day_names:
     - 日

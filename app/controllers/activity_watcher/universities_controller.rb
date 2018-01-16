@@ -2,7 +2,7 @@ class ActivityWatcher::UniversitiesController < ActivityWatcher::BaseController
   before_action :set_university, only: [:show, :edit, :update]
   
   def index
-    @universities = University.all
+    @universities = University.order(:id).page(params[:page])
   end
   
   def show

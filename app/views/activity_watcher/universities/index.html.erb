@@ -12,6 +12,8 @@
     <% end %>
     <h2>大学情報管理ページ</h2><br />
     
+    <%= paginate @universities %>
+    
     <table class="table table-hover table-condensed">
       <thead>
         <th>ID</th>
@@ -33,6 +35,8 @@
       </tbody>
     </table>
     
+    <%= paginate @universities %>
+
     <%= link_to '大学情報を追加する', new_university_url, class: 'btn btn-primary' %>
   </div>
 </div>

@@ -3,6 +3,8 @@ class University < ApplicationRecord
   has_many :users, through: :user_universities
   has_many :courses, inverse_of: :university
   
+  paginates_per 20 # 一覧の表示件数
+  
   validates :name,
     presence: true,
     uniqueness: true,

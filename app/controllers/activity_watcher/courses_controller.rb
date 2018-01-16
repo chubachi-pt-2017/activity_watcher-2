@@ -29,7 +29,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def new
-    @course = Course.new(university_id: session[:university_id])
+    @course = Course.new(university_id: session[:university_id])  # 自身の所属大学をデフォルトで選択
   end
 
   def edit
