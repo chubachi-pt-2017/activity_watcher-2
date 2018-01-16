@@ -37,10 +37,9 @@ class Task < ApplicationRecord
       count > 0 ? true : false
     end
     
-    def get_for_the_course(course_id)
+    def get_by_id(task_id)
       select("id, title")
-      .where(course_id: course_id)
-      .order(id: :asc)
+      .where(id: task_id)
     end
   end
   

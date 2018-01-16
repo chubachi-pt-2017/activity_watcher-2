@@ -84,7 +84,13 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def show_team_detail
-    @tasks = Task.get_for_the_course(@course.id)
+    @task = Task.get_by_id(7) #task ID
+    repos = TaskTeam.get_repository_name(7) #task ID
+
+    github = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
+    if repos[0].repository_name.present?
+      raise github.get_contributors_for_the_repository(repos[0].repository_name).inspect
+    end
   end
 
 
