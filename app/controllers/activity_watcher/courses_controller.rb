@@ -1,4 +1,8 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
+  
+  SEVEN_DAYS = 7
+  FOURTEEN_DAYS = 14
+
   before_action :get_time_current, only: [:list, :detail]
   before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry, :show_team_detail]
   before_action :get_user_slacks_new_select, only: [:new, :create]
@@ -87,23 +91,28 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
     @task = Task.get_by_id(7).first #task ID
     repos = TaskTeam.get_repository_name(7) #task ID
 
-    @github = {} # 全てのgithub情報をこのハッシュにまとめる
-    githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
     if repos[0].repository_name.present?
-      set_data_to_hash(githubManager.get_contributors_for_the_repository(repos[0].repository_name), "github_user_name")
-      githubManager.get_commits_last_week(repos[0].repository_name)
+      githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
+
+      @contributors = githubManager.get_contributors_for_the_repository(repos[0].repository_name)
+
+      # 先週のコミット数取得、先々週のコミット数取得
+      @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, SEVEN_DAYS)
+      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+
+      # 先週マージされたpull request数取得、先々週マージされたpull request数取得
+      @merged_pull_request_last_week = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, SEVEN_DAYS)
+      @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+
+      # 先週のメンバーへのコメント数取得、先々週のメンバーへのコメント数取得
+      @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, SEVEN_DAYS)
+      @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
     end
+
   end
 
   private
-  
-  def set_data_to_hash(github_data, hash_key)
-    # keyはgithubのuser ID(数字)
-    github_data.each do |key, value|
-      @github[key] = { hash_key => value }
-    end
-  end
-  
+
   def get_time_current
     @time_current = Time.current
   end
