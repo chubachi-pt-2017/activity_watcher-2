@@ -1,5 +1,5 @@
 class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
-  before_action :get_time_current, only: [:list, :detail]
+  before_action :get_time_current, only: [:list, :detail, :index]
   before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry]
   before_action :get_university_name, only: [:show, :detail]
   before_action :get_user_slacks_new_select, only: [:new, :create]
@@ -29,7 +29,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def new
-    @course = Course.new(university_id: session[:university_id])  # 自身の所属大学をデフォルトで選択
+    @course = Course.new(university_id: session[:university_id])  # 自身の所属大学をデフォルトで選択した状態で表示
   end
 
   def edit
