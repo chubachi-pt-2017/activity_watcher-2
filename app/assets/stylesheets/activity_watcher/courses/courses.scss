@@ -84,3 +84,79 @@
 }
 
 /* end of show.html.erb */
+
+/* list of content for course, task and team */
+.contents_list li {
+  display: inline-block;
+  margin-bottom: 30px;
+  width: 45%;
+  border-radius: 8px;
+  border: solid 1px #DDDCDC;
+}
+
+.contents_list li:not(:last-child) {
+  margin-right: 30px;
+}
+
+.contents_list li .content-area {
+  margin: 0;
+  padding: 20px 15px;
+  width: 100%;
+}
+
+.contents_list li .content-area dl {
+  margin: 0;
+  padding: 0;
+}
+
+.contents_list li .content-area dl dt {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.contents_list li .content-area dl dd {
+  padding: 0;
+  margin: 0 0 10px 0;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+
+.contents_list li .content-area dl dd .detail-title {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 25%;
+}
+
+.contents_list li .content-area dl dd .detail-material {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 70%;
+}
+
+.contents_list li .icon-area {
+  text-align: center;
+  display: inline-block;
+  margin: 0;
+  padding: 20px 15px;
+  width: 100%;
+  border: solid 1px #DDDCDC;
+  background-color: #f7f1f1;
+  
+  i {
+    display: inline-block;
+    font-size: 25px;
+    color: #000000;
+  }
+  
+  &__item {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 4em;
+  }
+}
+
+/* end of list of content */

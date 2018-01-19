@@ -5,53 +5,55 @@
 <div class="contents__main">
   <div class="contents__wrap">
     <p id="notice"><%= notice %></p>
-    <h4><%= current_user.user_full_name %>さんのコース一覧</h4>
+    <h2><%= current_user.user_full_name %>さんのコース一覧</h2><br>
     <%= paginate @courses %>
 
-    <% @courses.each do |course| %>
-      <table class="table table-bordered table-word-break table-striped">
-        <tr class="table-row">
-          <th class="col-md-2 table-title">コース名</th>
-          <td><%= link_to course.title.truncate(50), course_path(course) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">受講開始日</th>
-          <td><%= l course.start_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">受講終了日</th>
-          <td><%= l course.end_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">Slackワークスペース名</th>
-          <td><%= link_to course.user_slack.workspace_name, course.user_slack.url.to_s, target: '_blank' if course.user_slack.present? %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">コース詳細</th>
-          <td><%= course.description.truncate(50) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">アクション</th>
-          <td>
-            <%= link_to edit_course_path(course) do %>
-              <button type="button" class="btn btn-primary">コースを編集する</button>
+    <ul class="contents_list">
+      <% @courses.each do |course| %>
+        <li>
+          <div class="content-area">
+            <dl>
+              <dt><%= course.title %></dt>
+              <hr>
+              <dd>
+                <div class="detail-title">開始日</div>
+                <div class="detail-material"><%= l course.start_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">終了日</div>
+                <div class="detail-material"><%= l course.end_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">slack</div>
+                <div class="detail-material"><%= course.user_slack.present? ? link_to(course.user_slack.workspace_name, course.user_slack.url.to_s, target: '_blank') : '無' %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">詳細</div>
+                <div class="detail-material"><%= course.description.truncate(25) %></div>
+              </dd>
+            </dl>
+            <%= link_to '＞＞詳細を見る', course_url(course), title: 'このコースの詳細を見る' %>
+          </div>
+          <div class="icon-area">
+            <%= link_to edit_course_path(course), title: "このコースを編集する" do %>
+              <div class="icon-area__item"><i class="fa fa-edit" aria-hidden="true"></i></div>
             <% end %>
     
-            <%= link_to _course_tasks_path(course) do %>
-              <button type="button" class="btn btn-primary">課題一覧をみる</button>
+            <%= link_to _course_tasks_path(course), title: "#{course.title}の課題一覧を見る" do %>
+              <div class="icon-area__item"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
             <% end %>
     
-            <%= link_to new__course_task_path(course) do %>
-              <button type="button" class="btn btn-primary">課題を追加する</button>
+            <%= link_to new__course_task_path(course), title: "#{course.title}に課題を追加する" do %>
+              <div class="icon-area__item"><i class="fa fa-plus" aria-hidden="true"></i></div>
             <% end %>
     
-            <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
-              <button type="button" class="btn btn-danger">コースを削除する</button>
+            <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' }, title: "このコースを削除する" do %>
+              <div class="icon-area__item"><i class="fa fa-remove" aria-hidden="true" style="color: red;"></i></div>
             <% end %>
-          </td>
-        </tr>
-      </table>
-    <% end %>
+          </div>
+        </li> 
+      <% end %>
+    </ul>
     <%= paginate @courses %>
   </div>
 </div>
