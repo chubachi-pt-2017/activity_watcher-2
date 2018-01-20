@@ -11,4 +11,4 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w( activity_watcher/application_activity_watcher.css )
-Rails.application.config.assets.precompile += %w( application.js sessions.js activity_watcher/*.js )
+Rails.application.config.assets.precompile += %w( application.js sessions.js lib/xcharts.js activity_watcher/*.js )

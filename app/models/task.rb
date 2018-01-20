@@ -36,6 +36,11 @@ class Task < ApplicationRecord
       count = TeamParticipant.where(team_id: team_ids, user_id: user_id).count
       count > 0 ? true : false
     end
+    
+    def get_by_id(task_id)
+      select("id, title")
+      .where(id: task_id)
+    end
   end
   
   private

@@ -16,6 +16,13 @@ class TaskTeam < ApplicationRecord
   
   scope :get_tasks_lists_from_team, ->(team_id) {includes(:task).where(team_id: team_id).order(id: :desc)}
   
+  class << self
+    def get_repository_name(task_id)
+      select("id, repository_name")
+      .where(task_id: task_id)
+    end
+  end
+
   private
   
 end
