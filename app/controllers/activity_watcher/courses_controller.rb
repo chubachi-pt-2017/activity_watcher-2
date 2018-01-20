@@ -100,8 +100,8 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       @contributors = githubManager.get_contributors_for_the_repository(repos[0].repository_name)
 
       # 先週のコミット数取得、先々週のコミット数取得
-      @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, 21)
-      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, 28)
+      @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, SEVEN_DAYS)
+      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@commits_last_week, @commits_two_weeks_ago, "commit")
 
       # 先週マージされたpull request数取得、先々週マージされたpull request数取得

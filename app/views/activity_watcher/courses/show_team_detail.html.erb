@@ -38,34 +38,35 @@
                   <% end %>
 
                   <% if @commits_last_week.has_key?(key) %>
-                    <td><%= @commits_last_week[key] %>
-                        (<%= @github_data_pcercents["commit"][key].to_f  %>%)
+                    <td>
+                      <%= @commits_last_week[key] %>
+                      (<%= @github_data_pcercents["commit"][key].to_f  %>%)
                     </td>
                   <% else %>
                     <td>-</td>
                   <% end %>
 
-                  <td>20 (▼5.21%)</td>
-                  <td>30 (▲0.41%)</td>
+                  <% if @merged_pull_request_last_week.has_key?(key) %>
+                    <td>
+                      <%= @merged_pull_request_last_week[key] %>
+                      (<%= @github_data_pcercents["merged_pull_request"][key].to_f  %>%)
+                    </td>
+                  <% else %>
+                    <td>-</td>
+                  <% end %>
+
+                  <% if @pull_request_comments_last_week.has_key?(key) %>
+                    <td>
+                      <%= @pull_request_comments_last_week[key] %>
+                      (<%= @github_data_pcercents["comments_to_pull_request"][key].to_f  %>%)
+                    </td>
+                  <% else %>
+                    <td>-</td>
+                  <% end %>
+
                   <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>
                 </tr>
               <% end %>
-              <!--<tr>-->
-              <!--  <td>鈴木太郎</td>-->
-              <!--  <td>suzukitaro</td>-->
-              <!--  <td>45 (▲13%)</td>-->
-              <!--  <td>2 (▲1.11%)</td>-->
-              <!--  <td>23 (▲5.57%)</td>-->
-              <!--  <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>                -->
-              <!--</tr>-->
-              <!--<tr>-->
-              <!--  <td>山田花子</td>-->
-              <!--  <td>yamada</td>-->
-              <!--  <td>10 (▲8.2%)</td>-->
-              <!--  <td>2 (▼3.98%)</td>-->
-              <!--  <td>3 (▲0.81%)</td>-->
-              <!--  <td class="js-scroll-to-individual-summary"><a href="#">個人詳細をみる</a></td>                -->
-              <!--</tr>-->
             </tbody>
           </table>
         </div>
