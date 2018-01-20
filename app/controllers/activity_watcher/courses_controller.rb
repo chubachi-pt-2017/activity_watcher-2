@@ -90,28 +90,52 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   def show_team_detail
     @task = Task.get_by_id(7).first #task ID
     repos = TaskTeam.get_repository_name(7) #task ID
+    @github_data_pcercents = Hash.new { |h,k| h[k] = {} }
 
+    # ここでキャッシュからデータ取得
+    
     if repos[0].repository_name.present?
       githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
 
       @contributors = githubManager.get_contributors_for_the_repository(repos[0].repository_name)
 
       # 先週のコミット数取得、先々週のコミット数取得
-      @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, SEVEN_DAYS)
-      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+      @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, 21)
+      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, 28)
+      calculate_percent_for_compared_weeks(@commits_last_week, @commits_two_weeks_ago, "commit")
 
       # 先週マージされたpull request数取得、先々週マージされたpull request数取得
       @merged_pull_request_last_week = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, SEVEN_DAYS)
       @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+      calculate_percent_for_compared_weeks(@merged_pull_request_last_week, @merged_pull_request_two_weeks_ago, "merged_pull_request")
 
       # 先週のメンバーへのコメント数取得、先々週のメンバーへのコメント数取得
       @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, SEVEN_DAYS)
       @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+      calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
     end
+# raise @commits_two_weeks_ago.has_key?(16436985).inspect
+    # @commit_percent = (@commits_last_week[12966035].to_f() / @commits_two_weeks_ago[12966035].to_f() * 100).round(2)
 
+    # raise @github_data_pcercents.inspect
+    # raise @github_data_pcercents["commit"].inspect
+    # raise @commits_two_weeks_ago[16436985].to_.inspect
+    # raise (( (@commits_last_week[16436985].to_f() / @commits_two_weeks_ago[16436985].to_f() * 100).round(2) ) - 100).inspect
+    @user_full_name = User.get_member_full_name(@contributors.keys)
+    # raise @github_data_pcercents.inspect
   end
 
   private
+
+  def calculate_percent_for_compared_weeks(last_week, two_weeks_ago, github_action)
+    @contributors.each do |key, member|
+      if (last_week[key].present? && two_weeks_ago[key].present?)
+        @github_data_pcercents[github_action][key] = ( (last_week[key].to_f() / two_weeks_ago[key].to_f() * 100).round(2) ) - 100
+      else
+        @github_data_pcercents[github_action][key] = "-"
+      end
+    end
+  end
 
   def get_time_current
     @time_current = Time.current

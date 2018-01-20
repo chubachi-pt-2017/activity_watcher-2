@@ -32,12 +32,21 @@ class User < ApplicationRecord
     validate :teachers_password_valid
   end
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.login_provider = auth['provider']
-      user.uid = auth['uid']
-      user.login_name = auth['info']['nickname']
-      user.oauth_token = auth['credentials']['token']
+  class << self
+    def create_with_omniauth(auth)
+      create! do |user|
+        user.login_provider = auth['provider']
+        user.uid = auth['uid']
+        user.login_name = auth['info']['nickname']
+        user.oauth_token = auth['credentials']['token']
+      end
+    end
+  
+    def get_member_full_name(members)
+      Hash[ User.select("uid, user_full_name")
+                .where(uid: members)
+                .map { |m| [m.uid, m.user_full_name] }
+          ]
     end
   end
   

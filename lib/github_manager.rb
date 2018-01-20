@@ -32,7 +32,7 @@ class GithubManager
 
     # 第2引数は先週日曜、第3引数は土曜
     commits = @client.commits_between(repo, this_sunday - days, this_sunday - (days - 6))
-
+    # commits = @client.commits(repo)
     # 同姓同名がいるかもしれない&github login IDを変更しているかもしれないので、emailをキーにしてコミット数をまとめる
     commits.each do |c|
       if c[:author][:id].present?
