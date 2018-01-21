@@ -16,11 +16,11 @@
               <dt><%= course.title %></dt>
               <hr>
               <dd>
-                <div class="detail-title">開始日</div>
+                <div class="detail-title">開講開始</div>
                 <div class="detail-material"><%= l course.start_date, format: :medium %></div>
               </dd>
               <dd>
-                <div class="detail-title">終了日</div>
+                <div class="detail-title">開講終了</div>
                 <div class="detail-material"><%= l course.end_date, format: :medium %></div>
               </dd>
               <dd>
@@ -32,18 +32,18 @@
                 <div class="detail-material"><%= course.university.name %></div>
               </dd>
               <dd>
-                <div class="detail-title">他大学受講生への公開</div>
+                <div class="detail-title">他大学受講生へ公開</div>
                 <div class="detail-material"><%= course.publish_other_universities_flg == true ? "公開" : "非公開" %></div>
               </dd>
               <dd>
                 <div class="detail-title">課題件数</div>
                 <div class="detail-material">
                   <% if course.tasks.any? %>
-                    進行中　
-                    <%= course.tasks.select{|task| task.start_date <= @time_current && task.end_date >= @time_current}.length.to_s %>件|
-                    未到来　
-                    <%= course.tasks.select{|task| task.start_date > @time_current}.length.to_s %>件|
-                    終了済　
+                    進行中 
+                    <%= course.tasks.select{|task| task.start_date <= @time_current && task.end_date >= @time_current}.length.to_s %>件　
+                    未到来 
+                    <%= course.tasks.select{|task| task.start_date > @time_current}.length.to_s %>件　
+                    終了済 
                     <%= course.tasks.select{|task| task.end_date < @time_current}.length.to_s %>件
                   <% else %>
                     無

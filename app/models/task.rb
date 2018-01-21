@@ -39,7 +39,7 @@ class Task < ApplicationRecord
 
   scope :for_ids_with_order, ->(ids) {
     order = sanitize_sql_array(
-      ["position((',' || id::text || ',') in ?)", ids.join(',') + ',']
+      ["position((',' || tasks.id::text || ',') in ?)", ids.join(',') + ',']
     )
     where(id: ids).order(order)
   }
@@ -68,7 +68,7 @@ class Task < ApplicationRecord
         end
       end
       task_ids = tasks.sort_by{|task| [task.status, task.end_date]}.pluck(:id)
-      tasks = Task.for_ids_with_order(task_ids)
+      tasks = Task.for_ids_with_order(task_ids).includes(:own_join).references(:own_joins_tasks)
     end
   end
   

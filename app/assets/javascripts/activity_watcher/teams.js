@@ -15,7 +15,7 @@ $(function(){
     var repositoryName = $("#js-repository-name");
     repositoryCount.text(repositoryName.val().length);
   
-    teamName.on("keyup", function() {
+    repositoryName.on("keyup", function() {
       repositoryCount.text(repositoryName.val().length);
       set_alert_before_transition();
     });
@@ -23,9 +23,9 @@ $(function(){
     // Heroku URLのテキストカウンター
     var herokuUrlCount = $("#js-heroku-url-count");
     var herokuUrl = $("#js-heroku-url");
-    herokuUrl.text(herokuUrl.val().length);
+    herokuUrlCount.text(herokuUrl.val().length);
   
-    teamName.on("keyup", function() {
+    herokuUrl.on("keyup", function() {
       herokuUrlCount.text(herokuUrl.val().length);
       set_alert_before_transition();
     });

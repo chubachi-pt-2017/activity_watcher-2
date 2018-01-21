@@ -24,12 +24,13 @@ class Team < ApplicationRecord
       User.includes(:course_participants)
                   .where(course_participants: {course_id: course_id})
                   .where.not(id: user_ids).order(:user_full_name).pluck(:user_full_name, :login_name, :id)
-                  .map{|a, b, c| [a + '(' + b + ')', c]}
+                  .map{|a, b, c| [a + ': [ ' + b + ' ]', c]}
     end
     
     def get_included_member_in_the_team(course_id, team_id)
       user_ids = TeamParticipant.where(team_id: team_id).pluck(:user_id)
-      User.where(id: user_ids).order(:login_name).pluck(:login_name, :id)
+      User.where(id: user_ids).order(:user_full_name).pluck(:user_full_name, :login_name, :id)
+                  .map{|a, b, c| [a + ': [ ' + b + ' ]', c]}
     end
   end
   
