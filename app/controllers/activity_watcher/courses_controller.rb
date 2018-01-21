@@ -114,19 +114,28 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
     end
-# raise @commits_two_weeks_ago.has_key?(16436985).inspect
-    # @commit_percent = (@commits_last_week[12966035].to_f() / @commits_two_weeks_ago[12966035].to_f() * 100).round(2)
 
-    # raise @github_data_pcercents.inspect
-    # raise @github_data_pcercents["commit"].inspect
-    # raise @commits_two_weeks_ago[16436985].to_.inspect
-    # raise (( (@commits_last_week[16436985].to_f() / @commits_two_weeks_ago[16436985].to_f() * 100).round(2) ) - 100).inspect
     @user_full_name = User.get_member_full_name(@contributors.keys)
-    # raise @github_data_pcercents.inspect
+    @this_week_dates = get_this_week_dates
   end
 
   private
+  
+  def get_this_week_dates
+    dates = { "Sunday" => 0,"Monday" => 1,"Tuesday" => 2,"Wednesday" => 3,"Thursday" => 4,"Friday" => 5,"Saturday" => 6 }
+    today = Date.today
+    this_sunday = today - (today.wday)
+    this_week = "{"
 
+    dates.each_with_index do |(key, value), i|
+      d = this_sunday + i
+      this_week += "'#{key}':'#{d.month}月#{d.day}日',"
+    end
+    # 最後のカンマを削除しつつ"}"をつける
+    this_week = this_week.chop
+    this_week += "}"
+  end
+  
   def calculate_percent_for_compared_weeks(last_week, two_weeks_ago, github_action)
     @contributors.each do |key, member|
       if (last_week[key].present? && two_weeks_ago[key].present?)
