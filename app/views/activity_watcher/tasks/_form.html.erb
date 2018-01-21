@@ -42,19 +42,19 @@
             <%= f.input :end_date, label: false, class: 'edit-right-area__entry-end-area' %>
           </div>
 
-          <% if task.id.blank? %>
+          <% if @task.new_record? || @referenced_task_titles.blank? %>
             <div class="form-group">
-              <label class="checkbox-inline">
-                <%= f.check_box :check_take_over, {}, true %>
-                チームを引き継ぐ
-              </label>
-            </div>
-            <div class="form-group">
-              <%= f.input :before_task_id, input_wrapper_html: { class: "col-md-6" } do %>
-                <%= f.select :before_task_id, @task_select, {}, class: "form-control" %>
+              <div>どの課題とチーム構成を同じにしますか？　<a href="" data-toggle="modal" data-target="#modal-tasks">課題のチーム構成って？</a></div>
+              <%= f.input :reference_task_id, label: false, hint: "この課題独自またはチーム構成のベースとなる課題の場合は何も選択せず、このままにしてください。", input_html: { class: "edit-right-area__entry-start-area" } do %>
+                <%= f.select :reference_task_id, @task_select, {include_blank: "-- 独自のチーム構成にしたい場合はこのままにしてください --"}, class: "form-control" %>
               <% end %>
             </div>
           <% end %>
+          
+          <div class="modal" id="modal-tasks" tabindex="-1" role="dialog" data-backdrop="static">
+            <%= render partial: 'modal_task' %>
+          </div><!--.modal -->
+
 
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>

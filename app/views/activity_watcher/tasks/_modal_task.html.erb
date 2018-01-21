@@ -1,0 +1,23 @@
+<div class="modal-dialog" style="width: 85%;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h4 class="modal-title">課題間におけるチーム構成の共有について</h4>
+    </div><!-- /.modal-header -->
+    <div class="modal-body">
+      <div class="tutorial-content">
+        <% text = render partial: 'sharing_team_structure.html.md' %>
+        <%= markdown(text) %>
+      </div>
+      <div class="tutorial-table-of-content sticky">
+        <div id="toc_container">
+          <p class="toc_title">目次</p>
+          <%= create_toc(text) %>
+        </div>
+      </div>
+    </div><!-- /.modal-body -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" data-dismiss="modal">閉じる</button>
+    </div><!-- /.modal-footer -->
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

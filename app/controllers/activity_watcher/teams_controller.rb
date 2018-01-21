@@ -5,6 +5,10 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :get_edit_member_list, only: [:edit, :update]
 
   def show
+    if @team.blank?
+      redirect_to list__course_tasks_url(params[:course_id])
+      return
+    end
     @task_teams = TaskTeam.get_tasks_lists_from_team(params[:id]).page(params[:page])
   end
 
@@ -35,6 +39,11 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
       return
     end
     
+    # 当該課題をチーム構成の参照元にしている課題があれば追加で生成
+    task_ids = Task.get_reference_task_ids(params[:task_id])
+    @team.task_ids = task_ids if task_ids.length > 0
+
+
     @course = Course.find_by(id: params[:course_id])
     if @course.user_slack_id.present?
       slack = SlackManager.new(@course.user_slack.token)

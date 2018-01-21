@@ -56,15 +56,16 @@ ActiveRecord::Schema.define(version: 20180115110521) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "title",       limit: 128, default: "", null: false
-    t.datetime "start_date",                           null: false
-    t.datetime "end_date",                             null: false
+    t.string   "title",             limit: 128, default: "", null: false
+    t.datetime "start_date",                                 null: false
+    t.datetime "end_date",                                   null: false
     t.text     "description"
     t.integer  "course_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "reference_task_id"
     t.index ["course_id"], name: "index_tasks_on_course_id", using: :btree
-    t.index ["title"], name: "index_tasks_on_title", unique: true, using: :btree
+    t.index ["title", "course_id"], name: "index_tasks_on_title_and_course_id", unique: true, using: :btree
   end
 
   create_table "team_participants", force: :cascade do |t|
