@@ -38,6 +38,9 @@
     img {
         width: 100%;
     }
+    table {
+        font-size: 12px;
+    }
 }
 
 .tutorial-table-of-content {
@@ -62,8 +65,8 @@
 }
 
 #toc_container li, #toc_container ul, #toc_container ul li{
-    // list-style: outside none none !important;
-    list-style: none none !important;
+    margin: 1.0em 0 1.0em 0.5em;
+    padding: 0;
 }
 
 .sticky {

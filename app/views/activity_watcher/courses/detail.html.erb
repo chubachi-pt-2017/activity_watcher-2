@@ -20,8 +20,12 @@
         <td><%= link_to @user_slack.workspace_name, @user_slack.url.to_s, target: '_blank' if @user_slack.present? %></td>
       </tr>
       <tr class="table-row">
+        <th class="col-md-2 table-title">開講大学</th>
+        <td><%= @university_name %></td>
+      </tr>
+      <tr class="table-row">
         <th class="col-md-2 table-title">コース詳細</th>
-        <td><%= @course.description %></td>
+        <td><%= markdown(@course.description) %></td>
       </tr>
       <tr class="table-row">
         <th class="col-md-2 table-title">アクション</th>

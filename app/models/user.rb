@@ -23,21 +23,30 @@ class User < ApplicationRecord
       presence: true,
       length: { maximum: 64 }
       
-    validate :validate_user_universities_uniqueness
+    # validate :validate_user_universities_uniqueness
     
-    validate :validate_user_universities
+    # validate :validate_user_universities
   end
   
   with_options if: :user_registration_context_is_not_student do
     validate :teachers_password_valid
   end
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.login_provider = auth['provider']
-      user.uid = auth['uid']
-      user.login_name = auth['info']['nickname']
-      user.oauth_token = auth['credentials']['token']
+  class << self
+    def create_with_omniauth(auth)
+      create! do |user|
+        user.login_provider = auth['provider']
+        user.uid = auth['uid']
+        user.login_name = auth['info']['nickname']
+        user.oauth_token = auth['credentials']['token']
+      end
+    end
+  
+    def get_member_full_name(members)
+      Hash[ User.select("uid, user_full_name")
+                .where(uid: members)
+                .map { |m| [m.uid, m.user_full_name] }
+          ]
     end
   end
   
@@ -73,16 +82,16 @@ class User < ApplicationRecord
       errors.add(:teachers_password, "が正しくありません")
     end
   end
-  
+
   private
   
   # 子モデルのバリデーションメソッド(配列の要素ごとにエラーメッセージを表示するため、親モデルで定義)
   def validate_user_universities
-    user_universities.each_with_index do |user_university, i|
+    user_universities.each do |user_university|
       next if user_university.valid?
       
       user_university.errors.full_messages.each do |full_message|
-        errors.add(:user_universities, "#{(i + 1).to_s}件目の#{full_message}")
+        errors.add(:user_universities, "#{full_message}")
       end
       
       user_university.errors.clear
