@@ -84,3 +84,137 @@
 }
 
 /* end of show.html.erb */
+
+/* show_team_detail.html.erb */
+.weekly-commit-summary {
+  margin-bottom: 60px;
+  &__chart {
+    margin-left: -40px;
+    width: 830px;
+    display: inline-block;
+  }
+
+  &__description {
+    margin-left: 45px;
+  }
+
+  &__blue {
+    color: #3880aa; 
+  }
+    
+  &__green {
+    color: #4da944;
+  }
+  
+  &__total-commit-table {
+    display: inline-block;
+    float: right;
+    width: 250px;
+  }
+}
+
+.weekly-pull-request-summary {
+  margin-bottom: 60px;
+  &__chart {
+    display: inline-block;
+    width: 650px;
+    height: 250px;
+  }
+  
+  &__total-pull-request-table {
+    display: inline-block;
+    float: right;
+    width: 250px;
+  }
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+/*タブ切り替え全体のスタイル*/
+.tabs {
+  margin-top: 50px;
+  padding-bottom: 40px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  margin: 0 auto;
+}
+
+/*タブのスタイル*/
+.tab-item {
+  width: calc(100%/3);
+  height: 50px;
+  border-bottom: 3px solid #5ab4bd;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  float: left;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.tab-item:hover {
+  opacity: 0.75;
+}
+
+/*ラジオボタンを全て消す*/
+input[name="tab-item"] {
+  display: none;
+}
+
+/*タブ切り替えの中身のスタイル*/
+.tab-content {
+  padding: 40px 40px 0;
+  clear: both;
+  overflow: hidden;
+}
+
+.on-tab {
+  background-color: #5ab4bd;
+  color: #fff;
+}
+
+.off-tab {
+  background-color: #d9d9d9;
+  color: #565656;
+}
+
+.disnon {
+  display: none;
+}
+
+.contents-area {
+  padding: 20px 10px 20px 10px;
+  display: flex;
+  justify-content: space-around;
+
+  &__individual-progress-bar {
+    width: 300px;
+  }
+
+  &__commit-history {
+    width: 350px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &__pull-request-history {
+    width: 350px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.task-list-box-area {
+  margin-bottom: 50px;
+
+  &__list-box {
+    width: 200px;
+    float: right;
+    margin-right: 30px;
+  }
+}
+
+/* end of show_team_detail.html.erb */
