@@ -2,8 +2,7 @@
   <div class="contents__wrap">
 
     <h5>チームを作成する</h5>
-    <%= render 'form_new', team: @team %>
+    <%= render 'form', team: @team %>
     
-    <%= link_to '戻る', detail__course_task_url(params[:course_id], params[:task_id]), class: "btn btn-default" %>
   </div>
 </div>

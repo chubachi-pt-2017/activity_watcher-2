@@ -1,8 +1,8 @@
 class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   before_action :set_team, only: [:show, :destroy]
   before_action :get_team_with_participants, only: [:edit, :update]
-  before_action :get_new_member_list, only: [:new, :create]
-  before_action :get_edit_member_list, only: [:edit, :update]
+  before_action :get_all_member_list, only: [:new, :create, :edit, :update]
+  before_action :get_edit_member_list, only: [:new, :create, :edit, :update]
 
   def show
     @task_teams = TaskTeam.get_tasks_lists_from_team(params[:id]).page(params[:page])
@@ -69,13 +69,12 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
 
   private
   
-  def get_new_member_list
-    @participants = Team.get_new_member_list(params[:course_id], params[:task_id])
+  def get_all_member_list
+    @participants = Team.get_all_member_list(params[:course_id], params[:task_id])
   end
   
   def get_edit_member_list
-    @participants = Team.get_included_member_in_the_team(params[:course_id], params[:id]) + 
-                      Team.get_new_member_list(params[:course_id], params[:task_id])
+    @selected_participants = Team.get_included_member_in_the_team(params[:course_id], params[:id])
   end
   
   def get_team_with_participants

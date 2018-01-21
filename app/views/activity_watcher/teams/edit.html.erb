@@ -2,8 +2,7 @@
   <div class="contents__wrap">
     <h5>チームを編集する</h5>
     
-    <%= render 'form_edit', team: @team %>
+    <%= render 'form', team: @team %>
     
-    <%= link_to '戻る', _course_task_team_path(params[:course_id], params[:task_id], @team), class: "btn btn-default" %>
   </div>
 </div>

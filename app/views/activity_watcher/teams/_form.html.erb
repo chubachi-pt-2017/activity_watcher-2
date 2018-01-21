@@ -1,0 +1,73 @@
+<div class="edit-contents">
+  <%= simple_form_for @team, url: _course_task_teams_path, wrapper: "horizontal_form" do |f| %>
+    <div class="edit-left-area">
+
+      <div class="form-group">
+        <div>
+          <div class="edit-left-area__title">チーム名(最大50文字)</div>
+          <div class="edit-left-area__title-count"><span>チーム名の文字数：</span><span id="js-team-name-count">0</span></div>
+        </div>
+        <%= f.input :name, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-team-name" } %>
+      </div>
+      
+      <div class="form-group">
+        <div>
+          <div class="edit-left-area__course-detail">チーム詳細</div>
+          <div class="edit-left-area__course-detail-count"><span>チーム詳細の文字数：</span><span id="js-team-detail-count">0</span></div>
+        </div>
+        <%= f.input :description, label: false do %>
+          <%= f.text_area :description, rows: '5', class: "form-control", id: "js-team-detail" %>
+        <% end %>
+      </div>
+      
+      <% if team.new_record? %>
+        <div>課題成果物</div>
+        <%= f.fields_for :task_teams, @team.task_teams do |tt| %>
+          <div class="form-group">
+            <div>
+              <div class="edit-left-area__title">Githubリポジトリ名(最大256文字)</div>
+              <div class="edit-left-area__title-count"><span>Githubリポジトリ名の文字数：</span><span id="js-repository-name-count">0</span></div>
+            </div>
+            <%= tt.input :repository_name, maxlength: true, label: false, placeholder: "(アカウント名またはorganization)/リポジトリ名", :input_html => { class: 'edit-left-area__text-box', id: "js-repository-name" } %>
+          </div>
+          
+          <div class="form-group">
+            <div>
+              <div class="edit-left-area__title">Heroku URL(最大256文字)</div>
+              <div class="edit-left-area__title-count"><span>Heroku URLの文字数：</span><span id="js-heroku-url-count">0</span></div>
+            </div>
+            <%= tt.input :service_url, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-heroku-url" } %>
+          </div>
+          
+          <div class="form-group">
+            <div>
+              <div class="edit-left-area__title">CIツール URL(最大256文字)</div>
+              <div class="edit-left-area__title-count"><span>CIツール URLの文字数：</span><span id="js-ci-tool-count">0</span></div>
+            </div>
+            <%= tt.input :ci_url, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-ci-tool" } %>
+          </div>
+          
+        <% end %>
+      <% end %>
+
+    </div><!-- end of edit-left-area -->
+
+    <div class="edit-right-area">
+      <div class="edit-member-area">
+        <div>メンバー選択</div>
+        <%= select_tag :user_ids_all, options_for_select(@participants), { multiple: true, class: "form-control", id: "js-select-all-memer" } %>
+        <button type='button' class="btn btn-sm btn-default member-add-button" id="js-member-add-button">追加</button>
+        <button type='button' class="btn btn-sm btn-default member-remove-button" id="js-member-remove-button">削除</button>
+        <%= f.select :user_ids, @selected_participants, {include_hidden: false}, {multiple: true, class: "form-control", id: "js-select-selected-member" } %>
+      </div>
+      
+      <div class="form-group"></div>
+
+      <div class="form-actions">
+        <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
+        <%= link_to '戻る', detail__course_task_url(params[:course_id], params[:task_id]), class: "btn btn-default" %>
+      </div>
+      
+    </div><!-- end of edit-right-area -->
+  <% end %>
+</div><!-- end of x_content -->
