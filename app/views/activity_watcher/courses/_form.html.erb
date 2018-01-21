@@ -50,6 +50,20 @@
             <% end %>
           </div>
 
+          <div class="form-group">
+            <div>開講する大学</div>
+            <%= f.input :university_id, label: false, hint: "選択したい大学が一覧にない場合は右上の「大学情報を管理する」から登録できます", :input_html => { class: 'edit-right-area__entry-start-area' } do %>
+              <%= f.select :university_id, @universities, {}, class: "form-control" %>
+            <% end %>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-inline">
+              <%= f.check_box :publish_other_universities_flg, {}, true %>
+              他大学の受講生にも公開する場合はチェック
+            </label>
+          </div>
+
           <div class="form-actions">
             <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
             <%= link_to '戻る', courses_path, class: "btn btn-default" %>

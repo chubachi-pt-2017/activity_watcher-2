@@ -8,7 +8,7 @@
     <% @courses.each do |course| %>
       <table class="table table-bordered table-word-break table-striped">
         <tr class="table-row">
-          <th class="col-md-2 table-title">タイトル</th>
+          <th class="col-md-2 table-title">コース名</th>
           <td><%= link_to course.title.truncate(50), detail_course_url(course.id) %></td>
         </tr>
         <tr class="table-row">
@@ -18,6 +18,10 @@
         <tr class="table-row">
           <th class="col-md-2 table-title">受講終了日</th>
           <td><%= l course.end_date, format: :medium %></td>
+        </tr>
+        <tr class="table-row">
+          <th class="col-md-2 table-title">開講大学</th>
+          <td><%= course.university_name %></td>
         </tr>
         <tr class="table-row">
           <th class="col-md-2 table-title">コース詳細</th>

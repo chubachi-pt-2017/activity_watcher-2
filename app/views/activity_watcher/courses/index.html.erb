@@ -27,6 +27,29 @@
           <td><%= link_to course.user_slack.workspace_name, course.user_slack.url.to_s, target: '_blank' if course.user_slack.present? %></td>
         </tr>
         <tr class="table-row">
+          <th class="col-md-2 table-title">開講大学</th>
+          <td><%= course.university.name %></td>
+        </tr>
+        <tr class="table-row">
+          <th class="col-md-2 table-title">他大学受講生への公開</th>
+          <td><%= course.publish_other_universities_flg == true ? "公開" : "非公開" %></td>
+        </tr>
+        <tr class="table-row">
+          <th class="col-md-2 table-title">課題件数</th>
+          <td>
+            <% if course.tasks.any? %>
+              進行中　
+              <%= course.tasks.select{|task| task.start_date <= @time_current && task.end_date >= @time_current}.length.to_s %>件<br>
+              未到来　
+              <%= course.tasks.select{|task| task.start_date > @time_current}.length.to_s %>件<br>
+              終了済　
+              <%= course.tasks.select{|task| task.end_date < @time_current}.length.to_s %>件<br>
+            <% else %>
+              無
+            <% end %>
+          </td>
+        </tr>
+        <tr class="table-row">
           <th class="col-md-2 table-title">コース詳細</th>
           <td><%= course.description.truncate(50) %></td>
         </tr>

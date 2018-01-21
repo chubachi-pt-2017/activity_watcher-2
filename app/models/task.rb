@@ -5,6 +5,8 @@ class Task < ApplicationRecord
   has_many :own_join, class_name: Task, primary_key: 'id', foreign_key: 'reference_task_id'
   accepts_nested_attributes_for :task_teams
   
+  attr_accessor :status
+
   before_save :create_task_teams
   
   validates :title,
@@ -24,7 +26,7 @@ class Task < ApplicationRecord
   
   validate :validate_end_date_before_today, if: :check_end_date_changed?
   
-  scope :get_index, ->(course_id) { includes(:own_join).where(course_id: course_id).references(:own_joins_tasks).order(updated_at: :desc) }
+  # scope :get_index, ->(course_id) { where(course_id: course_id).order(updated_at: :desc) }
   
   scope :get_list, ->(course_id) { where("course_id = ? and start_date < ?", course_id, Time.current).order(id: :desc) }
   
@@ -35,6 +37,13 @@ class Task < ApplicationRecord
   
   scope :get_has_reference_task_title, ->(task_id) { where(reference_task_id: task_id).order(:id).pluck(:title)}
 
+  scope :for_ids_with_order, ->(ids) {
+    order = sanitize_sql_array(
+      ["position((',' || id::text || ',') in ?)", ids.join(',') + ',']
+    )
+    where(id: ids).order(order)
+  }
+
   class << self
     def included_in_the_team(task_id, user_id)
       team_ids = TaskTeam.where(task_id: task_id).pluck(:team_id)
@@ -44,6 +53,22 @@ class Task < ApplicationRecord
     def get_by_id(task_id)
       select("id, title")
       .where(id: task_id)
+    end
+    
+    def get_index(course_id)
+      current_time = Time.current
+      tasks = Task.where(course_id: course_id)
+      tasks.each do |task|
+        if task.start_date <= current_time && task.end_date >= current_time
+          task.status = 0   # =>期間中
+        elsif task.start_date > current_time
+          task.status = 1   # =>期間未到来
+        elsif task.end_date < current_time
+          task.status = 2   # =>期間終了後
+        end
+      end
+      task_ids = tasks.sort_by{|task| [task.status, task.end_date]}.pluck(:id)
+      tasks = Task.for_ids_with_order(task_ids)
     end
   end
   

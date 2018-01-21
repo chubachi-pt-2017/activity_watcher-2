@@ -12,6 +12,7 @@ ja:
       course: コース情報
       task: 課題情報
       team: チーム情報
+      university: 大学情報
     attributes:
       user:
         login_name: ログインユーザ名
@@ -21,6 +22,10 @@ ja:
         teachers_password: パスワード (講師のみ)
         user_universities: 大学情報
       user_university:
+        email: メールアドレス
+        student_no: 学生番号 (受講生のみ)
+        university_id: 所属大学
+      user/user_universities:
         email: メールアドレス
         student_no: 学生番号 (受講生のみ)
         university_id: 所属大学
@@ -51,6 +56,10 @@ ja:
         repository_name: Githubリポジトリ名
         service_url: サービスURL
         ci_url: CI URL
+      university: 
+        name: 大学名(日本語)
+        name_en: 大学名(英語)
+        email_domain: メールドメイン
   date:
     abbr_day_names:
     - 日

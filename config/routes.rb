@@ -41,6 +41,8 @@ Rails.application.routes.draw do
         end
       end
     end
+    
+    resources :universities, path: 'university', except: [:show, :destroy]
 
   end
 
