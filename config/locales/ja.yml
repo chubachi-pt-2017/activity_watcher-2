@@ -35,7 +35,6 @@ ja:
         start_date: 開始日
         end_date: 終了日
         description: 課題詳細
-        slack_domain: Slackドメイン名
         check_take_over: チーム構成引継ぎ
         before_task_id: 引継元の課題
       task_team:

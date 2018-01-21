@@ -21,6 +21,17 @@
           <th class="col-md-2 table-title">課題終了日</th>
           <td><%= l task.end_date, format: :medium %></td>
         </tr>
+        <% if task.reference_task_id.present? %>
+          <tr class="table-row">
+            <th class="col-md-2 table-title">チーム構成参照先</th>
+            <td><%=  Task.find_by(id: task.reference_task_id).title %></td>
+          </tr>
+        <% elsif task.own_join.present? %>
+          <tr class="table-row">
+            <th class="col-md-2 table-title">同じチーム構成</th>
+            <td><%= task.own_join.pluck(:title).join('、') %></td>
+          </tr>
+        <% end %>
         <tr class="table-row">
           <th class="col-md-2 table-title">課題詳細</th>
           <td><%=  task.description.truncate(50) %></td>
@@ -29,10 +40,18 @@
           <th class="col-md-2 table-title">アクション</th>
           <td>
             <%= link_to edit__course_task_path(task.course_id, task.id) do %>
-              <button type="button" class="btn btn-default">編集</button>
+              <button type="button" class="btn btn-primary">情報を編集する</button>
             <% end %>
-            <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
-              <button type="button" class="btn btn-danger">削除</button>
+            <% if task.own_join.blank? %>
+              <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+                <button type="button" class="btn btn-danger">削除</button>
+              <% end %>
+            <% end %>
+            <% if task.reference_task_id.present? %>
+              <%= link_to reference__course_task_url(task.course_id, task.id, reference: 'clear'), 
+                data: { confirm: "この課題単体で新たにチームを作ることになりますが、本当によろしいですか？" } do %>
+                <button type="button" class="btn btn-warning">チーム構成の参照を解除する</button>
+              <% end %>
             <% end %>
           </td>
         </tr>
