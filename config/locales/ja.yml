@@ -54,8 +54,8 @@ ja:
         user_id: メンバー
       team/task_teams:
         repository_name: Githubリポジトリ名
-        service_url: サービスURL
-        ci_url: CI URL
+        service_url: Heroku URL
+        ci_url: CIツール URL
       university: 
         name: 大学名(日本語)
         name_en: 大学名(英語)

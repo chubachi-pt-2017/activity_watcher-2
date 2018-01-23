@@ -2,7 +2,7 @@ class TaskTeam < ApplicationRecord
   belongs_to :task, inverse_of: :task_teams
   belongs_to :team, inverse_of: :task_teams
   
-  VALID_REPOSITORY_NAME = //
+  VALID_REPOSITORY_NAME = /\A[\w-][^_]+\/[\w-]+\z/i
   validates :repository_name,
     presence: true,
     length: { maximum: 256, allow_blank: true },

@@ -1,8 +1,7 @@
 class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
-  before_action :set_team, only: [:show, :destroy]
-  before_action :get_team_with_participants, only: [:edit, :update]
+  before_action :set_team, only: [:show, :edit, :update, :destroy]
   before_action :get_all_member_list, only: [:new, :create, :edit, :update]
-  before_action :get_edit_member_list, only: [:new, :create, :edit, :update]
+  before_action :get_selected_member_list, only: [:new, :create, :edit, :update]
 
   def show
     if @team.blank?
@@ -60,6 +59,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   end
 
   def update
+    params[:team][:user_ids] = params[:team][:user_ids].push(current_user.id) if params[:team][:user_ids].select{|user_id| user_id == current_user.id}.length == 0
     respond_to do |format|
       if @team.update(team_update_params)
         format.html { redirect_to _course_task_team_url(params[:course_id], params[:task_id], @team.id), notice: 'チームを更新しました' }
@@ -82,12 +82,8 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
     @participants = Team.get_all_member_list(params[:course_id], params[:task_id])
   end
   
-  def get_edit_member_list
+  def get_selected_member_list
     @selected_participants = Team.get_included_member_in_the_team(params[:course_id], params[:id])
-  end
-  
-  def get_team_with_participants
-    @team = Team.includes(:team_participants).find_by(id: params[:id])
   end
   
   def set_team
@@ -95,15 +91,15 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   end
   
   def team_create_params
-    params.require(:team).permit(:name, :description,:users, 
+    params.require(:team).permit(:name, :description, :users, 
       task_teams_attributes: [:id, :repository_name, :service_url, :ci_url],
       user_ids: []
       )
   end
 
   def team_update_params
-    params.require(:team).permit(:name, :description,
-      team_participants_attributes: [:id, :user_id, :team_id, :_destroy]
+    params.require(:team).permit(:name, :description, :users, 
+      user_ids: []
       )
   end
 end

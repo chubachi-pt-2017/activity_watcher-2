@@ -63,9 +63,9 @@
   
       <div class="edit-right-area">
         <div class="edit-member-area">
-          <div>メンバー選択</div>
+          <div>こちらからメンバーを選択</div>
           <div class="form-group">
-            <%= select_tag :user_ids_all, options_for_select(@participants), { multiple: true, class: "form-control", id: "js-select-all-memer" } %>
+            <%= select_tag :user_ids_all, options_for_select(@participants), { multiple: true, class: "form-control", id: "js-select-all-member" } %>
           </div>
 
           <div class="form-group" style="text-align: center;">
@@ -73,6 +73,7 @@
             <button type='button' class="btn btn-sm btn-danger member-remove-button" id="js-member-remove-button" style="margin-left: 20px;">↑↑ 削除 ↑↑</button>
           </div>
 
+          <div>チームメンバー</div>
           <div class="form-group">
             <%= f.select :user_ids, @selected_participants, {include_hidden: false}, {multiple: true, class: "form-control", id: "js-select-selected-member" } %>
           </div>
