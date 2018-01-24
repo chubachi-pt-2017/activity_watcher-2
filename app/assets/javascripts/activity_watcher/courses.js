@@ -88,9 +88,9 @@ function show_target_member_summary(num) {
 function instantiate_graph(num) {
   
   // 折れ線グラフ
-  var thisWeekCommitDates = $("#js-this-week-commit-date-" + num).data("this-week-commit-dates");
-  var thisWeekCommitNumbers = $("#js-this-week-commit-number-" + num).data("this-week-commit-numbers");
-
+  var thisWeekCommitDates = $("#js-this-week-commit-date").data("this-week-commit-dates").split(",");
+  var thisWeekCommitNumbers = $("#js-this-week-commit-number").data("this-week-commit-numbers");
+console.log(thisWeekCommitDates)
   var data = [
     {
       "xScale":"ordinal",
@@ -102,31 +102,31 @@ function instantiate_graph(num) {
           "className":".main.l1",
           "data": [
             {
-              "x":thisWeekCommitDates.Sunday,
+              "x":thisWeekCommitDates[0], // 日曜
               "y":thisWeekCommitNumbers.Sunday
             },
             {
-              "x":thisWeekCommitDates.Monday, 
+              "x":thisWeekCommitDates[1], // 月曜
               "y":thisWeekCommitNumbers.Monday
             },
             {
-              "x":thisWeekCommitDates.Tuesday,
+              "x":thisWeekCommitDates[2], // 火曜
               "y":thisWeekCommitNumbers.Tuesday
             },
             {
-              "x":thisWeekCommitDates.Wednesday,
+              "x":thisWeekCommitDates[3], // 水曜
               "y":thisWeekCommitNumbers.Wednesday
             },
             {
-              "x":thisWeekCommitDates.Thursday,
+              "x":thisWeekCommitDates[4], // 木曜
               "y":thisWeekCommitNumbers.Thursday
             },
             {
-              "x":thisWeekCommitDates.Friday,
+              "x":thisWeekCommitDates[5], // 金曜
               "y":thisWeekCommitNumbers.Friday
             },
             {
-              "x":thisWeekCommitDates.Saturday,
+              "x":thisWeekCommitDates[6], // 土曜
               "y":thisWeekCommitNumbers.Saturday
             }
           ]
