@@ -26,7 +26,7 @@ $(function(){
   }
 
   // チーム・個人詳細ページ
-  if ($("#js-team-commit-chart-0").length) {
+  if ($("#js-team-commit-chart").length) {
 
     // default表示は一番左のメンバーを表示しておく
     $(".js-individual-summary").addClass("disnon");
@@ -89,8 +89,8 @@ function instantiate_graph(num) {
   
   // 折れ線グラフ
   var thisWeekCommitDates = $("#js-this-week-commit-date").data("this-week-commit-dates").split(",");
-  var thisWeekCommitNumbers = $("#js-this-week-commit-number").data("this-week-commit-numbers");
-console.log(thisWeekCommitDates)
+  var thisWeekCommitNumbers = $("#js-this-week-commit-number").data("this-week-commit-numbers").split(",");
+
   var data = [
     {
       "xScale":"ordinal",
@@ -103,31 +103,31 @@ console.log(thisWeekCommitDates)
           "data": [
             {
               "x":thisWeekCommitDates[0], // 日曜
-              "y":thisWeekCommitNumbers.Sunday
+              "y":thisWeekCommitNumbers[0]
             },
             {
               "x":thisWeekCommitDates[1], // 月曜
-              "y":thisWeekCommitNumbers.Monday
+              "y":thisWeekCommitNumbers[1]
             },
             {
               "x":thisWeekCommitDates[2], // 火曜
-              "y":thisWeekCommitNumbers.Tuesday
+              "y":thisWeekCommitNumbers[2]
             },
             {
               "x":thisWeekCommitDates[3], // 水曜
-              "y":thisWeekCommitNumbers.Wednesday
+              "y":thisWeekCommitNumbers[3]
             },
             {
               "x":thisWeekCommitDates[4], // 木曜
-              "y":thisWeekCommitNumbers.Thursday
+              "y":thisWeekCommitNumbers[4]
             },
             {
               "x":thisWeekCommitDates[5], // 金曜
-              "y":thisWeekCommitNumbers.Friday
+              "y":thisWeekCommitNumbers[5]
             },
             {
               "x":thisWeekCommitDates[6], // 土曜
-              "y":thisWeekCommitNumbers.Saturday
+              "y":thisWeekCommitNumbers[6]
             }
           ]
         },
@@ -137,14 +137,14 @@ console.log(thisWeekCommitDates)
 
   var order = [0, 1, 0, 2],
   i = 0,
-  chart = new xChart('line-dotted', data[order[i]], '#js-team-commit-chart-' + num, {
+  chart = new xChart('line-dotted', data[order[i]], '#js-team-commit-chart', {
     axisPaddingTop: 5,
     timing: 1250
   });
 
   // ここから棒グラフ
-  var thisWeekPullRequestDates = $("#js-this-week-pull-request-date-" + num).data("this-week-pull-request-dates");
-  var thisWeekPullRequestNumbers = $("#js-this-week-pull-request-number-" + num).data("this-week-pull-request-numbers");
+  var thisWeekPullRequestDates = $("#js-this-week-pull-request-date").data("this-week-pull-request-dates");
+  var thisWeekPullRequestNumbers = $("#js-this-week-pull-request-number").data("this-week-pull-request-numbers");
 
   var pullRequestData = {
     "xScale": "ordinal",
@@ -185,5 +185,5 @@ console.log(thisWeekCommitDates)
       }
     ]
   };
-  var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request-' + num, { axisPaddingTop: 5 });
+  var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request', { axisPaddingTop: 5 });
 }

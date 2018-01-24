@@ -4,10 +4,12 @@ class GithubManager
 
   # attr_accessor :access_token
   attr_accessor :client
+  attr_accessor :repo
 
-  def initialize(user_access_token)
+  def initialize(user_access_token, repo_name)
     # @access_token = user_access_token
     @client = Octokit::Client.new access_token: user_access_token
+    @repo = repo_name
   end
 
   # repository: "chubachi-pt-2017/e_sal"
@@ -45,6 +47,19 @@ class GithubManager
     end
 
     commit_numbers
+  end
+  
+  def get_commits_this_week
+    this_sunday = get_this_sunday
+    commits = @client.commits_between(repo, this_sunday, Date.today)
+    this_week = [0, 0, 0, 0, 0, 0, 0] #日曜[0]〜土曜[6]
+
+    commits.each do |c|
+      if c[:commit][:author][:date].present?
+        this_week[c[:commit][:author][:date].in_time_zone('Tokyo').wday] += 1
+      end
+    end
+    this_week.join(",")
   end
 
   # repository: "chubachi-pt-2017/activity_watcher-2"
@@ -106,7 +121,7 @@ class GithubManager
   private  
     def get_this_sunday
       today = Date.today
-      this_sunday = today - (today.wday)  
+      this_sunday = today - (today.wday)
     end
 
 end

@@ -95,11 +95,12 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
     # ここでキャッシュからデータ取得
     
     if repos[0].repository_name.present?
-      githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
+      githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"], repos[0].repository_name)
 
       @contributors = githubManager.get_contributors_for_the_repository(repos[0].repository_name)
 
       # 先週のコミット数取得、先々週のコミット数取得
+      @commits_this_week = githubManager.get_commits_this_week
       @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, SEVEN_DAYS)
       @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@commits_last_week, @commits_two_weeks_ago, "commit")

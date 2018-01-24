@@ -79,12 +79,12 @@
     <div class="weekly-commit-summary">
       <div class="weekly-commit-summary__chart">
         <!-- 折れ線グラフ -->
-        <figure style="height: 300px;" id="js-team-commit-chart-0"></figure>
+        <figure style="height: 300px;" id="js-team-commit-chart"></figure>
       </div>
 
       <!-- Weekly Team Total Commitの折れ線グラフデータ -->
       <div style="display:none" id="js-this-week-commit-date" data-this-week-commit-dates=<%= @this_week_dates %>></div>
-      <div style="display:none" id="js-this-week-commit-number" data-this-week-commit-numbers='{"Sunday":10,"Monday":3,"Tuesday":6,"Wednesday":20,"Thursday":13,"Friday":10,"Saturday":8}'></div>
+      <div style="display:none" id="js-this-week-commit-number" data-this-week-commit-numbers=<%= @commits_this_week %>></div>
       <!-- Weekly Team Total Commitの折れ線グラフデータ -->
   
       <div class="panel panel-default weekly-commit-summary__total-commit-table">
@@ -257,12 +257,12 @@
     <div class="weekly-pull-request-summary">
       <div class="weekly-pull-request-summary__chart">
         <!-- 棒グラフデータ -->
-        <figure style="height: 300px;" id="js-pull-request-0"></figure>
+        <figure style="height: 300px;" id="js-pull-request"></figure>
       </div>
 
       <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
-      <div style="display:none" id="js-this-week-pull-request-date-0" data-this-week-pull-request-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
-      <div style="display:none" id="js-this-week-pull-request-number-0" data-this-week-pull-request-numbers='{"Sunday":10,"Monday":3,"Tuesday":6,"Wednesday":20,"Thursday":13,"Friday":10,"Saturday":8}'></div>
+      <div style="display:none" id="js-this-week-pull-request-date" data-this-week-pull-request-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
+      <div style="display:none" id="js-this-week-pull-request-number" data-this-week-pull-request-numbers='{"Sunday":10,"Monday":3,"Tuesday":6,"Wednesday":20,"Thursday":13,"Friday":10,"Saturday":8}'></div>
       <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
 
       <div class="panel panel-default weekly-pull-request-summary__total-pull-request-table">
