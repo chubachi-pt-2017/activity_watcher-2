@@ -122,21 +122,17 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   private
   
   def get_this_week_dates
-    dates = { "Sunday" => 0,"Monday" => 1,"Tuesday" => 2,"Wednesday" => 3,"Thursday" => 4,"Friday" => 5,"Saturday" => 6 }
     today = Date.today
     this_sunday = today - (today.wday)
-    # this_week = "{"
-#'{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'
     this_week = ""
-    dates.each_with_index do |(key, value), i|
+
+    0.upto(6) { |i|
       d = this_sunday + i
-      # this_week += "'#{key}':'#{d.month}月#{d.day}日',"
       this_week += "#{d.month}月#{d.day}日,"
-    end
+    }
+
     # 最後のカンマを削除しつつ"}"をつける
     this_week = this_week.chop
-    # this_week += "}"
-    # raise this_week.inspect
     this_week
   end
   
