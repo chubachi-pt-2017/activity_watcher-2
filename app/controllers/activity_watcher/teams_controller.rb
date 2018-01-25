@@ -1,7 +1,10 @@
 class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit]
+  before_action :set_team_with_participants, only: [:update, :destroy]
   before_action :get_all_member_list, only: [:new, :create, :edit, :update]
   before_action :get_selected_member_list, only: [:new, :create, :edit, :update]
+  before_action :get_course, only: [:show, :new, :edit, :create, :update]
+  before_action :get_task, only: [:show, :new, :edit, :create, :update]
 
   def show
     if @team.blank?
@@ -86,8 +89,20 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
     @selected_participants = Team.get_included_member_in_the_team(params[:course_id], params[:id])
   end
   
+  def get_course
+    @course = Course.find_by(id: params[:course_id])
+  end
+  
+  def get_task
+    @task = Task.find_by(id: params[:task_id])
+  end
+  
   def set_team
     @team = Team.find_by(id: params[:id])
+  end
+  
+  def set_team_with_participants
+    @team = Team.includes(team_participants: :user).find_by(id: params[:id])
   end
   
   def team_create_params

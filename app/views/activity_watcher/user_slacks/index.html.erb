@@ -5,7 +5,10 @@
 <div class="contents__main">
   <div class="contents__wrap">
     <p id="notice"><%= notice %></p>
-    <h3><%= current_user.user_full_name %>さんのSlackワークスペース一覧</h3>
+    <h1><%= current_user.user_full_name %>さんのSlackワークスペース一覧</h1><br>
+    <% with_breadcrumb :user_slacks do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
     
     <p>ActivityWatcherと連携するSlackワークスペースを追加できます。<br />
     追加したワークスペースをコース作成時に選択すると、ワークスペースへの招待やChannelの作成を自動化できます。</p>

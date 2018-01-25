@@ -1,6 +1,6 @@
 class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :detail, :reference]
-  before_action :get_course, only: [:index, :list]
+  before_action :get_course, only: [:index, :list, :show, :detail, :new, :edit, :create, :update]
   before_action :get_tasks_new_select, only: [:new, :create]
   before_action :get_tasks_edit_select, only: [:edit, :update]
   before_action :get_has_reference_task_title, only: [:show, :edit]

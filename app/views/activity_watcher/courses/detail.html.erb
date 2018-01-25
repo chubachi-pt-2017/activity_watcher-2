@@ -1,7 +1,11 @@
 <div class="contents__main">
   <div class="contents__wrap">
     <p id="notice"><%= notice %></p>
-    
+    <h2><%= @course.title %>の詳細</h2><br>
+    <% with_breadcrumb :detail_course, @course do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+
     <table class="table table-bordered table-word-break table-striped">
       <tr class="table-row">
         <th class="col-md-2">コース名</th>

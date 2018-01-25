@@ -294,3 +294,12 @@ input[name="tab-item"] {
 }
 
 /* end of list of content */
+
+/* breacrumb */
+.breadcrumb li + li:before {
+  content: " > ";
+  padding: 0 5px;
+  color: #000;
+}
+
+/* end of breacrumb */

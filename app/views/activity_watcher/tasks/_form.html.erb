@@ -5,10 +5,16 @@
 <div class="contents__main">
   <div class="contents__wrap">
 
-    <% if @task.title.present? %>
-      <h1>課題「<%= @task.title %>」の編集ページ</h1>
+    <% if @task.id.present? %>
+      <h1>課題「<%= @task.title %>」の編集ページ</h1><br>
+      <% with_breadcrumb :edit_task, @course, @task do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
     <% else %>
-      <h1>課題の新規編集ページ</h1>
+      <h1>課題の新規編集ページ</h1><br>
+      <% with_breadcrumb :new_tasks, @course do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
     <% end %>
 
     <div class="edit-contents">

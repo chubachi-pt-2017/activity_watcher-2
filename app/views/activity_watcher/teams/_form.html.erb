@@ -1,10 +1,16 @@
 <div class="contents__main">
   <div class="contents__wrap">
 
-    <% if @team.name.present? %>
-      <h1>チーム「<%= @team.name %>」の編集ページ</h1>
+    <% if @team.id.present? %>
+      <h1>チーム「<%= @team.name %>」の編集ページ</h1><br>
+      <% with_breadcrumb :edit_team, @course, @task, @team do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
     <% else %>
-      <h1>チームの新規編集ページ</h1>
+      <h1>チームの新規編集ページ</h1><br>
+      <% with_breadcrumb :new_teams, @course, @task do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
     <% end %>
 
     <div class="edit-contents">
@@ -30,7 +36,7 @@
         
         <% if team.new_record? %>
           <hr>
-          <h3><u>課題成果物</u></h3>
+          <h4><u><%= @task.title %>の課題成果物</u></h4>
           <%= f.fields_for :task_teams, @team.task_teams do |tt| %>
             <div class="form-group">
               <div>
@@ -63,7 +69,7 @@
   
       <div class="edit-right-area">
         <div class="edit-member-area">
-          <div>こちらからメンバーを選択</div>
+          <div>リストからメンバーを選択</div>
           <div class="form-group">
             <%= select_tag :user_ids_all, options_for_select(@participants), { multiple: true, class: "form-control", id: "js-select-all-member" } %>
           </div>

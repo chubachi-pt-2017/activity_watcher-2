@@ -10,7 +10,10 @@
         <%= notice %>
       </div>
     <% end %>
-    <h2>大学情報管理ページ</h2><br />
+    <h2>大学情報管理ページ</h2><br>
+    <% with_breadcrumb :universities do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
     
     <%= paginate @universities %>
     
