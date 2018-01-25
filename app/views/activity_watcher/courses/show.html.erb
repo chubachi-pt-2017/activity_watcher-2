@@ -6,10 +6,10 @@
   <div class="contents__wrap">
     <p id="notice"><%= notice %></p>
     <div>
-      <h1><%= @course.title %></h1><br>
       <% with_breadcrumb :course, @course do %>
         <%= breadcrumbs style: :bootstrap %>
       <% end %>
+      <h1><%= @course.title %></h1>
     </div>
 
     <div class="contents__course-summary">

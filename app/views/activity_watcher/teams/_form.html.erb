@@ -2,15 +2,15 @@
   <div class="contents__wrap">
 
     <% if @team.id.present? %>
-      <h1>チーム「<%= @team.name %>」の編集ページ</h1><br>
       <% with_breadcrumb :edit_team, @course, @task, @team do %>
         <%= breadcrumbs style: :bootstrap %>
       <% end %>
+      <h2>チーム「<%= @team.name %>」の編集ページ</h2>
     <% else %>
-      <h1>チームの新規編集ページ</h1><br>
       <% with_breadcrumb :new_teams, @course, @task do %>
         <%= breadcrumbs style: :bootstrap %>
       <% end %>
+      <h2>チームの新規編集ページ</h2>
     <% end %>
 
     <div class="edit-contents">

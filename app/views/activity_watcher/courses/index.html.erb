@@ -4,11 +4,16 @@
 
 <div class="contents__main">
   <div class="contents__wrap">
-    <p id="notice"><%= notice %></p>
-    <h2><%= current_user.user_full_name %>さんのコース一覧</h2><br>
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
     <% with_breadcrumb :courses do %>
       <%= breadcrumbs style: :bootstrap %>
     <% end %>
+    <h2><%= current_user.user_full_name %>さんのコース一覧</h2><br>
 
     <%= paginate @courses %>
 
@@ -17,8 +22,8 @@
         <li>
           <div class="content-area">
             <dl>
-              <dt><%= course.title %></dt>
-              <hr>
+              <dt><%= course.title.truncate(20) %></dt>
+              <!--<hr>-->
               <dd>
                 <div class="detail-title">受講開始</div>
                 <div class="detail-material"><%= l course.start_date, format: :medium %></div>
@@ -55,27 +60,27 @@
                 </div>
               </dd>
               <dd>
-                <div class="detail-title">詳細</div>
-                <div class="detail-material"><%= course.description.truncate(25) %></div>
+                <div class="detail-title">コース詳細</div>
+                <div class="detail-material"><%= course.description.truncate(20) %></div>
               </dd>
             </dl>
             <%= link_to '＞＞詳細を見る', course_url(course), title: 'このコースの詳細を見る' %>
           </div>
           <div class="icon-area">
             <%= link_to edit_course_path(course), title: "このコースを編集する" do %>
-              <div class="icon-area__item"><i class="fa fa-edit" aria-hidden="true"></i></div>
+              <i class="fa fa-edit" aria-hidden="true"></i>
             <% end %>
     
             <%= link_to _course_tasks_path(course), title: "#{course.title}の課題一覧を見る" do %>
-              <div class="icon-area__item"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
+              <i class="fa fa-list-alt" aria-hidden="true"></i>
             <% end %>
     
             <%= link_to new__course_task_path(course), title: "#{course.title}に課題を追加する" do %>
-              <div class="icon-area__item"><i class="fa fa-plus" aria-hidden="true"></i></div>
+              <i class="fa fa-plus" aria-hidden="true"></i>
             <% end %>
     
             <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' }, title: "このコースを削除する" do %>
-              <div class="icon-area__item"><i class="fa fa-remove" aria-hidden="true" style="color: red;"></i></div>
+              <i class="fa fa-remove" aria-hidden="true" style="color: red;"></i>
             <% end %>
           </div>
         </li> 

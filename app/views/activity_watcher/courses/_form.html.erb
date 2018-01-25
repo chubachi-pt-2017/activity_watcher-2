@@ -6,15 +6,15 @@
   <div class="contents__wrap">
 
     <% if @course.title.present? %>
-      <h1>「<%= @course.title %>」コースの編集ページ</h1><br>
       <% with_breadcrumb :edit_course, @course do %>
         <%= breadcrumbs style: :bootstrap %>
       <% end %>
+      <h2>「<%= @course.title %>」コースの編集ページ</h2>
     <% else %>
-      <h1>コースの新規編集ページ</h1><br>
       <% with_breadcrumb :new_courses do %>
         <%= breadcrumbs style: :bootstrap %>
       <% end %>
+      <h2>コースの新規編集ページ</h2>
     <% end %>
 
     <div class="edit-contents">

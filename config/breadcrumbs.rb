@@ -5,7 +5,7 @@ end
 
 # courses#index
 crumb :courses do
-  link "#{current_user.user_full_name}さんのコース一覧", courses_path
+  link "#{current_user.user_full_name.truncate(20)}さんのコース一覧", courses_path
   parent :root
 end
 
@@ -23,7 +23,7 @@ end
 
 # courses#edit
 crumb :edit_course do |course|
-  link "#{course.title.truncate(20)}の編集", edit_course_path(course)
+  link "コースの編集", edit_course_path(course)
   parent :course, course
 end
 
@@ -41,7 +41,7 @@ end
 
 # tasks#index
 crumb :tasks do |course|
-  link "#{course.title.truncate(20)}の課題一覧", _course_tasks_path(course)
+  link "課題一覧", _course_tasks_path(course)
   parent :course, course
 end
 
@@ -59,13 +59,13 @@ end
 
 # tasks#edit
 crumb :edit_task do |course, task|
-  link "#{task.title.truncate(20)}の編集", edit__course_task_path(course, task)
+  link "課題の編集", edit__course_task_path(course, task)
   parent :task, course, task
 end
 
 # tasks#list
 crumb :list_tasks do |course|
-  link "#{course.title.truncate(20)}の課題一覧", list__course_tasks_path(course)
+  link "課題一覧", list__course_tasks_path(course)
   parent :detail_course, course
 end
 
@@ -89,7 +89,7 @@ end
 
 # teams#edit
 crumb :edit_team do |course, task, team|
-  link "#{team.name.truncate(20)}の編集", edit__course_task_team_path(course, task, team)
+  link "チームの編集", edit__course_task_team_path(course, task, team)
   parent :team, course, task, team
 end
 
@@ -109,4 +109,16 @@ end
 crumb :universities do
   link "大学情報の管理", universities_path
   parent :root
+end
+
+# universities#new
+crumb :new_universities do
+  link "大学情報の追加", new_university_path
+  parent :universities
+end
+
+# universities#edit
+crumb :edit_university do |university|
+  link "#{university.name}の編集", edit_university_path(university)
+  parent :universities
 end
