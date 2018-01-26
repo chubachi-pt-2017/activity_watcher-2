@@ -25,6 +25,10 @@
               <dt><%= course.title.truncate(20) %></dt>
               <!--<hr>-->
               <dd>
+                <div class="detail-title">状態</div>
+                <div class="detail-material"><%= course.status_word %></div>
+              </dd>
+              <dd>
                 <div class="detail-title">受講開始</div>
                 <div class="detail-material"><%= l course.start_date, format: :medium %></div>
               </dd>
@@ -48,11 +52,11 @@
                 <div class="detail-title">課題件数</div>
                 <div class="detail-material">
                   <% if course.tasks.any? %>
-                    進行中 
+                    受付中 
                     <%= course.tasks.select{|task| task.start_date <= @time_current && task.end_date >= @time_current}.length.to_s %>件　
-                    未到来 
+                    開始待ち 
                     <%= course.tasks.select{|task| task.start_date > @time_current}.length.to_s %>件　
-                    終了済 
+                    受付終了 
                     <%= course.tasks.select{|task| task.end_date < @time_current}.length.to_s %>件
                   <% else %>
                     無
@@ -68,19 +72,19 @@
           </div>
           <div class="icon-area">
             <%= link_to edit_course_path(course), title: "このコースを編集する" do %>
-              <i class="fa fa-edit" aria-hidden="true"></i>
+              <button type="button" class="btn btn-default">編集</button>
             <% end %>
     
             <%= link_to _course_tasks_path(course), title: "#{course.title}の課題一覧を見る" do %>
-              <i class="fa fa-list-alt" aria-hidden="true"></i>
+              <button type="button" class="btn btn-default">課題一覧</button>
             <% end %>
     
             <%= link_to new__course_task_path(course), title: "#{course.title}に課題を追加する" do %>
-              <i class="fa fa-plus" aria-hidden="true"></i>
+              <button type="button" class="btn btn-default">課題追加</button>
             <% end %>
     
             <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' }, title: "このコースを削除する" do %>
-              <i class="fa fa-remove" aria-hidden="true" style="color: red;"></i>
+              <button type="button" class="btn btn-danger">削除</button>
             <% end %>
           </div>
         </li> 
