@@ -37,11 +37,11 @@
                 <div class="detail-material"><%= l course.end_date, format: :medium %></div>
               </dd>
               <dd>
-                <div class="detail-title">slack</div>
+                <div class="detail-title">slackワークスペース</div>
                 <div class="detail-material"><%= course.user_slack.present? ? link_to(course.user_slack.workspace_name, course.user_slack.url.to_s, target: '_blank') : '無' %></div>
               </dd>
               <dd>
-                <div class="detail-title">開講大学</div>
+                <div class="detail-title">開講場所</div>
                 <div class="detail-material"><%= course.university.name %></div>
               </dd>
               <dd>

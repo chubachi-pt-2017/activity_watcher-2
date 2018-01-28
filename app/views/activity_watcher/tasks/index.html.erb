@@ -13,7 +13,7 @@
     <% with_breadcrumb :tasks, @course do %>
       <%= breadcrumbs style: :bootstrap %>
     <% end %>
-    <h2><%= @course.title %>の課題一覧</h2>
+    <h2><%= @course.title %>の課題一覧</h2><br>
 
     <ul class="contents_list">
       <% @tasks.each do |task| %>
@@ -53,16 +53,16 @@
               <button type="button" class="btn btn-default">編集</button>
             <% end %>
     
-            <% if task.own_join.blank? %>
-              <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
-                <button type="button" class="btn btn-danger">削除</button>
-              <% end %>
-            <% end %>
-    
             <% if task.reference_task_id.present? %>
               <%= link_to reference__course_task_url(task.course_id, task.id, reference: 'clear'), 
                 data: { confirm: "この課題単体で新たにチームを作ることになりますが、本当によろしいですか？" } do %>
                 <button type="button" class="btn btn-default">チーム構成の参照を解除</button>
+              <% end %>
+            <% end %>
+
+            <% if task.own_join.blank? %>
+              <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+                <button type="button" class="btn btn-danger">削除</button>
               <% end %>
             <% end %>
           </div>
