@@ -88,8 +88,8 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def show_team_detail
-    @task = Task.get_by_id(7).first #task ID
-    repos = TaskTeam.get_repository_name(7) #task ID
+    @task = Task.get_by_id(params[:task_id]).first #task ID
+    repos = TaskTeam.get_repository_name(params[:task_id]) #task ID
     @github_data_pcercents = Hash.new { |h,k| h[k] = {} }
 
     # ここでキャッシュからデータ取得
@@ -98,6 +98,8 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"], repos[0].repository_name)
 
       @contributors = githubManager.get_contributors_for_the_repository(repos[0].repository_name)
+
+      @latest_commits = githubManager.get_latest_commits(@task[:start_date])
 
       # 先週のコミット数取得、先々週のコミット数取得
       @commits_this_week = githubManager.get_commits_this_week

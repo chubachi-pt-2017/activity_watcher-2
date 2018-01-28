@@ -38,7 +38,7 @@ class Task < ApplicationRecord
     end
     
     def get_by_id(task_id)
-      select("id, title")
+      select("id, title, start_date")
       .where(id: task_id)
     end
   end

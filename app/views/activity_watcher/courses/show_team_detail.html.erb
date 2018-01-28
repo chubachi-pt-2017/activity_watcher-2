@@ -143,43 +143,20 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Commit ID</th>
                   <th>Message</th>
                   <th>Committer</th>
                   <th>Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
-                  <td>courseコントローラーを修正</td>
-                  <td>新妻健介</td>
-                  <td>2017/12/10</td>                  
-                </tr>
-                <tr>
-                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
-                  <td>courseコントローラーを修正</td>
-                  <td>新妻健介</td>
-                  <td>2017/12/10</td>                  
-                </tr>
-                <tr>
-                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
-                  <td>courseコントローラーを修正</td>
-                  <td>新妻健介</td>
-                  <td>2017/12/10</td>                  
-                </tr>
-                <tr>
-                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
-                  <td>courseコントローラーを修正</td>
-                  <td>新妻健介</td>
-                  <td>2017/12/10</td>                  
-                </tr>
-                <tr>
-                  <td>jdfjdsjisodjfijoidsjfiodsjfdsdfijojsdfij</td>
-                  <td>courseコントローラーを修正</td>
-                  <td>新妻健介</td>
-                  <td>2017/12/10</td>                  
-                </tr>                
+                <!--link_toがリンクにならない-->
+                <% @latest_commits.each do |key, value| %>
+                  <tr>
+                    <td><%= link_to value[:message].truncate(80), value[:commit_url], :target => "_blank" %></td>
+                    <td><%= value[:committer] %></td>
+                    <td><%= l value[:date] %></td>
+                  </tr>
+                <% end %>
               </tbody>
             </table>
           </div>

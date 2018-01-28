@@ -118,7 +118,22 @@ class GithubManager
     comment_numbers
   end
 
-  private  
+  def get_latest_commits(task_start_date)
+    all_commits = @client.commits_since(@repo, task_start_date)
+    result = Hash.new { |h,k| h[k] = {} }
+
+    all_commits.each_with_index do |commit, i|
+      break if i == 10
+      result[commit[:sha]][:message] = commit[:commit][:message]
+      result[commit[:sha]][:commit_url] = commit[:html_url]
+      result[commit[:sha]][:committer] = commit[:commit][:author][:name]
+      result[commit[:sha]][:date] = commit[:commit][:author][:date].in_time_zone("Tokyo")
+    end
+
+    result
+  end
+
+  private
     def get_this_sunday
       today = Date.today
       this_sunday = today - (today.wday)
