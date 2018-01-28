@@ -1,6 +1,15 @@
 <div class="contents__main">
   <div class="contents__wrap">
-    <p id="notice"><%= notice %></p>
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% with_breadcrumb :detail_task, @course, @task do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+    <h2><%= @task.title %>の詳細</h2>
     
     <table class="table table-bordered table-word-break table-striped">
       <tr>
@@ -32,7 +41,7 @@
           <% end %>
         </td>
       </tr>
-    </table>
+    </table><br>
     
     <% if @teams.any? %>
       <br /><br />
@@ -62,7 +71,7 @@
               <% end %>
             </td>
           </tr>
-        </table>
+        </table><br>
       <% end %>
       <%= paginate @teams %>
     <% end %>

@@ -4,77 +4,92 @@
 
 <div class="contents__main">
   <div class="contents__wrap">
-    <p id="notice"><%= notice %></p>
-    <h4><%= current_user.user_full_name %>さんのコース一覧</h4>
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% with_breadcrumb :courses do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+    <h2><%= current_user.user_full_name %>さんのコース一覧</h2><br>
+
     <%= paginate @courses %>
 
-    <% @courses.each do |course| %>
-      <table class="table table-bordered table-word-break table-striped">
-        <tr class="table-row">
-          <th class="col-md-2 table-title">コース名</th>
-          <td><%= link_to course.title.truncate(50), course_path(course) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">受講開始日</th>
-          <td><%= l course.start_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">受講終了日</th>
-          <td><%= l course.end_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">Slackワークスペース名</th>
-          <td><%= link_to course.user_slack.workspace_name, course.user_slack.url.to_s, target: '_blank' if course.user_slack.present? %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">開講大学</th>
-          <td><%= course.university.name %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">他大学受講生への公開</th>
-          <td><%= course.publish_other_universities_flg == true ? "公開" : "非公開" %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題件数</th>
-          <td>
-            <% if course.tasks.any? %>
-              進行中　
-              <%= course.tasks.select{|task| task.start_date <= @time_current && task.end_date >= @time_current}.length.to_s %>件<br>
-              未到来　
-              <%= course.tasks.select{|task| task.start_date > @time_current}.length.to_s %>件<br>
-              終了済　
-              <%= course.tasks.select{|task| task.end_date < @time_current}.length.to_s %>件<br>
-            <% else %>
-              無
-            <% end %>
-          </td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">コース詳細</th>
-          <td><%= course.description.truncate(50) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">アクション</th>
-          <td>
-            <%= link_to edit_course_path(course) do %>
-              <button type="button" class="btn btn-primary">コースを編集する</button>
-            <% end %>
-    
-            <%= link_to _course_tasks_path(course) do %>
-              <button type="button" class="btn btn-primary">課題一覧をみる</button>
-            <% end %>
-    
-            <%= link_to new__course_task_path(course) do %>
-              <button type="button" class="btn btn-primary">課題を追加する</button>
+    <ul class="contents_list">
+      <% @courses.each do |course| %>
+        <li>
+          <div class="content-area">
+            <dl>
+              <dt><%= course.title.truncate(20) %></dt>
+              <!--<hr>-->
+              <dd>
+                <div class="detail-title">状態</div>
+                <div class="detail-material"><%= course.status_word %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">受講開始</div>
+                <div class="detail-material"><%= l course.start_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">受講終了</div>
+                <div class="detail-material"><%= l course.end_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">slackワークスペース</div>
+                <div class="detail-material"><%= course.user_slack.present? ? link_to(course.user_slack.workspace_name, course.user_slack.url.to_s, target: '_blank') : '無' %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">開講場所</div>
+                <div class="detail-material"><%= course.university.name %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">他大学受講生へ公開</div>
+                <div class="detail-material"><%= course.publish_other_universities_flg == true ? "公開" : "非公開" %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">課題件数</div>
+                <div class="detail-material">
+                  <% if course.tasks.any? %>
+                    受付中 
+                    <%= course.tasks.select{|task| task.start_date <= @time_current && task.end_date >= @time_current}.length.to_s %>件　
+                    開始待ち 
+                    <%= course.tasks.select{|task| task.start_date > @time_current}.length.to_s %>件　
+                    受付終了 
+                    <%= course.tasks.select{|task| task.end_date < @time_current}.length.to_s %>件
+                  <% else %>
+                    無
+                  <% end %>
+                </div>
+              </dd>
+              <dd>
+                <div class="detail-title">コース詳細</div>
+                <div class="detail-material"><%= course.description.truncate(20) %></div>
+              </dd>
+            </dl>
+            <%= link_to '＞＞詳細を見る', course_url(course), title: 'このコースの詳細を見る' %>
+          </div>
+          <div class="icon-area">
+            <%= link_to edit_course_path(course), title: "このコースを編集する" do %>
+              <button type="button" class="btn btn-default">編集</button>
             <% end %>
     
-            <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' } do %>
-              <button type="button" class="btn btn-danger">コースを削除する</button>
+            <%= link_to _course_tasks_path(course), title: "#{course.title}の課題一覧を見る" do %>
+              <button type="button" class="btn btn-default">課題一覧</button>
             <% end %>
-          </td>
-        </tr>
-      </table>
-    <% end %>
+    
+            <%= link_to new__course_task_path(course), title: "#{course.title}に課題を追加する" do %>
+              <button type="button" class="btn btn-default">課題追加</button>
+            <% end %>
+    
+            <%= link_to course, method: :delete, data: { confirm: 'コースに紐付く課題も削除されますが、よろしいですか？' }, title: "このコースを削除する" do %>
+              <button type="button" class="btn btn-danger">削除</button>
+            <% end %>
+          </div>
+        </li> 
+      <% end %>
+    </ul>
     <%= paginate @courses %>
   </div>
 </div>

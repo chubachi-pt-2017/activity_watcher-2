@@ -1,30 +1,45 @@
-<%= form_for task_team, url: _course_task_team_task_team_path(params[:course_id], params[:task_id], task_team.team_id, task_team.id) do |f| %>
-  <% if task_team.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger">
-      <h3><%= pluralize(task_team.errors.count, "件") %> のエラーがあります</h3>
+<div class="contents__main">
+  <div class="contents__wrap">
 
-      <ul>
-      <% task_team.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <h1>課題「<%= @task.title %>」の成果物情報編集ページ</h1><br>
+    <% with_breadcrumb :edit_task_team, @course, @task, @team, @task_team do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+
+    <div class="edit-contents">
+      <div class="edit-left-area">
   
-  <table class="table table-bordered table-striped" style="width: 750px;">
-    <tr>
-      <th class="col-md-3">Githubリポジトリ名</th>
-      <td><%= f.text_field :repository_name, maxlength: 128, class: "form-control" %></td>
-    </tr>
-    <tr>
-      <th>サービスURL</th>
-      <td><%= f.text_field :service_url, maxlength: 256, class: "form-control" %></td>
-    </tr>
-    <tr>
-      <th>CI URL</th>
-      <td><%= f.text_field :ci_url, maxlength: 256, class: "form-control" %></td>
-    </tr>
-  </table>
-  <%= f.submit '更新する', class: "btn btn-success" %>
-<% end %>
-<br />
+        <div class="form-group">
+          <div>
+            <div class="edit-left-area__title">Githubリポジトリ名(最大256文字)</div>
+            <div class="edit-left-area__title-count"><span>Githubリポジトリ名の文字数：</span><span id="js-repository-name-count">0</span></div>
+          </div>
+          <%= f.input :repository_name, maxlength: true, label: false, placeholder: "(アカウント名またはorganization)/リポジトリ名", :input_html => { class: 'edit-left-area__text-box', id: "js-repository-name" } %>
+        </div>
+        
+        <div class="form-group">
+          <div>
+            <div class="edit-left-area__title">Heroku URL(最大256文字)</div>
+            <div class="edit-left-area__title-count"><span>Heroku URLの文字数：</span><span id="js-heroku-url-count">0</span></div>
+          </div>
+          <%= f.input :service_url, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-heroku-url" } %>
+        </div>
+        
+        <div class="form-group">
+          <div>
+            <div class="edit-left-area__title">CIツール URL(最大256文字)</div>
+            <div class="edit-left-area__title-count"><span>CIツール URLの文字数：</span><span id="js-ci-tool-count">0</span></div>
+          </div>
+          <%= f.input :ci_url, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-ci-tool" } %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
+          <%= link_to '戻る', _course_task_team_url(params[:course_id], params[:task_id], params[:team_id]), class: "btn btn-default" %>
+        </div>
+        
+      </div><!-- end of edit-left-area -->
+  
+    </div><!-- end of x_content -->
+  </div>
+</div>

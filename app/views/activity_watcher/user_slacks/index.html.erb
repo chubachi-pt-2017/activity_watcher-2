@@ -4,8 +4,16 @@
 
 <div class="contents__main">
   <div class="contents__wrap">
-    <p id="notice"><%= notice %></p>
-    <h3><%= current_user.user_full_name %>さんのSlackワークスペース一覧</h3>
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% with_breadcrumb :user_slacks do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+    <h2><%= current_user.user_full_name %>さんのSlackワークスペース一覧</h2><br>
     
     <p>ActivityWatcherと連携するSlackワークスペースを追加できます。<br />
     追加したワークスペースをコース作成時に選択すると、ワークスペースへの招待やChannelの作成を自動化できます。</p>
@@ -62,7 +70,7 @@
             </tr>
           <% end %>
         </tbody>
-      </table>
+      </table><br>
       <%= paginate @user_slacks %>
     <% end %>
     <%= link_to "連携するワークスペースを選択する", "/auth/slack", 

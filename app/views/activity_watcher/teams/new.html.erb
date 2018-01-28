@@ -1,9 +1,3 @@
-<div class="contents__main">
-  <div class="contents__wrap">
-
-    <h5>チームを作成する</h5>
-    <%= render 'form_new', team: @team %>
-    
-    <%= link_to '戻る', detail__course_task_url(params[:course_id], params[:task_id]), class: "btn btn-default" %>
-  </div>
-</div>
+<%= simple_form_for @team, url: _course_task_teams_path, wrapper: "horizontal_form" do |f| %>
+  <%= render 'form', team: @team, f: f %>
+<% end %>

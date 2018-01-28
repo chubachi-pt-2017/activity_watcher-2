@@ -5,8 +5,6 @@ class Task < ApplicationRecord
   has_many :own_join, class_name: Task, primary_key: 'id', foreign_key: 'reference_task_id'
   accepts_nested_attributes_for :task_teams
   
-  attr_accessor :status
-
   before_save :create_task_teams
   
   validates :title,
@@ -26,9 +24,11 @@ class Task < ApplicationRecord
   
   validate :validate_end_date_before_today, if: :check_end_date_changed?
   
-  # scope :get_index, ->(course_id) { where(course_id: course_id).order(updated_at: :desc) }
+  scope :get_index, ->(course_id) { includes(:own_join).where(course_id: course_id)
+                                  .select_status_word.order(updated_at: :desc) }
   
-  scope :get_list, ->(course_id) { where("course_id = ? and start_date < ?", course_id, Time.current).order(id: :desc) }
+  scope :get_list, ->(course_id) { where(course_id: course_id)
+                                  .select_status.select_status_word.order("status ASC, end_date ASC") }
   
   scope :get_select_item, ->(course_id, task_id = nil) { where(course_id: course_id, reference_task_id: nil)
                                          .where.not(id: task_id).order(id: :desc).pluck(:title, :id) }
@@ -37,11 +37,22 @@ class Task < ApplicationRecord
   
   scope :get_has_reference_task_title, ->(task_id) { where(reference_task_id: task_id).order(:id).pluck(:title)}
 
-  scope :for_ids_with_order, ->(ids) {
-    order = sanitize_sql_array(
-      ["position((',' || id::text || ',') in ?)", ids.join(',') + ',']
-    )
-    where(id: ids).order(order)
+  scope :select_status, -> {
+    current_time = Time.current
+    scope = current_scope || relation
+    scope = scope.select("*") if scope.select_values.blank?
+    scope.select("(CASE WHEN tasks.start_date <= '#{current_time}' AND tasks.end_date >= '#{current_time}' THEN 0
+                       WHEN tasks.start_date > '#{current_time}' THEN 1
+                       WHEN tasks.end_date < '#{current_time}' THEN 2 END) AS status")
+  }
+
+  scope :select_status_word, -> {
+    current_time = Time.current
+    scope = current_scope || relation
+    scope = scope.select("*") if scope.select_values.blank?
+    scope.select("(CASE WHEN tasks.start_date <= '#{current_time}' AND tasks.end_date >= '#{current_time}' THEN '受付中'
+                       WHEN tasks.start_date > '#{current_time}' THEN '開始待ち'
+                       WHEN tasks.end_date < '#{current_time}' THEN '受付終了' END) AS status_word")
   }
 
   class << self
@@ -55,21 +66,6 @@ class Task < ApplicationRecord
       .where(id: task_id)
     end
     
-    def get_index(course_id)
-      current_time = Time.current
-      tasks = Task.where(course_id: course_id)
-      tasks.each do |task|
-        if task.start_date <= current_time && task.end_date >= current_time
-          task.status = 0   # =>期間中
-        elsif task.start_date > current_time
-          task.status = 1   # =>期間未到来
-        elsif task.end_date < current_time
-          task.status = 2   # =>期間終了後
-        end
-      end
-      task_ids = tasks.sort_by{|task| [task.status, task.end_date]}.pluck(:id)
-      tasks = Task.for_ids_with_order(task_ids)
-    end
   end
   
   def create_task_teams

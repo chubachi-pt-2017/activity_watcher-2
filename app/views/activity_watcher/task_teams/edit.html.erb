@@ -1,9 +1,3 @@
-<div class="contents__main">
-  <div class="contents__wrap">
-    <h4>情報を編集する</h4>
-    
-    <%= render 'form', task_team: @task_team %>
-    
-    <%= link_to 'チーム詳細に戻る', _course_task_team_url(params[:course_id], params[:task_id], @task_team.team_id), class: "btn btn-default" %>
-  </div>
-</div>
+<%= simple_form_for @task_team, url: _course_task_team_task_team_path, wrapper: "horizontal_form" do |f| %>
+  <%= render 'form', task_team: @task_team, f: f %>
+<% end %>

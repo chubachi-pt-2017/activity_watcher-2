@@ -6,9 +6,15 @@
   <div class="contents__wrap">
 
     <% if @university.new_record? %>
-      <h1>大学情報の新規編集ページ</h1>
+      <% with_breadcrumb :new_universities do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
+      <h2>大学情報の新規編集ページ</h2>
     <% else %>
-      <h1>「<%= @university.name %>」の編集ページ</h1>
+      <% with_breadcrumb :edit_university, @university do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
+      <h2>「<%= @university.name %>」の編集ページ</h2>
     <% end %>
 
     <div class="edit-contents">

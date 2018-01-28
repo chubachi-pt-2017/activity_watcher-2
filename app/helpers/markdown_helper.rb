@@ -26,7 +26,7 @@ module MarkdownHelper
   
   class CustomRender < Redcarpet::Render::HTML
     def table(header, body)
-      "<table class='table table-bordered'>" \
+      "<table class='table table-bordered' style='margin-bottom: 20px;'>" \
         "<thead style='background-color: #f5efef'>#{header}</thead>" \
         "<tbody>#{body}</tbody>" \
       "</table>"
