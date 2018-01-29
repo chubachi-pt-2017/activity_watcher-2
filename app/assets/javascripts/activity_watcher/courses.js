@@ -88,7 +88,7 @@ function show_target_member_summary(num) {
 function instantiate_graph(num) {
   
   // 折れ線グラフ
-  var thisWeekCommitDates = $("#js-this-week-commit-date").data("this-week-commit-dates").split(",");
+  var thisWeekDates = $("#js-this-week-commit-date").data("this-week-dates").split(",");
   var thisWeekCommitNumbers = $("#js-this-week-commit-number").data("this-week-commit-numbers").split(",");
 
   var data = [
@@ -96,37 +96,38 @@ function instantiate_graph(num) {
       "xScale":"ordinal",
       "yScale":"linear",
       "type":"line-dotted",
+      "yMin": 0,
       "comp":[],
       "main":[
         { 
           "className":".main.l1",
           "data": [
             {
-              "x":thisWeekCommitDates[0], // 日曜
+              "x":thisWeekDates[0], // 日曜
               "y":thisWeekCommitNumbers[0]
             },
             {
-              "x":thisWeekCommitDates[1], // 月曜
+              "x":thisWeekDates[1], // 月曜
               "y":thisWeekCommitNumbers[1]
             },
             {
-              "x":thisWeekCommitDates[2], // 火曜
+              "x":thisWeekDates[2], // 火曜
               "y":thisWeekCommitNumbers[2]
             },
             {
-              "x":thisWeekCommitDates[3], // 水曜
+              "x":thisWeekDates[3], // 水曜
               "y":thisWeekCommitNumbers[3]
             },
             {
-              "x":thisWeekCommitDates[4], // 木曜
+              "x":thisWeekDates[4], // 木曜
               "y":thisWeekCommitNumbers[4]
             },
             {
-              "x":thisWeekCommitDates[5], // 金曜
+              "x":thisWeekDates[5], // 金曜
               "y":thisWeekCommitNumbers[5]
             },
             {
-              "x":thisWeekCommitDates[6], // 土曜
+              "x":thisWeekDates[6], // 土曜
               "y":thisWeekCommitNumbers[6]
             }
           ]
@@ -143,43 +144,44 @@ function instantiate_graph(num) {
   });
 
   // ここから棒グラフ
-  var thisWeekPullRequestDates = $("#js-this-week-pull-request-date").data("this-week-pull-request-dates");
-  var thisWeekPullRequestNumbers = $("#js-this-week-pull-request-number").data("this-week-pull-request-numbers");
+  // var thisWeekPullRequestDates = $("#js-this-week-pull-request-date").data("this-week-pull-request-dates");
+  var thisWeekPullRequestNumbers = $("#js-this-week-pull-request-number").data("this-week-pull-request-numbers").split(",");
 
   var pullRequestData = {
     "xScale": "ordinal",
     "yScale": "linear",
+    "yMin": 0,
     "main": [
       {
         "className": ".pizza",
         "data": [
           {
-            "x":thisWeekPullRequestDates.Sunday,
-            "y":thisWeekPullRequestNumbers.Sunday
+            "x":thisWeekDates[0], // 日曜
+            "y":thisWeekPullRequestNumbers[0]
           },
           {
-            "x":thisWeekPullRequestDates.Monday, 
-            "y":thisWeekPullRequestNumbers.Monday
+            "x":thisWeekDates[1], // 月曜
+            "y":thisWeekPullRequestNumbers[1]
           },
           {
-            "x":thisWeekPullRequestDates.Tuesday,
-            "y":thisWeekPullRequestNumbers.Tuesday
+            "x":thisWeekDates[2], // 火曜
+            "y":thisWeekPullRequestNumbers[2]
           },
           {
-            "x":thisWeekPullRequestDates.Wednesday,
-            "y":thisWeekPullRequestNumbers.Wednesday
+            "x":thisWeekDates[3], // 水曜
+            "y":thisWeekPullRequestNumbers[3]
           },
           {
-            "x":thisWeekPullRequestDates.Thursday,
-            "y":thisWeekPullRequestNumbers.Thursday
+            "x":thisWeekDates[4], // 木曜
+            "y":thisWeekPullRequestNumbers[4]
           },
           {
-            "x":thisWeekPullRequestDates.Friday,
-            "y":thisWeekPullRequestNumbers.Friday
+            "x":thisWeekDates[5], // 金曜
+            "y":thisWeekPullRequestNumbers[5]
           },
           {
-            "x":thisWeekPullRequestDates.Saturday,
-            "y":thisWeekPullRequestNumbers.Saturday
+            "x":thisWeekDates[6], // 土曜
+            "y":thisWeekPullRequestNumbers[6]
           }
         ]
       }

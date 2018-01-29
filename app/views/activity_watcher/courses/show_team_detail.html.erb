@@ -83,7 +83,7 @@
       </div>
 
       <!-- Weekly Team Total Commitの折れ線グラフデータ -->
-      <div style="display:none" id="js-this-week-commit-date" data-this-week-commit-dates=<%= @this_week_dates %>></div>
+      <div style="display:none" id="js-this-week-commit-date" data-this-week-dates=<%= @this_week_dates %>></div>
       <div style="display:none" id="js-this-week-commit-number" data-this-week-commit-numbers=<%= @commits_this_week %>></div>
       <!-- Weekly Team Total Commitの折れ線グラフデータ -->
   
@@ -149,11 +149,10 @@
                 </tr>
               </thead>
               <tbody>
-                <!--link_toがリンクにならない-->
                 <% @latest_commits.each do |key, value| %>
                   <tr>
-                    <td><%= link_to value[:message].truncate(80), value[:commit_url], :target => "_blank" %></td>
-                    <td><%= value[:committer] %></td>
+                    <td class="history-title"><%= link_to value[:message].truncate(60), value[:commit_url], :target => "_blank" %></td>
+                    <td class="history-user"><%= value[:committer] %></td>
                     <td><%= l value[:date] %></td>
                   </tr>
                 <% end %>
@@ -176,8 +175,7 @@
       </div>
 
       <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
-      <div style="display:none" id="js-this-week-pull-request-date" data-this-week-pull-request-dates='{"Sunday":"12月10日","Monday":"12月11日","Tuesday":"12月12日","Wednesday":"12月13日","Thursday":"12月14日","Friday":"12月15日","Saturday":"12月16日"}'></div>
-      <div style="display:none" id="js-this-week-pull-request-number" data-this-week-pull-request-numbers='{"Sunday":10,"Monday":3,"Tuesday":6,"Wednesday":20,"Thursday":13,"Friday":10,"Saturday":8}'></div>
+      <div style="display:none" id="js-this-week-pull-request-number" data-this-week-pull-request-numbers=<%= @merged_pull_request_this_week %>></div>
       <!-- Weekly Team Total Pull Requestの棒グラフデータ -->
 
       <div class="panel panel-default weekly-pull-request-summary__total-pull-request-table">
@@ -229,62 +227,60 @@
 
     </div><!-- end of weekly-pull-request-summary -->
 
-    <h3>Latest Pull Request History</h3>
+    <h3>Latest Merged Pull Request History</h3>
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_content">
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Status</th>
                 <th>Title</th>
-                <th>Review Comments</th>
                 <th>Created By</th>
                 <th>Creation Date</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Open</td>
-                <td>courseコントローラーを修正</td>
-                <td>0</td>
-                <td>新妻健介</td>
-                <td>2017/12/10</td>
-              </tr>
-              <tr>
-                <td>Open</td>
-                <td>courseコントローラーを修正</td>
-                <td>3</td>
-                <td>新妻健介</td>
-                <td>2017/12/10</td>
-              </tr>
-              <tr>
-                <td>Closed</td>
-                <td>courseコントローラーを修正</td>
-                <td>10</td>
-                <td>新妻健介</td>
-                <td>2017/12/10</td>
-              </tr>
-              <tr>
-                <td>Open</td>
-                <td>courseコントローラーを修正</td>
-                <td>30</td>
-                <td>新妻健介</td>
-                <td>2017/12/10</td>
-              </tr>
-              <tr>
-                <td>Closed</td>
-                <td>courseコントローラーを修正</td>
-                <td>0</td>
-                <td>新妻健介</td>
-                <td>2017/12/10</td>
-              </tr>
+              <% @latest_merged_pull_request_history.each do |pr_number, value| %>
+                <tr>
+                  <td class="history-title"><%= value[:title].truncate(60) %></td>
+                  <td class="history-user"><%= value[:creator] %></td>
+                  <td><%= l value[:created_at] %></td>
+                </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
       </div>
-    </div><!-- end of Latest Pull Request History-->
-    
+    </div><!-- end of Latest Merged Pull Request History-->
+
+    <div class="clearfix"></div>
+
+    <h3>Latest Open Pull Request History</h3>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Created By</th>
+                <th>Creation Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @latest_open_pull_request_history.each do |pr_number, value| %>
+                <tr>
+                  <td class="history-title"><%= value[:title].truncate(60) %></td>
+                  <td class="history-user"><%= value[:creator] %></td>
+                  <td><%= l value[:created_at] %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- end of Latest Open Pull Request History-->
+
     <div class="clearfix"></div>
     <h2><i class="fa fa-user" aria-hidden="true"></i>  Individual Summary</h2>
 

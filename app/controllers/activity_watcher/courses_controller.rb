@@ -112,6 +112,15 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@merged_pull_request_last_week, @merged_pull_request_two_weeks_ago, "merged_pull_request")
 
+      # pull requestのグラフ用日別(日〜土)データ
+      @merged_pull_request_this_week = githubManager.get_merged_pull_request_this_week
+
+      # Latest Merged Pull Request History
+      @latest_merged_pull_request_history = githubManager.get_latest_merged_pull_request_history
+
+      # Latest Open Pull Request History
+      @latest_open_pull_request_history = githubManager.get_latest_open_pull_request_history
+
       # 先週のメンバーへのコメント数取得、先々週のメンバーへのコメント数取得
       @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, SEVEN_DAYS)
       @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)

@@ -2,14 +2,19 @@ require "octokit"
 
 class GithubManager
 
+  SEVEN_DAYS = 7
+  FOURTEEN_DAYS = 14
+
   # attr_accessor :access_token
   attr_accessor :client
   attr_accessor :repo
+  attr_accessor :this_sunday
 
   def initialize(user_access_token, repo_name)
     # @access_token = user_access_token
     @client = Octokit::Client.new access_token: user_access_token
     @repo = repo_name
+    @this_sunday = get_this_sunday
   end
 
   # repository: "chubachi-pt-2017/e_sal"
@@ -86,6 +91,50 @@ class GithubManager
     end
 
     merged_pull_request
+  end
+
+  # 今週マージされたpull request
+  def get_merged_pull_request_this_week
+    this_week = [0, 0, 0, 0, 0, 0, 0] #日曜[0]〜土曜[6]
+    prs = client.pull_requests(@repo, {"state" => "closed"})
+
+    prs.each do |pr|
+      jst_time = pr[:merged_at].in_time_zone('Tokyo')
+
+      if pr[:merged_at].present? && jst_time.between?(@this_sunday - 21, Date.today)
+        this_week[jst_time.wday] += 1
+      end
+    end
+
+    this_week.join(",")
+  end
+
+  def get_latest_merged_pull_request_history
+    closed_prs = client.pull_requests(@repo, {"state" => "closed"})
+    result = Hash.new { |h,k| h[k] = {} }
+
+    closed_prs.each_with_index do |pr, i|
+      break if i == 10
+      result[pr[:number]][:title] = pr[:title]
+      result[pr[:number]][:creator] = pr[:user][:login]
+      result[pr[:number]][:created_at] = pr[:created_at].in_time_zone("Tokyo")
+    end
+
+    result
+  end
+
+  def get_latest_open_pull_request_history
+    open_prs = client.pull_requests(@repo)
+    result = Hash.new { |h,k| h[k] = {} }
+
+    open_prs.each_with_index do |pr, i|
+      break if i == 10
+      result[pr[:number]][:title] = pr[:title]
+      result[pr[:number]][:creator] = pr[:user][:login]
+      result[pr[:number]][:created_at] = pr[:created_at].in_time_zone("Tokyo")
+    end
+
+    result
   end
 
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
