@@ -9,49 +9,78 @@
     <% with_breadcrumb :list_courses do %>
       <%= breadcrumbs style: :bootstrap %>
     <% end %>
-    <h2>開講コース一覧</h2>
+    <h2>開講コース一覧</h2><br>
     
     <%= paginate @courses %>
-    <% @courses.each do |course| %>
-      <table class="table table-bordered table-word-break table-striped">
-        <tr class="table-row">
-          <th class="col-md-2 table-title">コース名</th>
-          <td><%= link_to course.title.truncate(50), detail_course_url(course.id) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">受講開始日</th>
-          <td><%= l course.start_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">受講終了日</th>
-          <td><%= l course.end_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">開講大学</th>
-          <td><%= course.university_name %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">コース詳細</th>
-          <td><%= course.description.truncate(50) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">アクション</th>
-          <td>
-            <% if course.user_id.present? || current_user.Teacher? %>
+    <ul class="contents_list">
+      <% @courses.each do |course| %>
+        <li>
+          <div class="content-area">
+            <dl>
+              <dt><%= course.title.truncate(20) %></dt>
+              <!--<hr>-->
+              <dd>
+                <div class="detail-title">ステータス</div>
+                <div class="detail-material">
+                  <% case course.status %>
+                  <% when 0 %>
+                    参加中
+                  <% when 1 %>
+                    開講中
+                  <% when 2 %>
+                    開講待ち
+                  <% when 3 %>
+                    参加済み
+                  <% when 4 %>
+                    受付終了
+                  <% end %>
+                </div>
+              </dd>
+              <dd>
+                <div class="detail-title">受講人数</div>
+                <div class="detail-material"><%= course.user_ids.present? ? course.user_ids.length.to_s : 0 %>人</div>
+              </dd>
+              <dd>
+                <div class="detail-title">受講開始</div>
+                <div class="detail-material"><%= l course.start_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">受講終了</div>
+                <div class="detail-material"><%= l course.end_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">slackワークスペース</div>
+                <div class="detail-material"><%= course.workspace_name.present? ? link_to(course.workspace_name, course.slack_url.to_s, target: '_blank') : '無' %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">開講場所</div>
+                <div class="detail-material"><%= course.university_name %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">コース詳細</div>
+                <div class="detail-material"><%= course.description.truncate(20) %></div>
+              </dd>
+            </dl>
+            <%= link_to '＞＞詳細を見る', detail_course_url(course), title: 'このコースの詳細を見る' %>
+          </div>
+          <div class="icon-area">
+            <% if course.status == 0 || course.status == 3 || current_user.Teacher? %>
               <%= link_to list__course_tasks_url(course.id) do %>
-                <button type="button" class="btn btn-success">課題一覧を見る</button>
+                <button type="button" class="btn btn-default">課題一覧を見る</button>
               <% end %>
               <%= link_to "参加を取りやめる", entry_course_path(course.id, participate: "cancel"), data: {confirm: "参加を取りやめます。よろしいですか？"},
-                class: "btn btn-danger" if (course.start_date <= @time_current) && (course.end_date >= @time_current) && current_user.Student? %>
-            <% elsif (course.start_date <= @time_current) && (course.end_date >= @time_current) %>
-              <%= link_to entry_course_path(course.id), data: {confirm: "このコースに参加します。よろしいですか？"} do %>
-                <button type="button" class="btn btn-primary">コースに参加する</button>
+                class: "btn btn-danger" if course.status == 0 %>
+            <% elsif course.status == 1 %>
+              <%= link_to entry_course_path(course.id), title: "このコースに参加する", data: {confirm: "このコースに参加します。よろしいですか？"} do %>
+                <button type="button" class="btn btn-default">参加する</button>
               <% end %>
+            <% elsif course.status == 2 || course.status == 4 %>
+              <button type="button" class="btn btn-default" style="opacity: 0.0;">ダミー</button>
             <% end %>
-          </td>
-        </tr>
-      </table>
-    <% end %>
+          </div>
+        </li> 
+      <% end %>
+    </ul>
     <%= paginate @courses %>
   </div>
 </div>

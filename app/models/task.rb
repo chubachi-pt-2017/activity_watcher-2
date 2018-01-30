@@ -25,10 +25,10 @@ class Task < ApplicationRecord
   validate :validate_end_date_before_today, if: :check_end_date_changed?
   
   scope :get_index, ->(course_id) { includes(:own_join).where(course_id: course_id)
-                                  .select_status_word.order(updated_at: :desc) }
+                                  .add_status_word_column.order(updated_at: :desc) }
   
   scope :get_list, ->(course_id) { where(course_id: course_id)
-                                  .select_status.select_status_word.order("status ASC, end_date ASC") }
+                                  .add_status_column.add_status_word_column.order("status ASC, end_date ASC") }
   
   scope :get_select_item, ->(course_id, task_id = nil) { where(course_id: course_id, reference_task_id: nil)
                                          .where.not(id: task_id).order(id: :desc).pluck(:title, :id) }
@@ -37,19 +37,19 @@ class Task < ApplicationRecord
   
   scope :get_has_reference_task_title, ->(task_id) { where(reference_task_id: task_id).order(:id).pluck(:title)}
 
-  scope :select_status, -> {
+  scope :add_status_column, -> {
     current_time = Time.current
     scope = current_scope || relation
-    scope = scope.select("*") if scope.select_values.blank?
+    scope = scope.select("tasks.*") if scope.select_values.blank?
     scope.select("(CASE WHEN tasks.start_date <= '#{current_time}' AND tasks.end_date >= '#{current_time}' THEN 0
                        WHEN tasks.start_date > '#{current_time}' THEN 1
                        WHEN tasks.end_date < '#{current_time}' THEN 2 END) AS status")
   }
 
-  scope :select_status_word, -> {
+  scope :add_status_word_column, -> {
     current_time = Time.current
     scope = current_scope || relation
-    scope = scope.select("*") if scope.select_values.blank?
+    scope = scope.select("tasks.*") if scope.select_values.blank?
     scope.select("(CASE WHEN tasks.start_date <= '#{current_time}' AND tasks.end_date >= '#{current_time}' THEN '受付中'
                        WHEN tasks.start_date > '#{current_time}' THEN '開始待ち'
                        WHEN tasks.end_date < '#{current_time}' THEN '受付終了' END) AS status_word")

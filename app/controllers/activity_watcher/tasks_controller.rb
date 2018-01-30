@@ -50,7 +50,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to _course_task_url(@task.course_id, @task.id), notice: '課題の修正が完了しました' }
+        format.html { redirect_to _course_tasks_url(@task.course_id), notice: '課題の修正が完了しました' }
       else
         format.html { render :edit }
       end

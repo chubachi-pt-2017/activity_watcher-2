@@ -35,11 +35,11 @@
               </dd>
               <dd>
                 <div class="detail-title">チーム構成参照先</div>
-                <div class="detail-material"><%= task.reference_task_id.present? ? Task.find_by(id: task.reference_task_id).title : "" %></div>
+                <div class="detail-material"><%= task.reference_task_id.present? ? Task.find_by(id: task.reference_task_id).title : "無" %></div>
               </dd>
               <dd>
                 <div class="detail-title">この課題を参照(チーム構成)</div>
-                <div class="detail-material"><%= task.own_join.present? ? task.own_join.pluck(:title).join('、') : "" %></div>
+                <div class="detail-material"><%= task.own_join.present? ? task.own_join.pluck(:title).join('、') : "無" %></div>
               </dd>
               <dd>
                 <div class="detail-title">課題詳細</div>

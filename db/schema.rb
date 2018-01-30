@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123182521) do
+ActiveRecord::Schema.define(version: 20180129171754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20180123182521) do
     t.string   "repository_name", limit: 256, default: "", null: false
     t.string   "service_url",     limit: 256
     t.string   "ci_url",          limit: 256
+    t.text     "comment"
     t.index ["task_id", "team_id"], name: "index_task_teams_on_task_id_and_team_id", unique: true, using: :btree
     t.index ["task_id"], name: "index_task_teams_on_task_id", using: :btree
     t.index ["team_id"], name: "index_task_teams_on_team_id", using: :btree
