@@ -65,6 +65,10 @@ $(function(){
       $(".off-tab").eq(0).removeClass("off-tab").addClass("on-tab");
     });
     instantiate_graph(0);
+    
+    // 個人詳細の1メンバーのタブ幅を計算。「width100% / メンバーの人数」
+    var member_num = $("#js-member-name").length
+    $(".tab-item").css( "width", "calc(100% / " + member_num + ")" )
   }
 });
 

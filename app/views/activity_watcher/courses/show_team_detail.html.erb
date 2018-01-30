@@ -285,14 +285,10 @@
     <h2><i class="fa fa-user" aria-hidden="true"></i>  Individual Summary</h2>
 
     <div class="tabs" id="js-individual-summary-area">
-      <input id="234567" type="radio" name="tab-item">
-      <label class="tab-item off-tab js-member-name" for="234567">新妻健介</label>
-
-      <input id="123456" type="radio" name="tab-item">
-      <label class="tab-item off-tab js-member-name" for="123456">鈴木太郎</label>
-
-      <input id="345678" type="radio" name="tab-item">
-      <label class="tab-item off-tab js-member-name" for="345678">山田花子</label>
+      <% @contributors.each do |github_number_id, github_user_id| %>
+        <input id="234567" type="radio" name="tab-item">
+        <label class="tab-item off-tab js-member-name" for="234567"><%= github_user_id %></label>
+      <% end %>
 
       <div class="js-individual-summary">
         <div class="contents-area">

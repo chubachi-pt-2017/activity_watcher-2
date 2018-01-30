@@ -97,7 +97,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
     if repos[0].repository_name.present?
       githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"], repos[0].repository_name)
 
-      @contributors = githubManager.get_contributors_for_the_repository(repos[0].repository_name)
+      @contributors = githubManager.get_contributors_for_the_repository
 
       @latest_commits = githubManager.get_latest_commits(@task[:start_date])
 

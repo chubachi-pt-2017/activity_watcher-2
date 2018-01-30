@@ -18,11 +18,11 @@ class GithubManager
   end
 
   # repository: "chubachi-pt-2017/e_sal"
-  def get_contributors_for_the_repository(repository)
+  def get_contributors_for_the_repository
     # client = Octokit::Client.new access_token: @access_token
     
     result = {}
-    @client.contributors_stats(repository)
+    @client.contributors_stats(@repo)
     .sort{ |a,b| b[:total] <=> a[:total] }
     .map{ |member| result[member[:author][:id]] = member[:author][:login] }
 
