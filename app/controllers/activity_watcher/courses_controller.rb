@@ -3,14 +3,16 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   SEVEN_DAYS = 7
   FOURTEEN_DAYS = 14
 
-  before_action :get_time_current, only: [:list, :detail]
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry, :show_team_detail]
+  before_action :get_time_current, only: [:list, :detail, :index]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry]
+  before_action :get_university_name, only: [:show, :detail]
   before_action :get_user_slacks_new_select, only: [:new, :create]
   before_action :get_user_slacks_edit_select, only: [:edit, :update]
   before_action :get_user_slack, only: [:show, :detail]
+  before_action :get_all_universities, only: [:new, :edit, :create, :update]
 
   def index
-    @courses = Course.get_index(current_user.id, session[:university_id]).page(params[:page])
+    @courses = Course.get_index(current_user.id).page(params[:page])
   end
   
   def list
@@ -31,7 +33,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def new
-    @course = Course.new
+    @course = Course.new(university_id: session[:university_id])  # 自身の所属大学をデフォルトで選択した状態で表示
   end
 
   def edit
@@ -40,7 +42,6 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   def create
     @course = Course.new(course_params)
     @course.owner_id = current_user.id
-    @course.university_id = session[:university_id]
 
     respond_to do |format|
       if @course.save
@@ -154,7 +155,11 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
     this_week = this_week.chop
     this_week
   end
-  
+
+  def get_all_universities
+    @universities = University.order(:id).pluck(:name, :id)
+  end
+    
   def calculate_percent_for_compared_weeks(last_week, two_weeks_ago, github_action)
     @contributors.each do |key, member|
       if (last_week[key].present? && two_weeks_ago[key].present?)
@@ -167,6 +172,10 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
 
   def get_time_current
     @time_current = Time.current
+  end
+  
+  def get_university_name
+    @university_name = University.find_by(id: @course.university_id).name
   end
   
   def get_user_slacks_new_select
@@ -186,7 +195,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
   
   def course_params
-    params.require(:course).permit(:title, :start_date, :end_date, :description, :user_slack_id, :team_id)
+    params.require(:course).permit(:title, :start_date, :end_date, :description, :user_slack_id, :team_id, :university_id, :publish_other_universities_flg)
   end
   
 end

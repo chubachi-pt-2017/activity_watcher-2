@@ -12,6 +12,7 @@ ja:
       course: コース情報
       task: 課題情報
       team: チーム情報
+      university: 大学情報
     attributes:
       user:
         login_name: ログインユーザ名
@@ -21,6 +22,10 @@ ja:
         teachers_password: パスワード (講師のみ)
         user_universities: 大学情報
       user_university:
+        email: メールアドレス
+        student_no: 学生番号 (受講生のみ)
+        university_id: 所属大学
+      user/user_universities:
         email: メールアドレス
         student_no: 学生番号 (受講生のみ)
         university_id: 所属大学
@@ -35,23 +40,22 @@ ja:
         start_date: 開始日
         end_date: 終了日
         description: 課題詳細
-        slack_domain: Slackドメイン名
-        check_take_over: チーム構成引継ぎ
-        before_task_id: 引継元の課題
       task_team:
         repository_name: Githubリポジトリ名
-        service_url: サービスURL
-        ci_url: CI URL
+        service_url: Heroku URL
+        ci_url: CIツール URL
       team:
         name: チーム名
         description: チーム詳細
         team_participants: メンバー
-      team/team_participants:
-        user_id: メンバー
       team/task_teams:
         repository_name: Githubリポジトリ名
-        service_url: サービスURL
-        ci_url: CI URL
+        service_url: Heroku URL
+        ci_url: CIツール URL
+      university: 
+        name: 大学名(日本語)
+        name_en: 大学名(英語)
+        email_domain: メールドメイン
   date:
     abbr_day_names:
     - 日

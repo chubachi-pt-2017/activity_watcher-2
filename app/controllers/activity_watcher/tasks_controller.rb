@@ -1,7 +1,9 @@
 class ActivityWatcher::TasksController < ActivityWatcher::BaseController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :detail]
-  before_action :get_course, only: [:index, :list]
-  before_action :get_tasks_select, only: [:new, :create]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :detail, :reference]
+  before_action :get_course, only: [:index, :list, :show, :detail, :new, :edit, :create, :update]
+  before_action :get_tasks_new_select, only: [:new, :create]
+  before_action :get_tasks_edit_select, only: [:edit, :update]
+  before_action :get_has_reference_task_title, only: [:show, :edit]
 
   def index
     @tasks = Task.get_index(params[:course_id]).page(params[:page])
@@ -36,11 +38,6 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
     @task = Task.new(task_params)
     @task.course_id = params[:course_id]
 
-    if params[:task][:check_take_over] == "true"
-      # 「チームを引き継ぐ」チェックがされていたら
-      @task.team_ids = TaskTeam.where(task_id: params[:task][:before_task_id]).pluck(:team_id)
-    end
-
     respond_to do |format|
       if @task.save
         format.html { redirect_to _course_tasks_url(@task.course_id), notice: '課題の作成が完了しました' }
@@ -66,6 +63,16 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
         format.html { redirect_to _course_tasks_url(@task.course_id), notice: '課題の削除が完了しました' }
     end
   end
+  
+  def reference
+    respond_to do |format|
+      if @task.clear_reference_task(params[:reference])
+        format.html { redirect_to _course_tasks_url(@task.course_id), notice: 'チーム構成の参照を解除しました'}
+      else
+        format.html { redirect_to _course_tasks_url(@task.course_id), notice: 'チーム構成の参照解除に失敗しました'}
+      end
+    end
+  end
 
   private
   
@@ -73,8 +80,16 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
     @course = Course.find_by(id: params[:course_id])
   end
   
-  def get_tasks_select
+  def get_tasks_new_select
     @task_select = Task.get_select_item(params[:course_id])
+  end
+  
+  def get_tasks_edit_select
+    @task_select = Task.get_select_item(params[:course_id], params[:id])
+  end
+  
+  def get_has_reference_task_title
+    @referenced_task_titles = Task.get_has_reference_task_title(params[:id])
   end
   
   def set_task
@@ -82,7 +97,6 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   end
 
   def task_params
-    params.require(:task).permit(:title, :start_date, :end_date, :description,
-                                 :check_take_over, :before_task_id)
+    params.require(:task).permit(:title, :start_date, :end_date, :description, :reference_task_id)
   end
 end

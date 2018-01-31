@@ -1,0 +1,57 @@
+<div class="contents__header">
+  <%= render partial: 'layouts/activity_watcher/universities/header' %>
+</div>
+
+<div class="contents__main">
+  <div class="contents__wrap">
+
+    <% if @university.new_record? %>
+      <% with_breadcrumb :new_universities do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
+      <h2>大学情報の新規編集ページ</h2>
+    <% else %>
+      <% with_breadcrumb :edit_university, @university do %>
+        <%= breadcrumbs style: :bootstrap %>
+      <% end %>
+      <h2>「<%= @university.name %>」の編集ページ</h2>
+    <% end %>
+
+    <div class="edit-contents">
+      <%= simple_form_for university, wrapper: "horizontal_form" do |f| %>
+        <div class="edit-left-area">
+
+          <div class="form-group">
+            <div>
+              <div class="edit-left-area__title">大学名(日本語)(最大30文字)</div>
+              <div class="edit-left-area__title-count"><span>大学名(日本語)の文字数：</span><span id="js-university-name-count">0</span></div>
+            </div>
+            <%= f.input :name, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-university-name" } %>
+          </div>
+          
+          <div class="form-group">
+            <div>
+              <div class="edit-left-area__title">大学名(英語)(最大50文字)</div>
+              <div class="edit-left-area__title-count"><span>大学名(英語)の文字数：</span><span id="js-university-name-en-count">0</span></div>
+            </div>
+            <%= f.input :name_en, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-university-name-en" } %>
+          </div>
+          
+          <div class="form-group">
+            <div>
+              <div class="edit-left-area__title">メールドメイン(最大64文字)</div>
+              <div class="edit-left-area__title-count"><span>メールドメインの文字数：</span><span id="js-university-email-domain-count">0</span></div>
+            </div>
+            <%= f.input :email_domain, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-university-email-domain" } %>
+          </div>
+          
+          <div class="form-actions">
+            <%= f.button :submit, class: 'btn btn-primary', id: "js-submit-button" %>
+            <%= link_to '戻る', universities_url, class: "btn btn-default" %>
+          </div>
+        </div><!-- end of course-edit-left-area -->
+  
+      <% end %>
+    </div><!-- end of x_content -->
+  </div>
+</div>

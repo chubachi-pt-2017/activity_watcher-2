@@ -23,9 +23,9 @@ class User < ApplicationRecord
       presence: true,
       length: { maximum: 64 }
       
-    validate :validate_user_universities_uniqueness
+    # validate :validate_user_universities_uniqueness
     
-    validate :validate_user_universities
+    # validate :validate_user_universities
   end
   
   with_options if: :user_registration_context_is_not_student do
@@ -87,11 +87,11 @@ class User < ApplicationRecord
   
   # 子モデルのバリデーションメソッド(配列の要素ごとにエラーメッセージを表示するため、親モデルで定義)
   def validate_user_universities
-    user_universities.each_with_index do |user_university, i|
+    user_universities.each do |user_university|
       next if user_university.valid?
       
       user_university.errors.full_messages.each do |full_message|
-        errors.add(:user_universities, "#{(i + 1).to_s}件目の#{full_message}")
+        errors.add(:user_universities, "#{full_message}")
       end
       
       user_university.errors.clear

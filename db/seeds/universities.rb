@@ -7,7 +7,6 @@ email_domains = ['aiit.ac.jp', 'gmail.com']
   University.create!(
     name: names[n - 1],
     name_en: name_ens[n - 1],
-    description: descriptions[n - 1],
     email_domain: email_domains[n - 1]
   )
 end

@@ -1,5 +1,8 @@
 class ActivityWatcher::TaskTeamsController < ActivityWatcher::BaseController
   before_action :set_task_team, only: [:edit, :update]
+  before_action :get_course, only: [:edit, :update]
+  before_action :get_task, only: [:edit, :update]
+  before_action :get_team, only: [:edit, :update]
 
   def edit
   end
@@ -15,6 +18,18 @@ class ActivityWatcher::TaskTeamsController < ActivityWatcher::BaseController
   end
 
   private
+  
+  def get_course
+    @course = Course.find_by(id: params[:course_id])
+  end
+  
+  def get_task
+    @task = Task.find_by(id: params[:task_id])
+  end
+  
+  def get_team
+    @team = Team.find_by(id: params[:team_id])
+  end
   
   def set_task_team
     @task_team = TaskTeam.find_by(id: params[:id])

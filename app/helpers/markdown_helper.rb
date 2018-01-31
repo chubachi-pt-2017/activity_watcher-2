@@ -1,7 +1,7 @@
 module MarkdownHelper
   def markdown(text)
     unless @markdown
-      renderer = Redcarpet::Render::HTML.new(filter_html: true, with_toc_data: true, hard_wrap: true, link_attributes: {target: '_blank'})
+      renderer = CustomRender.new(filter_html: true, with_toc_data: true, hard_wrap: true, link_attributes: {target: '_blank'})
       options = {
             autolink: true,
             space_after_headers: true,
@@ -22,5 +22,14 @@ module MarkdownHelper
   def create_toc(text)
     @toc = Redcarpet::Markdown.new Redcarpet::Render::HTML_TOC
     @toc.render(text).html_safe
+  end
+  
+  class CustomRender < Redcarpet::Render::HTML
+    def table(header, body)
+      "<table class='table table-bordered' style='margin-bottom: 20px;'>" \
+        "<thead style='background-color: #f5efef'>#{header}</thead>" \
+        "<tbody>#{body}</tbody>" \
+      "</table>"
+    end
   end
 end 

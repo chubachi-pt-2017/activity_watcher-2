@@ -1,8 +1,16 @@
 <div class="contents__main">
   <div class="contents__wrap">
-    <p id="notice"><%= notice %></p>
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% with_breadcrumb :team, @course, @task, @team do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+    <h2><%= @team.name %>の詳細</h2>
     
-    <h4>チーム情報</h4>
     <table class="table table-bordered table-striped">
       <tr>
         <th class="col-md-2">チーム名</th>

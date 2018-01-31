@@ -4,39 +4,70 @@
 
 <div class="contents__main">
   <div class="contents__wrap">
-    <p id="notice"><%= notice %></p>
-    <h4><%= @course.title %>の課題一覧</h4>
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% with_breadcrumb :tasks, @course do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+    <h2><%= @course.title %>の課題一覧</h2><br>
 
-    <% @tasks.each do |task| %>
-      <table class="table table-bordered table-word-break table-striped">
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題名</th>
-          <td><%= link_to task.title, _course_task_url(task.course_id, task.id) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題開始日</th>
-          <td><%= l task.start_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題終了日</th>
-          <td><%= l task.end_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題詳細</th>
-          <td><%=  task.description.truncate(50) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">アクション</th>
-          <td>
-            <%= link_to edit__course_task_path(task.course_id, task.id) do %>
+    <ul class="contents_list">
+      <% @tasks.each do |task| %>
+        <li>
+          <div class="content-area">
+            <dl>
+              <dt><%= task.title.truncate(20) %></dt>
+              <dd>
+                <div class="detail-title">状態</div>
+                <div class="detail-material"><%= task.status_word %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">開始日</div>
+                <div class="detail-material"><%= l task.start_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">終了日</div>
+                <div class="detail-material"><%= l task.end_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">チーム構成参照先</div>
+                <div class="detail-material"><%= task.reference_task_id.present? ? Task.find_by(id: task.reference_task_id).title : "" %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">この課題を参照(チーム構成)</div>
+                <div class="detail-material"><%= task.own_join.present? ? task.own_join.pluck(:title).join('、') : "" %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">課題詳細</div>
+                <div class="detail-material"><%= task.description.truncate(20) %></div>
+              </dd>
+            </dl>
+            <%= link_to '＞＞詳細を見る', _course_task_url(@course, task), title: 'この課題の詳細を見る' %>
+          </div>
+          <div class="icon-area">
+            <%= link_to edit__course_task_path(task.course_id, task.id), title: "この課題を編集する" do %>
               <button type="button" class="btn btn-default">編集</button>
             <% end %>
-            <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
-              <button type="button" class="btn btn-danger">削除</button>
+    
+            <% if task.reference_task_id.present? %>
+              <%= link_to reference__course_task_url(task.course_id, task.id, reference: 'clear'), 
+                data: { confirm: "この課題単体で新たにチームを作ることになりますが、本当によろしいですか？" } do %>
+                <button type="button" class="btn btn-default">チーム構成の参照を解除</button>
+              <% end %>
             <% end %>
-          </td>
-        </tr>
-      </table>
-    <% end %>
+
+            <% if task.own_join.blank? %>
+              <%= link_to _course_task_path(task.course_id, task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+                <button type="button" class="btn btn-danger">削除</button>
+              <% end %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

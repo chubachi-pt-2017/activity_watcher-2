@@ -1,7 +1,16 @@
 <div class="contents__main">
   <div class="contents__wrap">
-    <p id="notice"><%= notice %></p>
-    
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% with_breadcrumb :detail_course, @course do %>
+      <%= breadcrumbs style: :bootstrap %>
+    <% end %>
+    <h2><%= @course.title %>の詳細</h2>
+
     <table class="table table-bordered table-word-break table-striped">
       <tr class="table-row">
         <th class="col-md-2">コース名</th>
@@ -20,8 +29,12 @@
         <td><%= link_to @user_slack.workspace_name, @user_slack.url.to_s, target: '_blank' if @user_slack.present? %></td>
       </tr>
       <tr class="table-row">
+        <th class="col-md-2 table-title">開講大学</th>
+        <td><%= @university_name %></td>
+      </tr>
+      <tr class="table-row">
         <th class="col-md-2 table-title">コース詳細</th>
-        <td><%= @course.description %></td>
+        <td><%= markdown(@course.description) %></td>
       </tr>
       <tr class="table-row">
         <th class="col-md-2 table-title">アクション</th>
