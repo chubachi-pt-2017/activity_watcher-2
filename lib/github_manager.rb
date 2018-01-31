@@ -10,6 +10,7 @@ class GithubManager
   attr_accessor :repo
   attr_accessor :this_sunday
 
+  # @repo: "chubachi-pt-2017/activity_watcher-2"
   def initialize(user_access_token, repo_name)
     # @access_token = user_access_token
     @client = Octokit::Client.new access_token: user_access_token
@@ -31,14 +32,14 @@ class GithubManager
 
   # repo: "chubachi-pt-2017/activity_watcher-2"
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_commits_between_weeks(repo, days)
+  def get_commits_between_weeks(days)
     commit_numbers = {}
     commit_numbers if days < 7
 
     this_sunday = get_this_sunday
 
     # 第2引数は先週日曜、第3引数は土曜
-    commits = @client.commits_between(repo, this_sunday - days, this_sunday - (days - 6))
+    commits = @client.commits_between(@repo, this_sunday - days, this_sunday - (days - 6))
     # commits = @client.commits(repo)
     # 同姓同名がいるかもしれない&github login IDを変更しているかもしれないので、emailをキーにしてコミット数をまとめる
     commits.each do |c|
@@ -92,14 +93,13 @@ class GithubManager
     each_user_commits
   end
 
-  # repository: "chubachi-pt-2017/activity_watcher-2"
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_merged_pull_requests_between_weeks(repository, days)
+  def get_merged_pull_requests_between_weeks(days)
     merged_pull_request = {}
     merged_pull_request if days < 7
 
     # state: "open" or "closed"    
-    pr = client.pull_requests(repository, :state => "closed")
+    pr = client.pull_requests(@repo, :state => "closed")
 
     this_sunday = get_this_sunday
     # github login IDが変更されているかもしれないので、UIDをキーにしてclosedのpull request数をまとめる
@@ -163,13 +163,13 @@ class GithubManager
   end
 
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_pull_request_comments_between_weeks(repo, days)
+  def get_pull_request_comments_between_weeks(days)
     comment_numbers = {}
-    comment_numbers if days < 7    
+    comment_numbers if days < 7
 
     this_sunday = get_this_sunday
 
-    pr_numbers = client.pull_requests(repo, {"state" => "closed"})
+    pr_numbers = client.pull_requests(@repo, {"state" => "closed"})
                  .map{ |pr| { pr[:number] => pr[:user][:id] } if pr[:merged_at].present? &&
                                                                  pr[:merged_at].in_time_zone('Tokyo').between?(this_sunday - days, this_sunday - (days - 6)) }
 

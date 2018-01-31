@@ -104,13 +104,13 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
 
       # 先週のコミット数取得、先々週のコミット数取得
       @commits_this_week = githubManager.get_commits_this_week
-      @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, SEVEN_DAYS)
-      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+      @commits_last_week = githubManager.get_commits_between_weeks(SEVEN_DAYS)
+      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@commits_last_week, @commits_two_weeks_ago, "commit")
 
       # 先週マージされたpull request数取得、先々週マージされたpull request数取得
-      @merged_pull_request_last_week = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, SEVEN_DAYS)
-      @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+      @merged_pull_request_last_week = githubManager.get_merged_pull_requests_between_weeks(SEVEN_DAYS)
+      @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@merged_pull_request_last_week, @merged_pull_request_two_weeks_ago, "merged_pull_request")
 
       # pull requestのグラフ用日別(日〜土)データ
@@ -123,8 +123,8 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       @latest_open_pull_request_history = githubManager.get_latest_open_pull_request_history
 
       # 先週のメンバーへのコメント数取得、先々週のメンバーへのコメント数取得
-      @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, SEVEN_DAYS)
-      @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+      @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(SEVEN_DAYS)
+      @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
       
       
