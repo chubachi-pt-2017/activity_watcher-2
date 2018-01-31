@@ -2,20 +2,28 @@ require "octokit"
 
 class GithubManager
 
+  SEVEN_DAYS = 7
+  FOURTEEN_DAYS = 14
+
   # attr_accessor :access_token
   attr_accessor :client
+  attr_accessor :repo
+  attr_accessor :this_sunday
 
-  def initialize(user_access_token)
+  # @repo: "chubachi-pt-2017/activity_watcher-2"
+  def initialize(user_access_token, repo_name)
     # @access_token = user_access_token
     @client = Octokit::Client.new access_token: user_access_token
+    @repo = repo_name
+    @this_sunday = get_this_sunday
   end
 
   # repository: "chubachi-pt-2017/e_sal"
-  def get_contributors_for_the_repository(repository)
+  def get_contributors_for_the_repository
     # client = Octokit::Client.new access_token: @access_token
     
     result = {}
-    @client.contributors_stats(repository)
+    @client.contributors_stats(@repo)
     .sort{ |a,b| b[:total] <=> a[:total] }
     .map{ |member| result[member[:author][:id]] = member[:author][:login] }
 
@@ -24,14 +32,14 @@ class GithubManager
 
   # repo: "chubachi-pt-2017/activity_watcher-2"
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_commits_between_weeks(repo, days)
+  def get_commits_between_weeks(days)
     commit_numbers = {}
     commit_numbers if days < 7
 
     this_sunday = get_this_sunday
 
     # 第2引数は先週日曜、第3引数は土曜
-    commits = @client.commits_between(repo, this_sunday - days, this_sunday - (days - 6))
+    commits = @client.commits_between(@repo, this_sunday - days, this_sunday - (days - 6))
     # commits = @client.commits(repo)
     # 同姓同名がいるかもしれない&github login IDを変更しているかもしれないので、emailをキーにしてコミット数をまとめる
     commits.each do |c|
@@ -46,15 +54,52 @@ class GithubManager
 
     commit_numbers
   end
+  
+  def get_commits_this_week
+    this_sunday = get_this_sunday
+    commits = @client.commits_between(repo, this_sunday, Date.today)
+    this_week = [0, 0, 0, 0, 0, 0, 0] #日曜[0]〜土曜[6]
 
-  # repository: "chubachi-pt-2017/activity_watcher-2"
+    commits.each do |c|
+      if c[:commit][:author][:date].present?
+        this_week[c[:commit][:author][:date].in_time_zone('Tokyo').wday] += 1
+      end
+    end
+    this_week.join(",")
+  end
+  
+  def get_commits_since_specific_date(since_date)
+    each_user_commits = Hash.new { |h,k| h[k] = {} }
+    team_commits = @client.commits(@repo)
+
+    team_commits.each_with_index do |c, i|
+        #todo
+      # break if c[:author][:date] < rails_cacheの最新date
+
+      if each_user_commits.has_key?(c[:author][:id])
+        each_user_commits[c[:author][:id]] += 1
+      else
+        each_user_commits[c[:author][:id]] = 1
+      end
+      
+      if i == 0
+        # todo
+        # railsキャッシュに最新コミット日時を更新
+        # raise c[:commit][:author][:date].inspect
+      end
+    end
+    # todo
+    # railsキャッシュに合計を更新
+    each_user_commits
+  end
+
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_merged_pull_requests_between_weeks(repository, days)
+  def get_merged_pull_requests_between_weeks(days)
     merged_pull_request = {}
     merged_pull_request if days < 7
 
     # state: "open" or "closed"    
-    pr = client.pull_requests(repository, :state => "closed")
+    pr = client.pull_requests(@repo, :state => "closed")
 
     this_sunday = get_this_sunday
     # github login IDが変更されているかもしれないので、UIDをキーにしてclosedのpull request数をまとめる
@@ -73,14 +118,58 @@ class GithubManager
     merged_pull_request
   end
 
+  # 今週マージされたpull request
+  def get_merged_pull_request_this_week
+    this_week = [0, 0, 0, 0, 0, 0, 0] #日曜[0]〜土曜[6]
+    prs = client.pull_requests(@repo, {"state" => "closed"})
+
+    prs.each do |pr|
+      jst_time = pr[:merged_at].in_time_zone('Tokyo')
+
+      if pr[:merged_at].present? && jst_time.between?(@this_sunday - 21, Date.today)
+        this_week[jst_time.wday] += 1
+      end
+    end
+
+    this_week.join(",")
+  end
+
+  def get_latest_merged_pull_request_history
+    closed_prs = client.pull_requests(@repo, {"state" => "closed"})
+    result = Hash.new { |h,k| h[k] = {} }
+
+    closed_prs.each do |pr|
+      result[pr[:number]][:title] = pr[:title]
+      result[pr[:number]][:url] = pr[:html_url]      
+      result[pr[:number]][:creator] = pr[:user][:login]
+      result[pr[:number]][:created_at] = pr[:created_at].in_time_zone("Tokyo")
+    end
+
+    result
+  end
+
+  def get_latest_open_pull_request_history
+    open_prs = client.pull_requests(@repo)
+    result = Hash.new { |h,k| h[k] = {} }
+
+    open_prs.each do |pr|
+      result[pr[:number]][:title] = pr[:title]
+      result[pr[:number]][:url] = pr[:html_url]
+      result[pr[:number]][:creator] = pr[:user][:login]
+      result[pr[:number]][:created_at] = pr[:created_at].in_time_zone("Tokyo")
+    end
+
+    result
+  end
+
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_pull_request_comments_between_weeks(repo, days)
+  def get_pull_request_comments_between_weeks(days)
     comment_numbers = {}
-    comment_numbers if days < 7    
+    comment_numbers if days < 7
 
     this_sunday = get_this_sunday
 
-    pr_numbers = client.pull_requests(repo, {"state" => "closed"})
+    pr_numbers = client.pull_requests(@repo, {"state" => "closed"})
                  .map{ |pr| { pr[:number] => pr[:user][:id] } if pr[:merged_at].present? &&
                                                                  pr[:merged_at].in_time_zone('Tokyo').between?(this_sunday - days, this_sunday - (days - 6)) }
 
@@ -103,10 +192,24 @@ class GithubManager
     comment_numbers
   end
 
-  private  
+  def get_latest_commits(task_start_date)
+    all_commits = @client.commits_since(@repo, task_start_date)
+    result = Hash.new { |h,k| h[k] = {} }
+
+    all_commits.each do |commit|
+      result[commit[:sha]][:message] = commit[:commit][:message]
+      result[commit[:sha]][:commit_url] = commit[:html_url]
+      result[commit[:sha]][:committer] = commit[:commit][:author][:name]
+      result[commit[:sha]][:date] = commit[:commit][:author][:date].in_time_zone("Tokyo")
+    end
+
+    result
+  end
+
+  private
     def get_this_sunday
       today = Date.today
-      this_sunday = today - (today.wday)  
+      this_sunday = today - (today.wday)
     end
 
 end

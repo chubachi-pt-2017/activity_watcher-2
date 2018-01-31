@@ -26,7 +26,7 @@ $(function(){
   }
 
   // チーム・個人詳細ページ
-  if ($("#js-team-commit-chart-0").length) {
+  if ($("#js-team-commit-chart").length) {
 
     // default表示は一番左のメンバーを表示しておく
     $(".js-individual-summary").addClass("disnon");
@@ -65,6 +65,10 @@ $(function(){
       $(".off-tab").eq(0).removeClass("off-tab").addClass("on-tab");
     });
     instantiate_graph(0);
+    
+    // 個人詳細の1メンバーのタブ幅を計算。「width100% / メンバーの人数」
+    var member_num = $("#js-member-name").length
+    $(".tab-item").css( "width", "calc(100% / " + member_num + ")" )
   }
 });
 
@@ -88,46 +92,47 @@ function show_target_member_summary(num) {
 function instantiate_graph(num) {
   
   // 折れ線グラフ
-  var thisWeekCommitDates = $("#js-this-week-commit-date-" + num).data("this-week-commit-dates");
-  var thisWeekCommitNumbers = $("#js-this-week-commit-number-" + num).data("this-week-commit-numbers");
+  var thisWeekDates = $("#js-this-week-commit-date").data("this-week-dates").split(",");
+  var thisWeekCommitNumbers = $("#js-this-week-commit-number").data("this-week-commit-numbers").split(",");
 
   var data = [
     {
       "xScale":"ordinal",
       "yScale":"linear",
       "type":"line-dotted",
+      "yMin": 0,
       "comp":[],
       "main":[
         { 
           "className":".main.l1",
           "data": [
             {
-              "x":thisWeekCommitDates.Sunday,
-              "y":thisWeekCommitNumbers.Sunday
+              "x":thisWeekDates[0], // 日曜
+              "y":thisWeekCommitNumbers[0]
             },
             {
-              "x":thisWeekCommitDates.Monday, 
-              "y":thisWeekCommitNumbers.Monday
+              "x":thisWeekDates[1], // 月曜
+              "y":thisWeekCommitNumbers[1]
             },
             {
-              "x":thisWeekCommitDates.Tuesday,
-              "y":thisWeekCommitNumbers.Tuesday
+              "x":thisWeekDates[2], // 火曜
+              "y":thisWeekCommitNumbers[2]
             },
             {
-              "x":thisWeekCommitDates.Wednesday,
-              "y":thisWeekCommitNumbers.Wednesday
+              "x":thisWeekDates[3], // 水曜
+              "y":thisWeekCommitNumbers[3]
             },
             {
-              "x":thisWeekCommitDates.Thursday,
-              "y":thisWeekCommitNumbers.Thursday
+              "x":thisWeekDates[4], // 木曜
+              "y":thisWeekCommitNumbers[4]
             },
             {
-              "x":thisWeekCommitDates.Friday,
-              "y":thisWeekCommitNumbers.Friday
+              "x":thisWeekDates[5], // 金曜
+              "y":thisWeekCommitNumbers[5]
             },
             {
-              "x":thisWeekCommitDates.Saturday,
-              "y":thisWeekCommitNumbers.Saturday
+              "x":thisWeekDates[6], // 土曜
+              "y":thisWeekCommitNumbers[6]
             }
           ]
         },
@@ -137,53 +142,54 @@ function instantiate_graph(num) {
 
   var order = [0, 1, 0, 2],
   i = 0,
-  chart = new xChart('line-dotted', data[order[i]], '#js-team-commit-chart-' + num, {
+  chart = new xChart('line-dotted', data[order[i]], '#js-team-commit-chart', {
     axisPaddingTop: 5,
     timing: 1250
   });
 
   // ここから棒グラフ
-  var thisWeekPullRequestDates = $("#js-this-week-pull-request-date-" + num).data("this-week-pull-request-dates");
-  var thisWeekPullRequestNumbers = $("#js-this-week-pull-request-number-" + num).data("this-week-pull-request-numbers");
+  // var thisWeekPullRequestDates = $("#js-this-week-pull-request-date").data("this-week-pull-request-dates");
+  var thisWeekPullRequestNumbers = $("#js-this-week-pull-request-number").data("this-week-pull-request-numbers").split(",");
 
   var pullRequestData = {
     "xScale": "ordinal",
     "yScale": "linear",
+    "yMin": 0,
     "main": [
       {
         "className": ".pizza",
         "data": [
           {
-            "x":thisWeekPullRequestDates.Sunday,
-            "y":thisWeekPullRequestNumbers.Sunday
+            "x":thisWeekDates[0], // 日曜
+            "y":thisWeekPullRequestNumbers[0]
           },
           {
-            "x":thisWeekPullRequestDates.Monday, 
-            "y":thisWeekPullRequestNumbers.Monday
+            "x":thisWeekDates[1], // 月曜
+            "y":thisWeekPullRequestNumbers[1]
           },
           {
-            "x":thisWeekPullRequestDates.Tuesday,
-            "y":thisWeekPullRequestNumbers.Tuesday
+            "x":thisWeekDates[2], // 火曜
+            "y":thisWeekPullRequestNumbers[2]
           },
           {
-            "x":thisWeekPullRequestDates.Wednesday,
-            "y":thisWeekPullRequestNumbers.Wednesday
+            "x":thisWeekDates[3], // 水曜
+            "y":thisWeekPullRequestNumbers[3]
           },
           {
-            "x":thisWeekPullRequestDates.Thursday,
-            "y":thisWeekPullRequestNumbers.Thursday
+            "x":thisWeekDates[4], // 木曜
+            "y":thisWeekPullRequestNumbers[4]
           },
           {
-            "x":thisWeekPullRequestDates.Friday,
-            "y":thisWeekPullRequestNumbers.Friday
+            "x":thisWeekDates[5], // 金曜
+            "y":thisWeekPullRequestNumbers[5]
           },
           {
-            "x":thisWeekPullRequestDates.Saturday,
-            "y":thisWeekPullRequestNumbers.Saturday
+            "x":thisWeekDates[6], // 土曜
+            "y":thisWeekPullRequestNumbers[6]
           }
         ]
       }
     ]
   };
-  var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request-' + num, { axisPaddingTop: 5 });
+  var pullRequestChart = new xChart('bar', pullRequestData, '#js-pull-request', { axisPaddingTop: 5 });
 }
