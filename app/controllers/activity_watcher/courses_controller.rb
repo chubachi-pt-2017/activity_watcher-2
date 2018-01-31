@@ -89,50 +89,77 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   end
 
   def show_team_detail
-    @task = Task.get_by_id(7).first #task ID
-    repos = TaskTeam.get_repository_name(7) #task ID
+    @task = Task.get_by_id(params[:task_id]).first #task ID
+    repos = TaskTeam.get_repository_name(params[:task_id]) #task ID
     @github_data_pcercents = Hash.new { |h,k| h[k] = {} }
-
+    # todo
     # ここでキャッシュからデータ取得
     
     if repos[0].repository_name.present?
-      githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"])
+      githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"], repos[0].repository_name)
 
-      @contributors = githubManager.get_contributors_for_the_repository(repos[0].repository_name)
+      @contributors = githubManager.get_contributors_for_the_repository
+
+      # Latest Commit Historyと個人サマリーのContribution in Latest 30 Commits
+      @latest_commits = githubManager.get_latest_commits(@task[:start_date])
 
       # 先週のコミット数取得、先々週のコミット数取得
-      @commits_last_week = githubManager.get_commits_between_weeks(repos[0].repository_name, 21)
-      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(repos[0].repository_name, 28)
+      @commits_this_week = githubManager.get_commits_this_week
+      @commits_last_week = githubManager.get_commits_between_weeks(SEVEN_DAYS)
+      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@commits_last_week, @commits_two_weeks_ago, "commit")
 
       # 先週マージされたpull request数取得、先々週マージされたpull request数取得
-      @merged_pull_request_last_week = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, SEVEN_DAYS)
-      @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
+      @merged_pull_request_last_week = githubManager.get_merged_pull_requests_between_weeks(SEVEN_DAYS)
+      @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@merged_pull_request_last_week, @merged_pull_request_two_weeks_ago, "merged_pull_request")
 
-      # 先週のメンバーへのコメント数取得、先々週のメンバーへのコメント数取得
-      @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, SEVEN_DAYS)
-      @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
-      calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
-    end
-# raise @commits_two_weeks_ago.has_key?(16436985).inspect
-    # @commit_percent = (@commits_last_week[12966035].to_f() / @commits_two_weeks_ago[12966035].to_f() * 100).round(2)
+      # pull requestのグラフ用日別(日〜土)データ
+      @merged_pull_request_this_week = githubManager.get_merged_pull_request_this_week
 
-    # raise @github_data_pcercents.inspect
-    # raise @github_data_pcercents["commit"].inspect
-    # raise @commits_two_weeks_ago[16436985].to_.inspect
-    # raise (( (@commits_last_week[16436985].to_f() / @commits_two_weeks_ago[16436985].to_f() * 100).round(2) ) - 100).inspect
+      # Latest Merged Pull Request Historyと個人サマリーのContribution to the team in the Latest 30 Pull Requests
+      @latest_merged_pull_request_history = githubManager.get_latest_merged_pull_request_history
+
+      # Latest Open Pull Request History
+      @latest_open_pull_request_history = githubManager.get_latest_open_pull_request_history
+
+      # 先週のメンバーへのコメント数取得、先々週のメンバーへのコメント数取得
+      @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(SEVEN_DAYS)
+      @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(FOURTEEN_DAYS)
+      calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
+      
+      
+      # ここから個人サマリーのデータ
+      # todo
+      #これはバッチで処理(全体の数を取得するため)
+      githubManager.get_commits_since_specific_date(@task[:start_date])
+    end
+
     @user_full_name = User.get_member_full_name(@contributors.keys)
-    # raise @github_data_pcercents.inspect
+    @this_week_dates = get_this_week_dates
   end
 
   private
   
+  def get_this_week_dates
+    today = Date.today
+    this_sunday = today - (today.wday)
+    this_week = ""
+
+    0.upto(6) { |i|
+      d = this_sunday + i
+      this_week += "#{d.month}月#{d.day}日,"
+    }
+
+    # 最後のカンマを削除しつつ"}"をつける
+    this_week = this_week.chop
+    this_week
+  end
+
   def get_all_universities
     @universities = University.order(:id).pluck(:name, :id)
   end
-  
-
+    
   def calculate_percent_for_compared_weeks(last_week, two_weeks_ago, github_action)
     @contributors.each do |key, member|
       if (last_week[key].present? && two_weeks_ago[key].present?)
