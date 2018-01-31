@@ -4,7 +4,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
   FOURTEEN_DAYS = 14
 
   before_action :get_time_current, only: [:list, :detail, :index]
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :detail, :entry, :show_team_detail]
   before_action :get_university_name, only: [:show, :detail]
   before_action :get_user_slacks_new_select, only: [:new, :create]
   before_action :get_user_slacks_edit_select, only: [:edit, :update]
