@@ -149,9 +149,10 @@
                 </tr>
               </thead>
               <tbody>
-                <% @latest_commits.each do |key, value| %>
+                <% @latest_commits.each_with_index do |(key, value), i| %>
+                  <% break if i == 10 %> 
                   <tr>
-                    <td class="history-title"><%= link_to value[:message].truncate(60), value[:commit_url], :target => "_blank" %></td>
+                    <td class="history-title"><%= link_to value[:message], value[:commit_url], :target => "_blank" %></td>
                     <td class="history-user"><%= value[:committer] %></td>
                     <td><%= l value[:date] %></td>
                   </tr>
@@ -240,9 +241,10 @@
               </tr>
             </thead>
             <tbody>
-              <% @latest_merged_pull_request_history.each do |pr_number, value| %>
+              <% @latest_merged_pull_request_history.each_with_index do |(pr_number, value), i| %>
+                <% break if i == 5 %>
                 <tr>
-                  <td class="history-title"><%= value[:title].truncate(60) %></td>
+                  <td class="history-title"><%= link_to value[:title], value[:url], :target => "_blank" %></td>
                   <td class="history-user"><%= value[:creator] %></td>
                   <td><%= l value[:created_at] %></td>
                 </tr>
@@ -268,12 +270,13 @@
               </tr>
             </thead>
             <tbody>
-              <% @latest_open_pull_request_history.each do |pr_number, value| %>
-                <tr>
-                  <td class="history-title"><%= value[:title].truncate(60) %></td>
-                  <td class="history-user"><%= value[:creator] %></td>
-                  <td><%= l value[:created_at] %></td>
-                </tr>
+              <% @latest_open_pull_request_history.each_with_index do |(pr_number, value), i| %>
+                <% break if i == 5 %>
+                  <tr>
+                    <td class="history-title"><%= link_to value[:title], value[:url], :target => "_blank" %></td>
+                    <td class="history-user"><%= value[:creator] %></td>
+                    <td><%= l value[:created_at] %></td>
+                  </tr>
               <% end %>
             </tbody>
           </table>
@@ -286,14 +289,17 @@
 
     <div class="tabs" id="js-individual-summary-area">
       <% @contributors.each do |github_number_id, github_user_id| %>
+      <!-- todo 本名で表示する、データがないためgithub IDを表示している -->
         <input id="234567" type="radio" name="tab-item">
         <label class="tab-item off-tab js-member-name" for="234567"><%= github_user_id %></label>
       <% end %>
 
-      <div class="js-individual-summary">
-        <div class="contents-area">
+      <% @contributors.each do |github_number_id, github_user_id| %>
+        <div class="js-individual-summary">
+          <div class="contents-area">
           <div class="contents-area__progress">
-            <p>新妻健介のサマリー(後で削除)</p>
+            <!-- todo 後で削除 -->
+            <p><%= github_user_id %>のサマリー(後で削除)</p>
             <p>・Contribution % of Total Commits</p>
             <div class="contents-area__individual-progress-bar">
               <div class="progress">
@@ -322,25 +328,17 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Latest Commit History</th>
+                      <th>Contribution to the team in the Latest 30 Commits</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
-                    </tr>
-                    <tr>
-                      <td>total pull requestのデザイン一旦完成</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>                    
+                    <% @latest_commits.each do |commit_id, value| %>
+                      <% if value[:committer] == github_user_id %>
+                        <tr>
+                          <td><%= link_to value[:message], value[:commit_url], :target => "_blank" %></td>
+                        </tr>
+                      <% end %>
+                    <% end %>
                   </tbody>
                 </table>
               </div>
@@ -353,212 +351,25 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Latest Pull Request History</th>
+                      <th>Contribution to the team in the Latest 30 Pull Requests</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
-                    </tr>
-                    <tr>
-                      <td>total pull requestのデザイン一旦完成</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>                    
+                    <% @latest_merged_pull_request_history.each do |pr_number, value| %>
+                      <% if value[:creator] == github_user_id %>
+                        <tr>
+                          <td><%= link_to value[:title], value[:url], :target => "_blank" %></td>
+                        </tr>
+                      <% end %>
+                    <% end %>
                   </tbody>
                 </table>
               </div>
             </div>
           </div><!-- end of content-area__pull-request-history -->
         </div><!-- end of content-area -->
-      </div><!-- end of js-individual-summary-->
-
-      <div class="js-individual-summary">
-        <div class="contents-area">
-          <div class="contents-area__progress">
-            <p>鈴木太郎のサマリー(後で削除)</p>
-            <p>・Contribution % of Total Commits</p>
-            <div class="contents-area__individual-progress-bar">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
-              </div>
-            </div>
-  
-            <p>・Contribution % of Total Pull Requests</p>
-            <div class="contents-area__individual-progress-bar">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
-              </div>
-            </div>
-  
-            <p>・Contribution % of Total Code Review Comments</p>
-            <div class="contents-area__individual-progress-bar">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
-              </div>
-            </div>
-          </div><!-- end of content-area__progress -->
-
-          <div class="contents-area__commit-history">
-            <div class="x_panel">
-              <div class="x_content">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Latest Commit History</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
-                    </tr>
-                    <tr>
-                      <td>total pull requestのデザイン一旦完成</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div><!-- end of content-area__commit-history -->
-
-          <div class="contents-area__pull-request-history">
-            <div class="x_panel">
-              <div class="x_content">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Latest Pull Request History</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
-                    </tr>
-                    <tr>
-                      <td>total pull requestのデザイン一旦完成</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div><!-- end of content-area__pull-request-history -->
-        </div>
-      </div><!-- end of js-individual-summary-->
-      
-      <div class="js-individual-summary">
-        <div class="contents-area">
-          <div class="contents-area__progress">
-            <p>山田花子のサマリー(後で削除)</p>
-            <p>・Contribution % of Total Commits</p>
-            <div class="contents-area__individual-progress-bar">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
-              </div>
-            </div>
-  
-            <p>・Contribution % of Total Pull Requests</p>
-            <div class="contents-area__individual-progress-bar">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="width: 26%;">26%</div>
-              </div>
-            </div>
-  
-            <p>・Contribution % of Total Code Review Comments</p>
-            <div class="contents-area__individual-progress-bar">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">43%</div>
-              </div>
-            </div>
-          </div><!-- end of content-area__progress -->
-
-          <div class="contents-area__commit-history">
-            <div class="x_panel">
-              <div class="x_content">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Latest Commit History</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
-                    </tr>
-                    <tr>
-                      <td>total pull requestのデザイン一旦完成</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div><!-- end of content-area__commit-history -->
-
-          <div class="contents-area__pull-request-history">
-            <div class="x_panel">
-              <div class="x_content">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Latest Pull Request History</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>jsのクリック処理作成。タブ切り替え、メンバーサマリーへのスクロール処理</td>
-                    </tr>
-                    <tr>
-                      <td>total pull requestのデザイン一旦完成</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>
-                    <tr>
-                      <td>コースへの参加取りやめ機能と参加・取りやめ時のアラートを追加</td>
-                    </tr>                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div><!-- end of content-area__pull-request-history -->
-        </div>
-      </div><!-- end of js-individual-summary-->
+        </div><!-- end of js-individual-summary-->
+      <% end %>
 
     </div><!-- end of tabs -->
   </div><!-- end of contents__wrap -->

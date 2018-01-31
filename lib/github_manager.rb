@@ -66,6 +66,31 @@ class GithubManager
     end
     this_week.join(",")
   end
+  
+  def get_commits_since_specific_date(since_date)
+    each_user_commits = Hash.new { |h,k| h[k] = {} }
+    team_commits = @client.commits(@repo)
+
+    team_commits.each_with_index do |c, i|
+        #todo
+      # break if c[:author][:date] < rails_cacheの最新date
+
+      if each_user_commits.has_key?(c[:author][:id])
+        each_user_commits[c[:author][:id]] += 1
+      else
+        each_user_commits[c[:author][:id]] = 1
+      end
+      
+      if i == 0
+        # todo
+        # railsキャッシュに最新コミット日時を更新
+        # raise c[:commit][:author][:date].inspect
+      end
+    end
+    # todo
+    # railsキャッシュに合計を更新
+    each_user_commits
+  end
 
   # repository: "chubachi-pt-2017/activity_watcher-2"
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
@@ -113,9 +138,9 @@ class GithubManager
     closed_prs = client.pull_requests(@repo, {"state" => "closed"})
     result = Hash.new { |h,k| h[k] = {} }
 
-    closed_prs.each_with_index do |pr, i|
-      break if i == 10
+    closed_prs.each do |pr|
       result[pr[:number]][:title] = pr[:title]
+      result[pr[:number]][:url] = pr[:html_url]      
       result[pr[:number]][:creator] = pr[:user][:login]
       result[pr[:number]][:created_at] = pr[:created_at].in_time_zone("Tokyo")
     end
@@ -127,9 +152,9 @@ class GithubManager
     open_prs = client.pull_requests(@repo)
     result = Hash.new { |h,k| h[k] = {} }
 
-    open_prs.each_with_index do |pr, i|
-      break if i == 10
+    open_prs.each do |pr|
       result[pr[:number]][:title] = pr[:title]
+      result[pr[:number]][:url] = pr[:html_url]
       result[pr[:number]][:creator] = pr[:user][:login]
       result[pr[:number]][:created_at] = pr[:created_at].in_time_zone("Tokyo")
     end
@@ -171,8 +196,7 @@ class GithubManager
     all_commits = @client.commits_since(@repo, task_start_date)
     result = Hash.new { |h,k| h[k] = {} }
 
-    all_commits.each_with_index do |commit, i|
-      break if i == 10
+    all_commits.each do |commit|
       result[commit[:sha]][:message] = commit[:commit][:message]
       result[commit[:sha]][:commit_url] = commit[:html_url]
       result[commit[:sha]][:committer] = commit[:commit][:author][:name]

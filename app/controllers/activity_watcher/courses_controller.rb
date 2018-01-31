@@ -91,7 +91,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
     @task = Task.get_by_id(params[:task_id]).first #task ID
     repos = TaskTeam.get_repository_name(params[:task_id]) #task ID
     @github_data_pcercents = Hash.new { |h,k| h[k] = {} }
-
+    # todo
     # ここでキャッシュからデータ取得
     
     if repos[0].repository_name.present?
@@ -99,6 +99,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
 
       @contributors = githubManager.get_contributors_for_the_repository
 
+      # Latest Commit Historyと個人サマリーのContribution in Latest 30 Commits
       @latest_commits = githubManager.get_latest_commits(@task[:start_date])
 
       # 先週のコミット数取得、先々週のコミット数取得
@@ -115,7 +116,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       # pull requestのグラフ用日別(日〜土)データ
       @merged_pull_request_this_week = githubManager.get_merged_pull_request_this_week
 
-      # Latest Merged Pull Request History
+      # Latest Merged Pull Request Historyと個人サマリーのContribution to the team in the Latest 30 Pull Requests
       @latest_merged_pull_request_history = githubManager.get_latest_merged_pull_request_history
 
       # Latest Open Pull Request History
@@ -125,6 +126,12 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, SEVEN_DAYS)
       @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(repos[0].repository_name, FOURTEEN_DAYS)
       calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
+      
+      
+      # ここから個人サマリーのデータ
+      # todo
+      #これはバッチで処理(全体の数を取得するため)
+      githubManager.get_commits_since_specific_date(@task[:start_date])
     end
 
     @user_full_name = User.get_member_full_name(@contributors.keys)
