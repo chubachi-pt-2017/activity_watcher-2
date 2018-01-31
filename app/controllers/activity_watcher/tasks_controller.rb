@@ -10,7 +10,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   end
   
   def list
-    @tasks = Task.get_list(params[:course_id]).page(params[:page])
+    @tasks = Task.get_list(params[:course_id], current_user.id).page(params[:page])
   end
 
   def show

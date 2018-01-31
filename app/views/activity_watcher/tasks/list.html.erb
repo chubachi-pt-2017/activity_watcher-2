@@ -9,40 +9,71 @@
     <% with_breadcrumb :list_tasks, @course do %>
       <%= breadcrumbs style: :bootstrap %>
     <% end %>
-    <h2><%= @course.title %>の課題一覧</h2>
+    <h2><%= @course.title %>の課題一覧</h2><br>
 
     <%= paginate @tasks %>
-    <% @tasks.each do |task| %>
-      <table class="table table-bordered table-word-break table-striped">
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題名</th>
-          <td><%= task.title %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題開始日</th>
-          <td><%= l task.start_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題終了日</th>
-          <td><%= l task.end_date, format: :medium %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">課題詳細</th>
-          <td><%=  task.description.truncate(50) %></td>
-        </tr>
-        <tr class="table-row">
-          <th class="col-md-2 table-title">アクション</th>
-          <td>
-            <%= link_to detail_course_url(task.course_id) do %>
-              <button type="button" class="btn btn-default">コース詳細に戻る</button>
+    <ul class="contents_list">
+      <% @tasks.each do |task| %>
+        <li>
+          <div class="content-area">
+            <dl>
+              <dt><%= task.title.truncate(20) %></dt>
+              <!--<hr>-->
+              <dd>
+                <div class="detail-title">ステータス</div>
+                <div class="detail-material">
+                  <% case task.status %>
+                  <% when 0 %>
+                    参加中
+                  <% when 1 %>
+                    未参加
+                  <% when 2 %>
+                    開始待ち
+                  <% when 3 %>
+                    参加済み
+                  <% when 4 %>
+                    受付終了
+                  <% end %>
+                </div>
+              </dd>
+              <dd>
+                <div class="detail-title">チーム数</div>
+                <div class="detail-material"><%= task.tt_team_ids.present? ? task.tt_team_ids.length.to_s : 0 %>チーム</div>
+              </dd>
+              <dd>
+                <div class="detail-title">開始</div>
+                <div class="detail-material"><%= l task.start_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">終了</div>
+                <div class="detail-material"><%= l task.end_date, format: :medium %></div>
+              </dd>
+              <dd>
+                <div class="detail-title">課題詳細</div>
+                <div class="detail-material"><%= task.description.truncate(20) %></div>
+              </dd>
+            </dl>
+            <%= link_to '＞＞詳細を見る', detail__course_task_url(params[:course_id], task), title: 'この課題の詳細を見る' %>
+          </div>
+          <div class="icon-area">
+            <% case task.status %>
+            <% when 1 %>
+              <% if current_user.Student? %>
+                <%= link_to new__course_task_team_url(params[:course_id], task.reference_task_id.blank? ? task.id : task.reference_task_id),
+                  title: "この課題でチームを作成する" do %>
+                  <button type="button" class="btn btn-default">チーム作成</button>
+                <% end %>
+              <% end %>
+            <% when 0, 3 %>
+              <%= link_to _course_task_team_url(params[:course_id], task.id, task.team_id),
+                title: "所属チーム詳細へ" do %>
+                <button type="button" class="btn btn-default">所属チーム詳細</button>
+              <% end %>
             <% end %>
-            <%= link_to detail__course_task_url(task.course_id, task.id) do %>
-              <button type="button" class="btn btn-success">詳細を見る</button>
-            <% end %>
-          </td>
-        </tr>
-      </table><br>
-    <% end %>
+          </div>
+        </li> 
+      <% end %>
+    </ul>
     <%= paginate @tasks %>
   </div>
 </div>

@@ -38,7 +38,11 @@
               </dd>
               <dd>
                 <div class="detail-title">受講人数</div>
-                <div class="detail-material"><%= course.user_ids.present? ? course.user_ids.length.to_s : 0 %>人</div>
+                <div class="detail-material"><%= course.cp_user_ids.present? ? course.cp_user_ids.length.to_s : 0 %>人</div>
+              </dd>
+              <dd>
+                <div class="detail-title">担当講師</div>
+                <div class="detail-material"><%= course.owner_name.truncate(20) %></div>
               </dd>
               <dd>
                 <div class="detail-title">受講開始</div>
@@ -74,8 +78,6 @@
               <%= link_to entry_course_path(course.id), title: "このコースに参加する", data: {confirm: "このコースに参加します。よろしいですか？"} do %>
                 <button type="button" class="btn btn-default">参加する</button>
               <% end %>
-            <% elsif course.status == 2 || course.status == 4 %>
-              <button type="button" class="btn btn-default" style="opacity: 0.0;">ダミー</button>
             <% end %>
           </div>
         </li> 

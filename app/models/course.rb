@@ -40,19 +40,20 @@ class Course < ApplicationRecord
                          WHEN courses.end_date < '#{current_time}' THEN 2 END) AS status")
     else
       scope.select("(CASE WHEN courses.start_date <= '#{current_time}' AND courses.end_date >= '#{current_time}' AND
-                         cp.user_ids @> ARRAY[#{user_id}] THEN 0
+                         cp.cp_user_ids @> ARRAY[#{user_id}] THEN 0
                          WHEN courses.start_date <= '#{current_time}' AND courses.end_date >= '#{current_time}' AND
-                         (not(cp.user_ids @> ARRAY[#{user_id}]) OR cp.user_ids IS NULL) THEN 1
+                         (not(cp.cp_user_ids @> ARRAY[#{user_id}]) OR cp.cp_user_ids IS NULL) THEN 1
                          WHEN courses.start_date > '#{current_time}' THEN 2
-                         WHEN courses.end_date < '#{current_time}' AND cp.user_ids @> ARRAY[#{user_id}] THEN 3
-                         WHEN courses.end_date < '#{current_time}' AND (not(cp.user_ids @> ARRAY[#{user_id}]) OR cp.user_ids IS NULL) THEN 4 END) AS status")
+                         WHEN courses.end_date < '#{current_time}' AND cp.cp_user_ids @> ARRAY[#{user_id}] THEN 3
+                         WHEN courses.end_date < '#{current_time}' AND (not(cp.cp_user_ids @> ARRAY[#{user_id}]) OR cp.cp_user_ids IS NULL) THEN 4 END) AS status")
     end
   }
 
   class << self
     def get_list(user_id, university_id)
-      cp = CourseParticipant.group(:course_id).select("course_participants.course_id, array_agg(course_participants.user_id) AS user_ids")
-      Course.joins("LEFT JOIN (#{cp.to_sql}) cp ON courses.id = cp.course_id LEFT JOIN universities u ON courses.university_id = u.id LEFT JOIN user_slacks us ON courses.user_slack_id = us.id").select("courses.*, cp.user_ids, u.name AS university_name, us.workspace_name, us.url AS slack_url")
+      cp = CourseParticipant.group(:course_id).select("course_participants.course_id, array_agg(course_participants.user_id) AS cp_user_ids")
+      Course.joins("LEFT JOIN (#{cp.to_sql}) cp ON courses.id = cp.course_id LEFT JOIN universities u ON courses.university_id = u.id LEFT JOIN user_slacks us ON courses.user_slack_id = us.id LEFT JOIN users ON courses.owner_id = users.id")
+        .select("courses.*, cp.cp_user_ids, u.name AS university_name, us.workspace_name, us.url AS slack_url, users.user_full_name AS owner_name")
         .add_status_column(user_id)
         .where("courses.university_id = ? or courses.publish_other_universities_flg = true", university_id)
         .order("status ASC, courses.end_date ASC")

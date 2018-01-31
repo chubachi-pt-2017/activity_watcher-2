@@ -22,8 +22,17 @@
             <dl>
               <dt><%= task.title.truncate(20) %></dt>
               <dd>
-                <div class="detail-title">状態</div>
-                <div class="detail-material"><%= task.status_word %></div>
+                <div class="detail-title">ステータス</div>
+                <div class="detail-material">
+                  <% case task.status %>
+                  <% when 0 %>
+                    受付中
+                  <% when 1 %>
+                    開始待ち
+                  <% when 2 %>
+                    受付終了
+                  <% end %>
+                </div>
               </dd>
               <dd>
                 <div class="detail-title">開始日</div>
