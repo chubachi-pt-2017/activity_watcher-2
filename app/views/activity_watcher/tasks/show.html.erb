@@ -13,7 +13,7 @@
     <% with_breadcrumb :task, @course, @task do %>
       <%= breadcrumbs style: :bootstrap %>
     <% end %>
-    <h2><%= @task.title %>の詳細</h2>
+    <h2><%= @task.title %>の詳細</h2><br>
     
     <table class="table table-bordered table-word-break table-striped">
       <tr>
@@ -49,19 +49,19 @@
           <%= link_to edit__course_task_path(@task.course_id, @task.id) do %>
             <button type="button" class="btn btn-primary">課題を編集する</button>
           <% end %>
-          <% if !@has_referenced_task %>
-            <%= link_to _course_task_path(@task.course_id, @task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
-              <button type="button" class="btn btn-danger">削除</button>
-            <% end %>
-          <% end %>
           <% if @task.reference_task_id.present? %>
             <%= link_to reference__course_task_url(@task.course_id, @task.id, reference: "clear"), 
               data: { confirm: 'この課題単体で新たにチームを作ることになりますが、本当によろしいですか？' } do %>
               <button type="button" class="btn btn-warning">チーム構成の参照を解除する</button>
             <% end %>
           <% end %>
+          <% if !@has_referenced_task %>
+            <%= link_to _course_task_path(@task.course_id, @task.id), method: :delete, data: { confirm: '元に戻せませんが、よろしいですか？' } do %>
+              <button type="button" class="btn btn-danger">削除</button>
+            <% end %>
+          <% end %>
         </td>
       </tr>
-    </table>
+    </table><br>
   </div>
 </div>

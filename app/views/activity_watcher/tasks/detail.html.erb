@@ -9,7 +9,7 @@
     <% with_breadcrumb :detail_task, @course, @task do %>
       <%= breadcrumbs style: :bootstrap %>
     <% end %>
-    <h2><%= @task.title %>の詳細</h2>
+    <h2><%= @task.title %>の詳細</h2><br>
     
     <table class="table table-bordered table-word-break table-striped">
       <tr>
@@ -45,34 +45,62 @@
     
     <% if @teams.any? %>
       <br /><br />
-      <h5>この課題のチーム</h5>
+      <h3><u>この課題のチーム</u></h3><br>
       <%= paginate @teams %>
-      <% @teams.each do |team| %>
-        <table class="table table-bordered table-word-break table-striped">
-          <tr class="table-row">
-            <th class="col-md-2 table-title">チーム名</th>
-            <td><%= team.name %></td>
-          </tr>
-          <tr class="table-row">
-            <th class="col-md-2 table-title">チームメンバー</th>
-            <td><%= team.users.pluck(:user_full_name).join('、') %></td>
-          </tr>
-          <tr class="table-row">
-            <th class="col-md-2 table-title">チーム人数</th>
-            <td><%= team.users.pluck(:user_full_name).length.to_s %>人</td>
-          </tr>
-          <tr class="table-row">
-            <th class="col-md-2 table-title">アクション</th>
-            <td>
-              <% if team.users.pluck(:id).select{|id| id == current_user.id}.length > 0 %>
-                <%= link_to _course_task_team_url(@task.course_id, @task.id, team.id) do %>
-                  <button type="button" class="btn btn-success">チーム詳細を見る</button>
+      <table class="table table-hover table-condensed">
+        <thead style="background: #f5f5f5;">
+          <th>チーム名</th>
+          <th class="col-md-3">メンバー</th>
+          <th class="col-md-1">GitHub</th>
+          <th class="col-md-1">Heroku</th>
+          <th class="col-md-1">CIツール</th>
+          <th class="col-md-1">アクション</th>
+        </thead>
+        
+        <tbody>
+          <% @teams.each_with_index do |team, i| %>
+            <tr>
+              <td><%= team.name %></td>
+              <td>
+                <%= team.users.pluck(:user_full_name).length.to_s %>人
+                <%= link_to "(メンバーを見る)", "", data: {toggle: "modal", target: "#modal-team-member_#{i}"} %>
+                <div class="modal" id=<%= "modal-team-member_#{i}" %> tabindex="-1" role="dialog" data-backdrop="static">
+                  <div class="modal-dialog" style="width: 36%;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title"><%= team.name %>のチームメンバー</h4>
+                      </div><!-- /.modal-header -->
+                      <div class="modal-body">
+                        <table class="table table-bordered table-word-break">
+                          <tr>
+                            <th class="col-md-3" style="background: #f5f5f5;">チームメンバー</th>
+                            <td><%= markdown(team.users.pluck(:user_full_name).join("\n")) %></td>
+                          </tr>
+                        </table>
+                      </div><!-- /.modal-body -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">閉じる</button>
+                      </div><!-- /.modal-footer -->
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </td>
+              <% @task_team = team.task_teams.find_by(task_id: @task.id, team_id: team.id) %>
+              <td><%= @task_team.repository_name.present? ? link_to("設定済", "https://github.com/" + @task_team.repository_name.to_s, target: "_blank") : "未設定" %></td>
+              <td><%= @task_team.service_url.present? ? link_to("設定済", @task_team.service_url.to_s, target: "_blank") : "未設定" %></td>
+              <td><%= @task_team.ci_url.present? ? link_to("設定済", @task_team.ci_url.to_s, target: "_blank") : "未設定" %></td>
+              <td>
+                <% if team.users.pluck(:id).select{|id| id == current_user.id}.length > 0 %>
+                  <%= link_to _course_task_team_url(@task.course_id, @task.id, team.id) do %>
+                    <button type="button" class="btn btn-sm btn-default">チーム詳細</button>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </td>
-          </tr>
-        </table><br>
-      <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table><br>
       <%= paginate @teams %>
     <% end %>
   </div>

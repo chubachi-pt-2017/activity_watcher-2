@@ -25,8 +25,17 @@
               <dt><%= course.title.truncate(20) %></dt>
               <!--<hr>-->
               <dd>
-                <div class="detail-title">状態</div>
-                <div class="detail-material"><%= course.status_word %></div>
+                <div class="detail-title">ステータス</div>
+                <div class="detail-material">
+                  <% case course.status %>
+                  <% when 0 %>
+                    開講中
+                  <% when 1 %>
+                    開始待ち
+                  <% when 2 %>
+                    開講終了
+                  <% end %>
+                </div>
               </dd>
               <dd>
                 <div class="detail-title">受講開始</div>

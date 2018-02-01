@@ -22,8 +22,17 @@
             <dl>
               <dt><%= task.title.truncate(20) %></dt>
               <dd>
-                <div class="detail-title">状態</div>
-                <div class="detail-material"><%= task.status_word %></div>
+                <div class="detail-title">ステータス</div>
+                <div class="detail-material">
+                  <% case task.status %>
+                  <% when 0 %>
+                    受付中
+                  <% when 1 %>
+                    開始待ち
+                  <% when 2 %>
+                    受付終了
+                  <% end %>
+                </div>
               </dd>
               <dd>
                 <div class="detail-title">開始日</div>
@@ -35,11 +44,11 @@
               </dd>
               <dd>
                 <div class="detail-title">チーム構成参照先</div>
-                <div class="detail-material"><%= task.reference_task_id.present? ? Task.find_by(id: task.reference_task_id).title : "" %></div>
+                <div class="detail-material"><%= task.reference_task_id.present? ? Task.find_by(id: task.reference_task_id).title : "無" %></div>
               </dd>
               <dd>
                 <div class="detail-title">この課題を参照(チーム構成)</div>
-                <div class="detail-material"><%= task.own_join.present? ? task.own_join.pluck(:title).join('、') : "" %></div>
+                <div class="detail-material"><%= task.own_join.present? ? task.own_join.pluck(:title).join('、') : "無" %></div>
               </dd>
               <dd>
                 <div class="detail-title">課題詳細</div>
