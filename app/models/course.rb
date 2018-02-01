@@ -31,7 +31,7 @@ class Course < ApplicationRecord
                               where(owner_id: user_id, user_slack_id: [nil, 0]).order(id: :desc).pluck(:title, :id)}
   
   scope :add_status_column, ->(user_id = nil) {
-    current_time = Time.current
+    current_time = Time.now.strftime("%Y-%m-%d %H:%M:%S")
     scope = current_scope || relation
     scope = scope.select("courses.*") if scope.select_values.blank?
     if user_id.blank?

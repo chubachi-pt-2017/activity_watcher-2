@@ -35,7 +35,7 @@ class Task < ApplicationRecord
   scope :get_has_reference_task_title, ->(task_id) { where(reference_task_id: task_id).order(:id).pluck(:title)}
 
   scope :add_status_column, ->(user_id = nil) {
-    current_time = Time.current
+    current_time = Time.now.strftime("%Y-%m-%d %H:%M:%S")
     scope = current_scope || relation
     scope = scope.select("tasks.*") if scope.select_values.blank?
     if user_id.blank?

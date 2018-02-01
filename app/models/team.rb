@@ -19,7 +19,7 @@ class Team < ApplicationRecord
   validates :name,
     presence: true,
     uniqueness: { allow_blank: true },
-    length: { maximum: 50, allow_blank: true }
+    length: { maximum: 20, allow_blank: true }
   
   validates :description,
     length: { maximum: 256, allow_blank: true }
