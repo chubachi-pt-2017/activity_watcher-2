@@ -50,10 +50,11 @@
       <table class="table table-hover table-condensed">
         <thead style="background: #f5f5f5;">
           <th>チーム名</th>
-          <th class="col-md-3">メンバー</th>
+          <th class="col-md-2">メンバー</th>
           <th class="col-md-1">GitHub</th>
           <th class="col-md-1">Heroku</th>
           <th class="col-md-1">CIツール</th>
+          <th class="col-md-1">自由記入欄</th>
           <th class="col-md-1">アクション</th>
         </thead>
         
@@ -65,7 +66,7 @@
                 <%= team.users.pluck(:user_full_name).length.to_s %>人
                 <%= link_to "(メンバーを見る)", "", data: {toggle: "modal", target: "#modal-team-member_#{i}"} %>
                 <div class="modal" id=<%= "modal-team-member_#{i}" %> tabindex="-1" role="dialog" data-backdrop="static">
-                  <div class="modal-dialog" style="width: 36%;">
+                  <div class="modal-dialog dialog-center team-member-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
@@ -90,6 +91,32 @@
               <td><%= @task_team.repository_name.present? ? link_to("設定済", "https://github.com/" + @task_team.repository_name.to_s, target: "_blank") : "未設定" %></td>
               <td><%= @task_team.service_url.present? ? link_to("設定済", @task_team.service_url.to_s, target: "_blank") : "未設定" %></td>
               <td><%= @task_team.ci_url.present? ? link_to("設定済", @task_team.ci_url.to_s, target: "_blank") : "未設定" %></td>
+              <td>
+                <%= @task_team.comment.present? ? link_to("入力あり", "", data: {toggle: "modal", target: "#modal-task-comment_#{i}"}) : "入力なし" %>
+                <% if @task_team.comment.present? %>
+                  <div class="modal" id=<%= "modal-task-comment_#{i}" %> tabindex="-1" role="dialog" data-backdrop="static">
+                    <div class="modal-dialog dialog-center team-member-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">×</button>
+                          <h4 class="modal-title"><%= @task.title %>の自由記入コメント</h4>
+                        </div><!-- /.modal-header -->
+                        <div class="modal-body">
+                          <table class="table table-bordered table-word-break">
+                            <tr>
+                              <th class="col-md-3" style="background: #f5f5f5;">コメント</th>
+                              <td><%= markdown(@task_team.comment) %></td>
+                            </tr>
+                          </table>
+                        </div><!-- /.modal-body -->
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">閉じる</button>
+                        </div><!-- /.modal-footer -->
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+                <% end %>
+              </td>
               <td>
                 <% if team.users.pluck(:id).select{|id| id == current_user.id}.length > 0 %>
                   <%= link_to _course_task_team_url(@task.course_id, @task.id, team.id) do %>

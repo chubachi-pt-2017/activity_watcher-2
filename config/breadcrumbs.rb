@@ -29,7 +29,7 @@ end
 
 # courses#list
 crumb :list_courses do
-  link "開講コース一覧", list_courses_path
+  link "コース選択", list_courses_path
   parent :root
 end
 

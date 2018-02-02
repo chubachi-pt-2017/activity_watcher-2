@@ -107,7 +107,7 @@ class ActivityWatcher::TeamsController < ActivityWatcher::BaseController
   
   def team_create_params
     params.require(:team).permit(:name, :description, :users, 
-      task_teams_attributes: [:id, :repository_name, :service_url, :ci_url],
+      task_teams_attributes: [:id, :repository_name, :service_url, :ci_url, :comment],
       user_ids: []
       )
   end
