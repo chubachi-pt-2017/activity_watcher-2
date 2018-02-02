@@ -19,10 +19,6 @@ class User < ApplicationRecord
       presence: true,
       length: { maximum: 64 }
       
-    validates :slack_user, 
-      presence: true,
-      length: { maximum: 64 }
-      
     # validate :validate_user_universities_uniqueness
     
     # validate :validate_user_universities

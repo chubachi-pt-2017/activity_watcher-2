@@ -62,6 +62,15 @@
               <%= tt.input :ci_url, maxlength: true, label: false, :input_html => { class: 'edit-left-area__text-box', id: "js-ci-tool" } %>
             </div>
             
+            <div class="form-group">
+              <div>
+                <div class="edit-left-area__course-detail">自由記入欄</div>
+              </div>
+              <%= tt.input :comment, label: false do %>
+                <%= tt.text_area :comment, rows: '5', class: "form-control" %>
+              <% end %>
+            </div>
+
           <% end %>
         <% end %>
   
