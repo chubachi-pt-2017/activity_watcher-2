@@ -48,5 +48,7 @@ module ActivityWatcher
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths += %W(#{config.root}/lib)
+    config.paths.add 'lib', eager_load: true
+    config.enable_dependency_loading = true
   end
 end
