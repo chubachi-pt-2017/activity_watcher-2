@@ -96,8 +96,7 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
     # ここでキャッシュからデータ取得
     
     if repos[0].repository_name.present?
-      # githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"], repos[0].repository_name)
-      githubManager = GithubManager.new('431e30709592b796228ac5292cb6ef97eb335af4', repos[0].repository_name)
+      githubManager = GithubManager.new(ENV["GITHUB_ACCESS_TOKEN"], repos[0].repository_name)
 
       @contributors = githubManager.get_contributors_for_the_repository
 
