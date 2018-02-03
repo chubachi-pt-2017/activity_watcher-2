@@ -4,6 +4,7 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   before_action :get_tasks_new_select, only: [:new, :create]
   before_action :get_tasks_edit_select, only: [:edit, :update]
   before_action :get_has_reference_task_title, only: [:show, :edit]
+  before_action :get_current_time, only: [:show, :detail]
 
   def index
     @tasks = Task.get_index(params[:course_id]).page(params[:page])
@@ -75,6 +76,10 @@ class ActivityWatcher::TasksController < ActivityWatcher::BaseController
   end
 
   private
+  
+  def get_current_time
+    @current_time = Time.current
+  end
   
   def get_course
     @course = Course.find_by(id: params[:course_id])

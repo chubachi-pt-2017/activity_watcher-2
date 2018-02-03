@@ -32,7 +32,7 @@
         <th class="col-md-2 table-title">アクション</th>
         <td>
           <%= link_to '課題一覧に戻る', list__course_tasks_url(params[:course_id]), class: "btn btn-default" %>
-          <% if !@included && current_user.Student? %>
+          <% if !@included && @task.start_date <= @current_time && @task.end_date >= @current_time && current_user.Student? %>
             <% if @task.reference_task_id.blank? %>
               <%= link_to 'チームを作成する', new__course_task_team_url(@task.course_id, @task.id), class: "btn btn-primary" %>
             <% else %>
