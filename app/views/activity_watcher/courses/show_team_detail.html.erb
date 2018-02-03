@@ -38,29 +38,20 @@
                     <td>-</td>
                   <% end %>
 
-                  <% if @commits_last_week.has_key?(key) %>
-                    <td>
-                      <%= @commits_last_week[key] %>
-                      (<%= @github_data_pcercents["commit"][key].to_f  %>%)
-                    </td>
+                  <% if @commits_yesterday.has_key?(key) %>
+                    <td><%= @commits_yesterday[key] %></td>
                   <% else %>
                     <td>-</td>
                   <% end %>
 
-                  <% if @merged_pull_request_last_week.has_key?(key) %>
-                    <td>
-                      <%= @merged_pull_request_last_week[key] %>
-                      (<%= @github_data_pcercents["merged_pull_request"][key].to_f  %>%)
-                    </td>
+                  <% if @merged_pull_request_yesterday.has_key?(key) %>
+                    <td><%= @merged_pull_request_yesterday[key] %></td>
                   <% else %>
                     <td>-</td>
                   <% end %>
 
-                  <% if @pull_request_comments_last_week.has_key?(key) %>
-                    <td>
-                      <%= @pull_request_comments_last_week[key] %>
-                      (<%= @github_data_pcercents["comments_to_pull_request"][key].to_f  %>%)
-                    </td>
+                  <% if @pull_request_comments_yesterday.has_key?(key) %>
+                    <td><%= @pull_request_comments_yesterday[key] %></td>
                   <% else %>
                     <td>-</td>
                   <% end %>

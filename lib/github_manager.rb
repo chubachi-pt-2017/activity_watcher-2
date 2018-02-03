@@ -32,16 +32,12 @@ class GithubManager
 
   # repo: "chubachi-pt-2017/activity_watcher-2"
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_commits_between_weeks(days)
+  def get_commits_yesterday
     commit_numbers = {}
-    commit_numbers if days < 7
+    commits = @client.commits_on(@repo, Date.today - 1)
 
-    this_sunday = get_this_sunday
-
-    # 第2引数は先週日曜、第3引数は土曜
-    commits = @client.commits_between(@repo, this_sunday - days, this_sunday - (days - 6))
-    # commits = @client.commits(repo)
-    # 同姓同名がいるかもしれない&github login IDを変更しているかもしれないので、emailをキーにしてコミット数をまとめる
+    # 同姓同名がいるかもしれない&github login IDを変更しているかもしれないので、
+    # emailをキーにしてコミット数をまとめる
     commits.each do |c|
       if c[:author][:id].present?
         if commit_numbers.has_key?(c[:author][:id])
@@ -94,9 +90,9 @@ class GithubManager
   end
 
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_merged_pull_requests_between_weeks(days)
+  def get_merged_pull_requests_yesterday
     merged_pull_request = {}
-    merged_pull_request if days < 7
+    # merged_pull_request if days < 7
 
     # state: "open" or "closed"    
     pr = client.pull_requests(@repo, :state => "closed")
@@ -104,8 +100,10 @@ class GithubManager
     this_sunday = get_this_sunday
     # github login IDが変更されているかもしれないので、UIDをキーにしてclosedのpull request数をまとめる
     pr.each do |pr|
-      if pr[:user][:id].present? && ( pr[:merged_at].present? && 
-                                      pr[:merged_at].between?(this_sunday - days, this_sunday - (days - 6)) )
+      if pr[:user][:id].present? && ( 
+                                      pr[:merged_at].present? && 
+                                      pr[:merged_at].between?(Date.today - 1, Date.today - 1)
+                                    )
 
         if merged_pull_request.has_key?(pr[:user][:id])
           merged_pull_request[pr[:user][:id]] += 1
@@ -163,15 +161,14 @@ class GithubManager
   end
 
   # days: 最小値は7。7は1週間前の週になる。14は2週間前の週になる
-  def get_pull_request_comments_between_weeks(days)
+  def get_pull_request_comments_yesterday
     comment_numbers = {}
-    comment_numbers if days < 7
-
-    this_sunday = get_this_sunday
+    # comment_numbers if days < 7
+    # this_sunday = get_this_sunday
 
     pr_numbers = client.pull_requests(@repo, {"state" => "closed"})
                  .map{ |pr| { pr[:number] => pr[:user][:id] } if pr[:merged_at].present? &&
-                                                                 pr[:merged_at].in_time_zone('Tokyo').between?(this_sunday - days, this_sunday - (days - 6)) }
+                                                                 pr[:merged_at].in_time_zone('Tokyo').between?(Date.today - 1, Date.today - 1) }
 
     pr_numbers.compact.each do |number_hash|
       pr_comments = client.pull_request_comments(repo, number_hash.keys[0])

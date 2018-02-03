@@ -103,16 +103,19 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       # Latest Commit Historyと個人サマリーのContribution in Latest 30 Commits
       @latest_commits = githubManager.get_latest_commits(@task[:start_date])
 
-      # 先週のコミット数取得、先々週のコミット数取得
+      # 先週のコミット数取得
       @commits_this_week = githubManager.get_commits_this_week
-      @commits_last_week = githubManager.get_commits_between_weeks(SEVEN_DAYS)
-      @commits_two_weeks_ago = githubManager.get_commits_between_weeks(FOURTEEN_DAYS)
-      calculate_percent_for_compared_weeks(@commits_last_week, @commits_two_weeks_ago, "commit")
+
+      #昨日のコミット数取得
+      @commits_yesterday = githubManager.get_commits_yesterday
+
+      # @commits_two_weeks_ago = githubManager.get_commits_between_weeks(FOURTEEN_DAYS)
+      # calculate_percent_for_compared_weeks(@commits_last_week, @commits_two_weeks_ago, "commit")
 
       # 先週マージされたpull request数取得、先々週マージされたpull request数取得
-      @merged_pull_request_last_week = githubManager.get_merged_pull_requests_between_weeks(SEVEN_DAYS)
-      @merged_pull_request_two_weeks_ago = githubManager.get_merged_pull_requests_between_weeks(FOURTEEN_DAYS)
-      calculate_percent_for_compared_weeks(@merged_pull_request_last_week, @merged_pull_request_two_weeks_ago, "merged_pull_request")
+      @merged_pull_request_yesterday = githubManager.get_merged_pull_requests_yesterday
+
+      # calculate_percent_for_compared_weeks(@merged_pull_request_last_week, @merged_pull_request_two_weeks_ago, "merged_pull_request")
 
       # pull requestのグラフ用日別(日〜土)データ
       @merged_pull_request_this_week = githubManager.get_merged_pull_request_this_week
@@ -123,12 +126,14 @@ class ActivityWatcher::CoursesController < ActivityWatcher::BaseController
       # Latest Open Pull Request History
       @latest_open_pull_request_history = githubManager.get_latest_open_pull_request_history
 
-      # 先週のメンバーへのコメント数取得、先々週のメンバーへのコメント数取得
-      @pull_request_comments_last_week = githubManager.get_pull_request_comments_between_weeks(SEVEN_DAYS)
-      @pull_request_comments_two_weeks_ago = githubManager.get_pull_request_comments_between_weeks(FOURTEEN_DAYS)
-      calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
-      
-      
+      # 先週のメンバーへのコメント数取得
+      @pull_request_comments_last_week = githubManager.get_pull_request_comments_yesterday
+
+      # 昨日のメンバーへのコメント数取得
+      @pull_request_comments_yesterday = githubManager.get_pull_request_comments_yesterday
+
+      # calculate_percent_for_compared_weeks(@pull_request_comments_last_week, @pull_request_comments_two_weeks_ago, "comments_to_pull_request")
+
       # ここから個人サマリーのデータ
       # todo
       #これはバッチで処理(全体の数を取得するため)
