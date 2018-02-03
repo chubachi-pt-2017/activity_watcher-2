@@ -17,16 +17,16 @@
         <td><%= @team.name %></td>
       </tr>
       <tr>
-        <th>チーム詳細</th>
-        <td><%= @team.description %></td>
-      </tr>
-      <tr>
-        <th>メンバー</th>
-        <td><%= @team.users.pluck(:user_full_name).join("、") %></td>
-      </tr>
-      <tr>
-        <th>人数</th>
+        <th>メンバー人数</th>
         <td><%= @team.users.pluck(:id).length.to_s %>人</td>
+      </tr>
+      <tr>
+        <th>チームメンバー</th>
+        <td><%= markdown(@team.users.pluck(:user_full_name).join("\n")) %></td>
+      </tr>
+      <tr>
+        <th>チーム詳細</th>
+        <td><%= markdown(@team.description) %></td>
       </tr>
       <tr>
         <th>アクション</th>
@@ -41,7 +41,7 @@
     </table>
     <br />
     <% if @task_teams.any? %>
-    <h4>チームで作成した課題</h4>
+    <h3><u>チームの課題</u></h3><br>
     <%= paginate @task_teams %>
     <% @task_teams.each_with_index do |tt| %>
       <table class="table table-bordered table-striped">
@@ -54,11 +54,11 @@
           <td><%= tt.repository_name %></td>
         </tr>
         <tr>
-          <th>サービスURL</th>
+          <th>Heroku URL</th>
           <td><%= link_to tt.service_url, tt.service_url.to_s %></td>
         </tr>
         <tr>
-          <th>CI URL</th>
+          <th>CIツール URL</th>
           <td><%= link_to tt.ci_url, tt.ci_url.to_s %></td>
         </tr>
         <tr>
