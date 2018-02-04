@@ -15,10 +15,12 @@ class UserSlack < ApplicationRecord
       user_slack = UserSlack.find_or_initialize_by(
         workspace_name: auth['extra']['raw_info']['team_info']['team']['name'],
         token: auth['credentials']['token'],
-        domain: auth['extra']['raw_info']['team_info']['team']['domain'],
-        user_id: user_id)
+        domain: auth['extra']['raw_info']['team_info']['team']['domain'])
       if user_slack.new_record?
+        user_slack.user_id = user_id
         user_slack.save
+      else
+        return false
       end
       true
     end
