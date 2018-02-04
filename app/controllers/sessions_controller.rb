@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         if UserSlack.create_user_slack(auth, session[:user_id])
           format.html { redirect_to slack_index_url, notice: 'Slack連携ワークスペースの追加に成功しました' }
         else
-          format.html { redirect_to slack_index_url, notice: 'Slack連携ワークスペースの追加に失敗しました' }
+          format.html { redirect_to slack_index_url, alert: '対象のワークスペースは既に存在します' }
         end
       end
       return
